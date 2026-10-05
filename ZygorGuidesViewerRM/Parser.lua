@@ -356,6 +356,22 @@ ZGV.ConditionEnv = {
 		if not item then return 0 end
 		return GetItemCount(item) or 0
 	end,
+	equippeditem = function(item)
+		if not item or not GetInventoryItemLink then return false end
+		local wantedID = tonumber(item)
+		local wantedName = wantedID and nil or tostring(item)
+		for slot = 0, 19 do
+			local link = GetInventoryItemLink("player", slot)
+			if link then
+				local id = tonumber(link:match("|Hitem:(%d+)"))
+				local name = link:match("|Hitem:.-%[(.-)%]")
+				if (wantedID and id == wantedID) or (wantedName and name == wantedName) then
+					return true
+				end
+			end
+		end
+		return false
+	end,
 	warlockpet = function(petname)
 		if not petname or petname == "" or not UnitExists("pet") then return false end
 		local family = UnitCreatureFamily("pet")

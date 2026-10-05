@@ -72,7 +72,6 @@ step
 talk Blix Fixwidget##24495
 turnin Another Year, Another Souvenir.##13931 |goto 44.07,17.98 |or
 turnin Say, There Wouldn't Happen to be a Souvenir This Year, Would There?##12194 |goto 44.07,17.98 |or
-|only if haveq(13931) or completedq(13931) or haveq(12194) or completedq(12194)
 step
 talk Bizzle Quicklift##27216
 accept Chug and Chuck!##12191 |goto 45.25,17.33
@@ -104,7 +103,7 @@ use the Wolpertinger Net##32907
 collect 5 Stunned Wolpertinger##32906 |q 11431/1 |goto 44.22,17.33
 You can find more around here [goto 45.30,18.58]
 step
-Remove the Synthebrew Goggles and Re-Equip your Helm |confirm |q 11431
+Remove the Synthebrew Goggles and Re-Equip your Helm |complete not equippeditem(46735) |q 11431
 step
 talk Glodrak Huntsniper##24657
 turnin Catch the Wild Wolpertinger!##11431 |goto 45.01,17.40
@@ -122,13 +121,16 @@ use the Elekk Dispersion Ray##32960
 |tip They are found above Undercity, in Tirisfal Glades.
 kill 3 Tirisfal Pink Elekk##23530 |q 11120/3 |goto Tirisfal Glades/0 66.12,13.46
 step
-Remove the Synthebrew Goggles and Re-Equip your Helm |confirm |q 11120
+Remove the Synthebrew Goggles and Re-Equip your Helm |complete not equippeditem(46735) |q 11120
 step
 Enter Undercity |goto Undercity/0 |noway |c |q 11120
 step
-click Orb of Translocation |goto Undercity/0 54.90,11.30
+Go to the Orb of Translocation |goto Undercity/0 54.90,11.30
 |tip It looks like a red glowing orb in a gold spinning stand.
 Teleport to Silvermoon City |goto Silvermoon City/0 |noway |c |q 11120
+step
+Go to the Silvermoon City Exit |goto Silvermoon City/0 57.16,48.92 < 20 |c |q 11120
+|tip Leave Silvermoon City from here.
 step
 Leave Silvermoon City |goto Eversong Woods/0 |noway |c |q 11120
 step
@@ -141,15 +143,20 @@ use Elekk Dispersion Ray##32960
 |tip Make sure you have the Synthebrew Goggles equipped.
 kill 3 Eversong Pink Elekk##23531 |q 11120/1 |goto Eversong Woods/0 56.97,53.14
 step
-Remove the Synthebrew Goggles and Re-Equip your Helm |confirm |q 11120
+Remove the Synthebrew Goggles and Re-Equip your Helm |complete not equippeditem(46735) |q 11120
 step
+Use your Hearthstone to travel to Dalaran, then Click Here |confirm |next "Dalaran_To_Thunder_Bluff" |or
+Continue back through Silvermoon City and Undercity |confirm |next "Silvermoon_Return" |or
+|tip The Dalaran portal is the faster route if your Hearthstone is set there.
+step
+label "Dalaran_To_Thunder_Bluff"
 Go to the Thunder Bluff Portal |goto Dalaran/1 57.25,22.37 < 10 |c |q 11120
 Take the Portal to Thunder Bluff |complete not zone("Dalaran") |next "Mulgore_Brewfest_Camp" |q 11120
-|only if zone("Dalaran")
 step
+label "Silvermoon_Return"
 Enter Silvermoon City |goto Silvermoon City/0 |noway |c |q 11120
 step
-click Orb of Translocation |goto Silvermoon City/0 49.50,14.80
+Go to the Orb of Translocation |goto Silvermoon City/0 49.50,14.80
 |tip It looks like a red glowing orb in a gold spinning stand.
 Teleport to Undercity |goto Undercity/0 |noway |c |q 11120
 step
@@ -164,6 +171,9 @@ talk Doras##3310 |goto Orgrimmar/0 45.10,63.90
 Fly to Thunder Bluff |goto Thunder Bluff/0 46.60,49.90 < 10 |c |q 11120
 step
 label "Mulgore_Brewfest_Camp"
+Go to the Thunder Bluff Elevators |goto Thunder Bluff/0 33.09,65.37 < 15 |c |q 11120
+|tip Take an elevator down toward the Mulgore Brewfest camp.
+step
 Go to the Mulgore Brewfest Camp |goto Thunder Bluff/0 32.33,70.85 < 100 |c |q 11120
 |tip Go to this spot before you equip the goggles.
 step
@@ -173,11 +183,19 @@ use Elekk Dispersion Ray##32960
 |tip Make sure you have the Synthebrew Goggles equipped.
 kill 3 Mulgore Pink Elekk##23529 |q 11120/2 |goto Thunder Bluff/0 32.33,70.85
 step
-Remove the Synthebrew Goggles and Re-Equip your Helm |confirm |q 11120
+Remove the Synthebrew Goggles and Re-Equip your Helm |complete not equippeditem(46735) |q 11120
 step
+Use your Hearthstone to travel to Dalaran, then Click Here |confirm |next "Dalaran_To_Orgrimmar" |or
+Return to Thunder Bluff and fly to Orgrimmar |confirm |next "Thunder_Bluff_Return" |or
+|tip The Dalaran portal is the faster route if your Hearthstone is set there.
+step
+label "Dalaran_To_Orgrimmar"
 Go to the Orgrimmar Portal |goto Dalaran/1 55.55,25.66 < 10 |c |q 11120
 Take the Portal to Orgrimmar |complete not zone("Dalaran") |next "Return_To_Durotar" |q 11120
-|only if zone("Dalaran")
+step
+label "Thunder_Bluff_Return"
+Go to the Thunder Bluff Elevators |goto Thunder Bluff/0 31.81,66.06 < 15 |c |q 11120
+|tip Take an elevator up into Thunder Bluff.
 step
 talk Tal##2995 |goto Thunder Bluff/0 46.78,50.02
 Fly to Orgrimmar |goto Orgrimmar/0 45.30,63.80 < 10 |c |q 11120
@@ -190,6 +208,7 @@ turnin Pink Elekks On Parade##11120 |goto Durotar/0 45.01,17.40
 step
 Reach Level 65 |ding 65
 |tip Coren Direbrew is level 72 elite.
+|tip During Brewfest, you may also press I and use the Dungeon Finder to queue directly for Coren Direbrew.
 step
 talk Slurpo Fizzykeg##28329
 accept Save Brewfest!##12318 |goto Durotar/0 48.27,27.65
@@ -2370,9 +2389,7 @@ step
 talk Javnir Nashak##15012
 accept Honoring a Hero##8150 |goto Durotar 46.10,13.77
 step
-Follow the path |goto Ashenvale 73.51,63.53 < 15 |only if walking
-Continue following the path |goto Ashenvale 75.62,65.88 < 30 |only if walking
-Continue following the path |goto Ashenvale 84.20,72.05 < 20 |only if walking
+Follow the path |goto Ashenvale 84.20,72.05 < 20 |only if walking
 use Grom's Tribute##19851
 Place a Tribute at Grom's Monument |q 8150/1 |goto Ashenvale 82.85,79.04
 step

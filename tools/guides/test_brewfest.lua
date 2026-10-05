@@ -11,12 +11,13 @@ end
 
 local questTitle="Events Guides\\Brewfest\\Brewfest Quests"
 local dailyTitle="Events Guides\\Brewfest\\Brewfest Dailies"
+local harvestTitle="Events Guides\\Harvest Festival\\Harvest Festival Quest"
 local factionGuides={}
 local function captureFaction(faction,file)
 	captured={}
 	UnitFactionGroup=function() return faction end
 	assert(loadfile(root..file))()
-	factionGuides[faction]={quest=captured[questTitle],daily=captured[dailyTitle]}
+	factionGuides[faction]={quest=captured[questTitle],daily=captured[dailyTitle],harvest=captured[harvestTitle]}
 end
 captureFaction("Horde","/Guides/Retail/Events/ZygorEventsHordeCLASSIC.lua")
 captureFaction("Alliance","/Guides/Retail/Events/ZygorEventsAllianceCLASSIC.lua")
@@ -29,6 +30,7 @@ for faction,guides in pairs(factionGuides) do
 	if not guides.quest.rawdata:find('complete zone("Blackrock Depths")',1,true) then fail(faction.." quest guide lacks zone completion") end
 	if not guides.daily.rawdata:find('complete zone("Blackrock Depths")',1,true) then fail(faction.." daily guide lacks zone completion") end
 end
+if not factionGuides.Horde.harvest then fail("Horde Harvest Festival guide was not captured") end
 if not factionGuides.Horde.quest.rawdata:find("Another Year, Another Souvenir.##13931",1,true) then fail("Horde current souvenir quest missing") end
 if not factionGuides.Alliance.quest.rawdata:find("Another Year, Another Souvenir.##13932",1,true) then fail("Alliance current souvenir quest missing") end
 if factionGuides.Horde.quest.rawdata:find("Goldark Snipehunter##23486",1,true) then fail("Horde guide still uses the Alliance Brewfest NPC") end
@@ -47,20 +49,42 @@ local souvenirTurnin=assert(hordeQuest:find("turnin Another Year, Another Souven
 local chugAccept=assert(hordeQuest:find("accept Chug and Chuck!##12191",1,true))
 if not (souvenirAccept < souvenirTurnin and souvenirTurnin < chugAccept) then fail("Horde souvenir turn-in is not immediately after acceptance") end
 if not hordeQuest:find("talk Blix Fixwidget##24495",1,true) then fail("Horde souvenir turn-in must remain with Blix Fixwidget") end
+if hordeQuest:find("|only if haveq(13931) or completedq(13931)",1,true) then fail("Horde souvenir turn-in still has the fragile step condition") end
+if factionGuides.Alliance.quest.rawdata:find("|only if haveq(13932) or completedq(13932)",1,true) then fail("Alliance souvenir turn-in still has the fragile step condition") end
 for _,route in ipairs({
 	"Arrive outside Undercity |goto Tirisfal Glades/0 61.87,64.99",
-	"click Orb of Translocation |goto Undercity/0 54.90,11.30",
-	"click Orb of Translocation |goto Silvermoon City/0 49.50,14.80",
+	"Go to the Orb of Translocation |goto Undercity/0 54.90,11.30",
+	"Go to the Silvermoon City Exit |goto Silvermoon City/0 57.16,48.92",
+	"Go to the Orb of Translocation |goto Silvermoon City/0 49.50,14.80",
 	"Ride the Zeppelin to Durotar",
+	"label \"Dalaran_To_Thunder_Bluff\"",
 	"Go to the Thunder Bluff Portal |goto Dalaran/1 57.25,22.37",
 	"Fly to Thunder Bluff",
 	"label \"Mulgore_Brewfest_Camp\"",
+	"Go to the Thunder Bluff Elevators |goto Thunder Bluff/0 33.09,65.37",
+	"label \"Dalaran_To_Orgrimmar\"",
 	"Go to the Orgrimmar Portal |goto Dalaran/1 55.55,25.66",
+	"label \"Thunder_Bluff_Return\"",
+	"Go to the Thunder Bluff Elevators |goto Thunder Bluff/0 31.81,66.06",
 	"talk Tal##2995 |goto Thunder Bluff/0 46.78,50.02",
 	"Fly to Orgrimmar",
+	"use the Dungeon Finder to queue directly for Coren Direbrew",
 }) do
 	if not factionGuides.Horde.quest.rawdata:find(route,1,true) then fail("Horde travel route is missing: "..route) end
 end
+for faction,guides in pairs(factionGuides) do
+	local raw=guides.quest.rawdata
+	if raw:find("Remove the Synthebrew Goggles and Re%-Equip your Helm |confirm") then fail(faction.." still uses manual goggles-removal confirmation") end
+	local _,autoRemovals=raw:gsub("complete not equippeditem%(46735%)","")
+	if autoRemovals<4 then fail(faction.." does not auto-detect all goggles-removal steps") end
+end
+
+local harvest=factionGuides.Horde.harvest.rawdata
+local tribute=assert(harvest:find("use Grom's Tribute##19851",1,true))
+local outbound=harvest:sub(1,tribute)
+if not outbound:find("Follow the path |goto Ashenvale 84.20,72.05 < 20 |only if walking",1,true) then fail("Harvest Festival final approach is missing") end
+if outbound:find("73.51,63.53",1,true) or outbound:find("75.62,65.88",1,true) then fail("Harvest Festival still forces the western approach points") end
+if outbound:find("path follow smart",1,true) then fail("Harvest Festival relies on an unsupported smart-path option") end
 
 tinsert=table.insert
 loadstring=loadstring or load
@@ -99,9 +123,12 @@ GetMinimapZoneText=function() return "" end
 UnitLevel=function() return 80 end
 GetNumQuestLogEntries=function() return 0 end
 GetItemCount=function() return 0 end
+local equipped={}
+GetInventoryItemLink=function(_,slot) return equipped[slot] end
 
 assert(loadfile(root.."/Parser.lua"))()
 local hordeKegStep
+local unequipConditions={}
 for faction,guides in pairs(factionGuides) do
 	for kind,guide in pairs(guides) do
 		local parsed,err,line,linedata=ZGV:ParseEntry(guide.rawdata)
@@ -122,6 +149,13 @@ for faction,guides in pairs(factionGuides) do
 			if not equipped then fail(faction.." Synthebrew equipped goal was not parsed") end
 			if equipped.slot then fail(faction.." Synthebrew equipped goal should scan all inventory slots") end
 			if equipped.item~="Synthebrew Goggles" then fail(faction.." Synthebrew equipped goal retained an invalid item name") end
+			for _,step in ipairs(parsed.steps) do
+				for _,goal in ipairs(step.goals) do
+					if goal.condition_complete_raw=="not equippeditem(46735)" then
+						unequipConditions[#unequipConditions+1]=goal.condition_complete
+					end
+				end
+			end
 		end
 	end
 end
@@ -135,5 +169,15 @@ ZGV.questsbyid[11412].goals[1].num=3
 ok,result=pcall(hordeKegStep.condition_until)
 if not ok then fail("Horde keg completed exit condition failed at runtime: "..tostring(result)) end
 if not result then fail("Horde keg route did not exit at 3/3") end
+
+if #unequipConditions<8 then fail("Parsed guides are missing automatic goggles-removal conditions") end
+equipped[1]="|cff0070dd|Hitem:46735:0:0:0:0:0:0:0:80|h[Synthebrew Goggles]|h|r"
+ok,result=pcall(unequipConditions[1])
+if not ok then fail("Goggles-removal condition failed while equipped: "..tostring(result)) end
+if result then fail("Goggles-removal condition completed while the goggles were equipped") end
+equipped[1]=nil
+ok,result=pcall(unequipConditions[1])
+if not ok then fail("Goggles-removal condition failed after unequipping: "..tostring(result)) end
+if not result then fail("Goggles-removal condition did not complete after unequipping") end
 
 print("Brewfest guide regression passed")

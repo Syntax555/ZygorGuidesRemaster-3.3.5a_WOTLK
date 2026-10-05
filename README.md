@@ -171,6 +171,12 @@ This addon is fully open source and can be inspected before use.
 
 ## Changelog
 
+### Revision 254 - 3.0.254
+
+- Improved the Horde Brewfest capital-city route with explicit Dalaran and Silvermoon/Undercity choices, missing portal/elevator approach points, and direct Dungeon Finder guidance for Coren Direbrew.
+- Made Synthebrew Goggles removal advance automatically for both factions and removed a fragile souvenir turn-in condition that could hide the next step.
+- Corrected the Horde Harvest Festival approach so players entering Ashenvale from the east are no longer sent back through the western waypoints first.
+
 ### Revision 253 - 3.0.253
 
 - Fixed replacement characters in the remastered waypoint arrow, guide text, and Gear Advisor controls by using the game client's locale font on CJK clients.
@@ -198,11 +204,6 @@ This addon is fully open source and can be inspected before use.
 - Updated both faction Brewfest guides for the current WotLK souvenir quests while retaining older quest IDs for private-server compatibility.
 - Removed invalid Synthebrew Goggles helm checks and made Blackrock Depths entry advance after the player enters the dungeon.
 - Corrected the Horde Brewfest Diet level-tip typo and added focused Brewfest guide parsing coverage.
-
-### Revision 247 - 3.0.247
-
-- Fixed plain race, class, and faction `|only if` conditions so guides no longer hide or auto-skip valid steps such as `Paladin`, `Horde`, or `Alliance`.
-- Added regression coverage for combined, negated, level-gated, and goal-level conditions. Thanks to [fernandao17](https://github.com/fernandao17) for identifying the parser boundary and contributing the original fix and test coverage.
 
 ## Notes
 
