@@ -1170,6 +1170,7 @@ function Goldguide.Common:AreRequirementsMet(ignore_skill,ignore_level)
 		end
 	end
 	if self.guide and self.guide.GetStatus and self.guide:GetStatus()=="INVALID" then return false,"badguide" end
+	if self.guide and ZGV.IP and ZGV.IP:IsGuideBlocked(self.guide) then return false,"progression" end
 	return true
 end
 

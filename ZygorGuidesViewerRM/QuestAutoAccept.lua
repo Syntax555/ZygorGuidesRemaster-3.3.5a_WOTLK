@@ -76,6 +76,11 @@ tinsert(ZGV.startups,function(self)
 	QuestFrameDetailPanel:HookScript("OnShow",QuestFrameDetailPanel_fixAutoQuest)
 end)
 
+-- Quests that decide Individual Progression are accepted and turned in by the player.
+local function IsManual(goal)
+	return ZGV.IP and ZGV.IP:ManualQuestNotice(goal)
+end
+
 function me:QUEST_GREETING()
 	if not self.CurrentStep then return end
 	if self.tmp_no_autoquest and time()-self.tmp_no_autoquest<10 then
@@ -85,7 +90,7 @@ function me:QUEST_GREETING()
 	if self.db.profile.autoturnin then
 		for qnum=1,GetNumActiveQuests() do
 			for i,goal in ipairs(self.CurrentStep.goals) do
-				if goal.action=="turnin" and goal.quest==GetActiveTitle(qnum) and goal:GetStatus()=="incomplete" then
+				if goal.action=="turnin" and goal.quest==GetActiveTitle(qnum) and goal:GetStatus()=="incomplete" and not IsManual(goal) then
 					self:Print("Activating quest")
 					SelectActiveQuest(qnum)
 					return
@@ -96,7 +101,7 @@ function me:QUEST_GREETING()
 	if self.db.profile.autoaccept then
 		for qnum=1,GetNumAvailableQuests() do
 			for i,goal in ipairs(self.CurrentStep.goals) do
-				if goal.action=="accept" and goal.quest==GetAvailableTitle(qnum) and goal:GetStatus()=="incomplete" then
+				if goal.action=="accept" and goal.quest==GetAvailableTitle(qnum) and goal:GetStatus()=="incomplete" and not IsManual(goal) then
 					self:Print("Opening quest")
 					SelectAvailableQuest(qnum)
 					return
@@ -116,7 +121,7 @@ function me:GOSSIP_SHOW()
 		local quests={GetGossipActiveQuests()}
 		for qnum=1,GetNumGossipActiveQuests() do
 			for i,goal in ipairs(self.CurrentStep.goals) do
-				if goal.action=="turnin" and goal.quest==quests[qnum*3-2] and goal:GetStatus()=="incomplete" then
+				if goal.action=="turnin" and goal.quest==quests[qnum*3-2] and goal:GetStatus()=="incomplete" and not IsManual(goal) then
 					self:Print("Activating quest")
 					SelectGossipActiveQuest(qnum)
 					return
@@ -128,7 +133,7 @@ function me:GOSSIP_SHOW()
 		local quests={GetGossipAvailableQuests()}
 		for qnum=1,GetNumGossipAvailableQuests() do
 			for i,goal in ipairs(self.CurrentStep.goals) do
-				if goal.action=="accept" and goal.quest==quests[qnum*3-2] and goal:GetStatus()=="incomplete" then
+				if goal.action=="accept" and goal.quest==quests[qnum*3-2] and goal:GetStatus()=="incomplete" and not IsManual(goal) then
 					self:Print("Opening quest")
 					SelectGossipAvailableQuest(qnum)
 					return
@@ -147,7 +152,7 @@ function me:QUEST_DETAIL()
 	if self.db.profile.autoaccept then
 		local title = GetTitleText()
 		for i,goal in ipairs(self.CurrentStep.goals) do
-			if goal.action=="accept" and goal.quest==title and goal:IsCompleteable() and not goal:IsObsolete() then
+			if goal.action=="accept" and goal.quest==title and goal:IsCompleteable() and not goal:IsObsolete() and not IsManual(goal) then
 				self:Print("Accepting quest")
 				QuestDetailAcceptButton_OnClick()
 				-- ASSUMING it runs after the builtin QuestFrame code.
@@ -168,7 +173,7 @@ function me:QUEST_PROGRESS()
 		if not IsQuestCompletable() then return end
 		local title = GetTitleText()
 		for i,goal in ipairs(self.CurrentStep.goals) do
-			if goal.quest==title then
+			if goal.quest==title and not IsManual(goal) then
 				self:Print("Completing quest")
 				CompleteQuest()
 				return
@@ -187,7 +192,7 @@ function me:QUEST_COMPLETE()
 	if self.db.profile.autoturnin then
 		local title = GetTitleText()
 		for i,goal in ipairs(self.CurrentStep.goals) do
-			if goal.quest==title then
+			if goal.quest==title and not IsManual(goal) then
 				if GetNumQuestChoices()>0 then
 					local questItem = self.ItemScore and self.ItemScore.QuestItem
 					if questItem and questItem.ApplyRewardRecommendation then

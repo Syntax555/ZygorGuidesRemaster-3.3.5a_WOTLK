@@ -61,6 +61,7 @@ function me:Options_RegisterDefaults()
 			visible = true,
 
 			skipimpossible = false,
+			ip_mode = "auto",
 
 			showmapbutton = true,
 			mapbuttonangle = 225,
@@ -1004,6 +1005,39 @@ function me:Options_DefineOptions()
 				order = 1,
 				type = "description",
 				name = L['opt_group_progress_desc'],
+			},
+			ip_header = {
+				order = 1.1,
+				type = "header",
+				name = function() return ZGV.IP.L.title end,
+				hidden = function() return not ZGV.IP end,
+			},
+			ip_mode = {
+				order = 1.2,
+				type = "select",
+				name = function() return ZGV.IP.L.mode end,
+				desc = function() return ZGV.IP.L.mode_desc end,
+				values = function()
+					local text = ZGV.IP.L
+					return { auto = text.mode_auto, on = text.mode_on, off = text.mode_off }
+				end,
+				set = function(i,v) Setter_Simple(i,v)  ZGV.IP:ModeChanged()  end,
+				hidden = function() return not ZGV.IP end,
+				width = "double",
+			},
+			ip_refresh = {
+				order = 1.3,
+				type = "execute",
+				name = function() return ZGV.IP.L.refresh end,
+				func = function() ZGV.IP:Refresh() end,
+				hidden = function() return not ZGV.IP end,
+			},
+			ip_status = {
+				order = 1.4,
+				type = "description",
+				fontSize = "medium",
+				name = function() return ZGV.IP:StatusText() end,
+				hidden = function() return not ZGV.IP end,
 			},
 			skipimpossible = {
 				name = L["opt_skipimpossible"],

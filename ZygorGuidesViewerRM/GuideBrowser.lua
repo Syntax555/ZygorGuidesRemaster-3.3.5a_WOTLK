@@ -1993,6 +1993,10 @@ local function BuildSpecialSectionRows(self, section, searchText)
 						if recentlyCompleted and not keepForChain and not inProgress then
 							bucket = nil
 						end
+						-- Suggest only guides this character can follow under its own progression.
+						if bucket and title ~= currentTitle and self.IP and self.IP:IsGuideBlocked(g) then
+							bucket = nil
+						end
 					end
 
 					local confidence = nil
@@ -5410,6 +5414,10 @@ local function EnsureGuideManagerStandaloneFrame(self)
 		local detailMeta = LT("gb_detail_meta_format", steps, author, nextg)
 		if guide.headerdata then
 			detailMeta = detailMeta .. "\n|cff00ccffSource: Retail WOTLK Guide|r"
+		end
+		local ipLine = self.IP and self.IP:GuideLine(guide)
+		if ipLine then
+			detailMeta = detailMeta .. "\n" .. ipLine
 		end
 		if frame.currentSection == "featured" then
 			local featuredMeta = frame.featuredMetaByTitle and frame.featuredMetaByTitle[guide.title]

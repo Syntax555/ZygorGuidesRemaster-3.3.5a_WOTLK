@@ -4339,6 +4339,7 @@ function me:SetGuide(name,step,temp)
 		self:MarkGuideRecentlyParsed(self.CurrentGuide)
 
 		self:Print(L["message_loadedguide"]:format(name))
+		if self.IP then self.IP:WarnGuide(guide) end
 
 		self.CurrentGuideIsTemporary = temp
 
@@ -7889,7 +7890,11 @@ function me:SkipStep(delta,fast)
 			i=#(self.CurrentGuide["steps"])
 		end
 		if i>#self.CurrentGuide["steps"] or (delta>0 and self.CurrentStep.finish) then
-			if self.CurrentGuide['next'] then
+			-- A next guide this character cannot follow yet holds the chain here.
+			local nextGuide = self.CurrentGuide['next'] and self:GetGuideByTitle(self.CurrentGuide['next'])
+			local ipCheck, ipReason = "ok", nil
+			if nextGuide and self.IP then ipCheck, ipReason = self.IP:GuideCheck(nextGuide) end
+			if self.CurrentGuide['next'] and ipCheck=="ok" then
 				self:SetGuide(self.CurrentGuide['next'])
 				i=1
 			else
@@ -7899,9 +7904,10 @@ function me:SkipStep(delta,fast)
 					self.pause=true
 					return
 				else
+					local text = ipCheck=="ok" and "This guide is now complete." or self.IP:GuideStopText(nextGuide, ipReason)
 					-- cap it
 					self.CurrentStep = { num=self.CurrentStepNum+1, parentGuide=self.CurrentStep.parentGuide, finish=true }
-					self.CurrentStep.goals={ [1]={ num=1, action="", text="This guide is now complete.", parentStep=self.CurrentStep } }
+					self.CurrentStep.goals={ [1]={ num=1, action="", text=text, parentStep=self.CurrentStep } }
 					setmetatable(self.CurrentStep,ZGV.StepProto_mt)
 					setmetatable(self.CurrentStep.goals[1],ZGV.GoalProto_mt)
 					tinsert(self.CurrentGuide.steps,self.CurrentStep)
@@ -8434,6 +8440,7 @@ function me:GoalOnEnter(goalframe)
 			if _G['GameTooltipTextLeft'..lines]:GetWidth()>300 then _G['GameTooltipTextLeft'..lines]:SetWidth(300) end
 			lines=lines+1
 		end
+		if self.IP then self.IP:AddGoalTooltip(GameTooltip,goal) end
 		GameTooltip:Show()
 		if image then
 			local img

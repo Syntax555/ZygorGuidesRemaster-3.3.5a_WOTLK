@@ -331,6 +331,8 @@ end
 
 local function GF_IsPhaseActive(phase)
 	if not phase then return true end
+	local earned = ZGV.IP and ZGV.IP:PhaseActive(phase)
+	if earned ~= nil then return earned end
 	if ZGV.IsClassicWOTLK and type(phase) == "string" and phase:match("^wotlk%d") then
 		return true
 	end
@@ -464,6 +466,10 @@ local function GF_IsValidVendorSource(source)
 	if not GF_IsPhaseActive(source.phase) then
 		return false, "phase inactive"
 	end
+	if ZGV.IP then
+		local check, reason = ZGV.IP:VendorCheck(source)
+		if check ~= "ok" then return false, "Individual Progression: " .. tostring(reason) end
+	end
 	return true
 end
 
@@ -588,6 +594,10 @@ local function GF_IsValidCraftedItem(source, itemSource)
 	local minLevel = tonumber(itemSource.minLevel or source.minLevel) or 0
 	if minLevel > (tonumber(ItemScore.playerlevel) or 0) then
 		return false, ("need level %d"):format(minLevel)
+	end
+	if ZGV.IP then
+		local check, reason = ZGV.IP:CraftCheck(source, itemSource)
+		if check ~= "ok" then return false, "Individual Progression: " .. tostring(reason) end
 	end
 	return true
 end
@@ -997,6 +1007,12 @@ function GearFinder:IsValidDungeon(dungeon, instanceId, dungeonName, heroic)
 	local dungeon = GF_GetDungeonData(ident)
 
 	if not dungeon then return false, false, ident, 0, false, false, "no dungeon" end
+	-- Content this character has not earned yet is a future source; an
+	-- unverified source is neither current nor future.
+	if ZGV.IP then
+		local check, reason = ZGV.IP:DungeonCheck(ident, dungeon)
+		if check ~= "ok" then return false, check == "locked", ident, dungeon.maxScaleLevel or 80, false, false, "Individual Progression: " .. tostring(reason) end
+	end
 	if dungeon.phase and not GF_IsPhaseActive(dungeon.phase) then return false, false, ident, 0, false, false, "phase inactive" end
 
 	-- 3.3.5a: no Chromie Time, no Mythic+

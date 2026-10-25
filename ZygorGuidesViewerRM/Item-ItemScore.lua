@@ -1366,6 +1366,18 @@ function ItemScore:GetTalentState(classToken, level)
 		end
 	end
 
+	local eraPoints, eraTotal, eraAvailable
+	if ZGV.IP then eraPoints, eraTotal, eraAvailable = ZGV.IP:EraTalentPoints(classToken) end
+	if eraPoints then
+		treePoints, totalPoints, availablePoints = eraPoints, eraTotal, eraAvailable
+		bestTree, bestPoints = fallbackBuild, 0
+		for i = 1, 3 do
+			if eraPoints[i] > bestPoints then
+				bestTree, bestPoints = i, eraPoints[i]
+			end
+		end
+	end
+
 	local preTalentState = false
 	local uncertain = false
 	if level < 10 then
@@ -1374,6 +1386,9 @@ function ItemScore:GetTalentState(classToken, level)
 		if level == 10 then
 			preTalentState = true
 		elseif availablePoints and availablePoints > 0 then
+			preTalentState = true
+		elseif ZGV.IP and ZGV.IP:NativeTalentsHistorical() then
+			-- Without EraTalents' data the historical build is unknown; waiting would retry forever.
 			preTalentState = true
 		else
 			uncertain = true
@@ -1664,6 +1679,8 @@ local function bis_slot_list_contains(list, itemID)
 end
 
 function ItemScore:GetCurrentBISPhaseRank()
+	local earned = ZGV and ZGV.IP and ZGV.IP:BISPhaseRank()
+	if earned then return math.max(earned, 0) end
 	local phases = ZGV and ZGV.Dungeons and ZGV.Dungeons.Phases
 	local highest = nil
 	if phases then
@@ -1686,6 +1703,8 @@ function ItemScore:GetBISAnnotation(itemID, slot, buildNum, classToken)
 	local classData = self.BISData and self.BISData[classToken]
 	local buildData = classData and classData[buildNum]
 	if not buildData then return nil end
+	-- The lists cover Wrath raid tiers; earlier eras get no annotation.
+	if ZGV and ZGV.IP and ZGV.IP:BISPhaseRank() == -1 then return nil end
 
 	local currentRank = self:GetCurrentBISPhaseRank()
 	local bestCurrentCategory, bestCurrentRank = nil, -1

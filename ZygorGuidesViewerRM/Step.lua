@@ -103,6 +103,8 @@ function Step:AreRequirementsMet()
 
 	if self.condition_visible and not self.condition_visible() then return false end
 
+	if ZGV.IP and ZGV.IP:IsStepBlocked(self) then return false end
+
 	return true
 	-- wrong
 end

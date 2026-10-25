@@ -79,6 +79,7 @@ end
 
 function Goal:IsVisible()
 	if not self:IsFitting() then return false end
+	if ZGV.IP and ZGV.IP:IsGoalBlocked(self) then return false end
 	if self.condition_visible then return self.condition_visible() end
 	return true
 end

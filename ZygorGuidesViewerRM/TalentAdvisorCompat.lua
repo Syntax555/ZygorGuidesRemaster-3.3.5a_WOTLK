@@ -85,6 +85,14 @@ local function RefreshTalentAdvisor()
 	end
 end
 
+-- Individual Progression decides whether the advisor may advise this character.
+function ZGV:TalentAdvisorProgressionChanged()
+	local zta = _G.ZygorTalentAdvisor
+	if not zta or type(zta.RefreshEnabledState) ~= "function" then return end
+	pcall(zta.RefreshEnabledState, zta)
+	if zta:IsAdvisorEnabled() then RefreshTalentAdvisor() end
+end
+
 table.insert(ZGV.startups, function(self)
 	if self._taCompatInstalled then return end
 	self._taCompatInstalled = true

@@ -10,6 +10,7 @@
 	<Script file="Waypoints.lua"/>
 	<Script file="Log.lua"/>
 	<Script file="Functions.lua"/>
+	<Script file="IndividualProgression.lua"/>
 	<Script file="QuestTracking.lua"/>
 	<Script file="Faction.lua"/>
 	<Script file="Profession.lua"/>

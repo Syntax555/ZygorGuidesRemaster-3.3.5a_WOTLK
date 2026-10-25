@@ -81,6 +81,7 @@ function me:OnEnable()
 	end)
 
 	self:SetupConfig()
+	self:UpdateLearnHooks()
 
 	--[[
 	if GetTalentInfo(1,1) then
@@ -175,7 +176,10 @@ function me:Debug(s)
 end
 
 function me:IsAdvisorEnabled()
-	return not (self.db and self.db.profile and self.db.profile.enabled == false)
+	if self.db and self.db.profile and self.db.profile.enabled == false then return false end
+	-- Historical trees and characters before their Wrath era are not advised.
+	if ZGV and ZGV.IP and ZGV.IP:TalentAdvisorBlocked() then return false end
+	return true
 end
 
 function me:EnsureAdvisorButton()
@@ -214,10 +218,19 @@ function me:HookTalentFrameEvents()
 end
 
 function me:EnsureTalentFrameHooks()
+	self:UpdateLearnHooks()
 	if not PlayerTalentFrame then return end
 
-	if PlayerTalentFrameLearnButton and PlayerTalentFrameLearnButton:GetScript("OnClick") ~= ZygorTalentAdvisor_PlayerTalentFrameLearnButton_OnClick then
-		PlayerTalentFrameLearnButton:SetScript("OnClick",ZygorTalentAdvisor_PlayerTalentFrameLearnButton_OnClick)
+	if PlayerTalentFrameLearnButton then
+		local current = PlayerTalentFrameLearnButton:GetScript("OnClick")
+		if self:IsAdvisorEnabled() then
+			if current ~= ZygorTalentAdvisor_PlayerTalentFrameLearnButton_OnClick then
+				self.originalLearnButtonClick = current
+				PlayerTalentFrameLearnButton:SetScript("OnClick",ZygorTalentAdvisor_PlayerTalentFrameLearnButton_OnClick)
+			end
+		elseif current == ZygorTalentAdvisor_PlayerTalentFrameLearnButton_OnClick and self.originalLearnButtonClick then
+			PlayerTalentFrameLearnButton:SetScript("OnClick",self.originalLearnButtonClick)
+		end
 	end
 
 	if ZygorTalentAdvisorPopout and not self.popoutHooked then
@@ -342,6 +355,7 @@ end
 
 function me:CHARACTER_POINTS_CHANGED(_,delta)
 	self:Debug("CHARACTER_POINTS_CHANGED "..tostring(delta))
+	if not self:IsAdvisorEnabled() then self.bulklearning=nil return end
 	if (delta>0) then self:OnNewTalents() end
 	if delta<0 and self.bulklearning and self.suggestion['player'] then
 		self:UpdateSuggestions(false)
@@ -680,6 +694,7 @@ function me:OnNewTalents(pet)
 	--local lasttalents = pet and self.lastUnspentPetTalents or self.lastUnspentTalents
 	-- no selected build? bail.
 	self:Debug("On New Talents "..tostring(pet))
+	if not self:IsAdvisorEnabled() then return nil end
 
 	if not self.currentBuild[who(pet)] and GetUnspentTalentPoints(false,pet)>0 then
 		if LibTutorial then LibTutorial:ShowTutorial("ZTA2") end
@@ -1069,6 +1084,7 @@ function me:GetSuggestionFormatted(pet)
 end
 
 function me:LearnSuggestedTalents(pet,loud)
+	if not self:IsAdvisorEnabled() then return end
 	TalentFrame_LoadUI()
 	local who=who(pet)
 	if not self.currentBuild[who] then
@@ -1136,6 +1152,7 @@ function me:LearnSuggestedTalents(pet,loud)
 end
 
 function me:PreviewSuggestions(pet,quiet)
+	if not self:IsAdvisorEnabled() then return end
 	SetCVar("previewTalents",1)
 	--local preview = GetCVarBool(
 	--if not preview then return end
@@ -1185,7 +1202,9 @@ end
 
 
 Old_LearnTalent = LearnTalent
-function LearnTalent(tab,talent,pet,group)
+local function AdvisedLearnTalent(tab,talent,pet,group)
+	-- The era can change before the hooks are refreshed; the client's own call then applies.
+	if not ZygorTalentAdvisor:IsAdvisorEnabled() then return Old_LearnTalent(tab,talent,pet,group) end
 	-- need to double-check if the user hasn't clicked an inaccessible talent, otherwise we're barking up the wrong tree
 	if GetUnspentTalentPoints(false,pet)==0 then return nil end
 
@@ -1241,7 +1260,16 @@ function LearnTalent(tab,talent,pet,group)
 	if SAFEMODE then
 		self:Debug("Learning\n"..name)
 	else
-		Old_LearnTalent(tab,talent,pet)
+		Old_LearnTalent(tab,talent,pet,group)
+	end
+end
+
+-- LearnTalent is wrapped only while the advisor may advise this character.
+function me:UpdateLearnHooks()
+	if self:IsAdvisorEnabled() then
+		if LearnTalent ~= AdvisedLearnTalent then LearnTalent = AdvisedLearnTalent end
+	elseif LearnTalent == AdvisedLearnTalent then
+		LearnTalent = Old_LearnTalent
 	end
 end
 
