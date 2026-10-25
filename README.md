@@ -1,3 +1,17 @@
+## mod-playerbots-portable fork
+
+This fork carries what [mod-playerbots-portable](https://github.com/Syntax555/mod-playerbots-portable) needs on top of [ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK](https://github.com/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK). Work happens on `main`; every push publishes `Zygor-IP-latest.zip` in the [Latest release](https://github.com/Syntax555/ZygorGuidesRemaster-3.3.5a_WOTLK/releases/latest).
+
+The ZIP holds an installer, not the addon: extract it outside your WoW folder, close WoW and run `Install-Zygor.cmd`. It downloads exactly that commit from GitHub, checks every file of `ZygorGuidesViewerRM` against SHA-256 hashes and installs it; an existing folder is backed up and SavedVariables are kept. Enable Zygor Guides Viewer in the character selection screen. Disable a separate `ZygorGuidesViewer` or `ZygorTalentAdvisor` addon if present; `ZygorGuidesViewerRM` already contains them.
+
+Changes on `main`:
+
+- Guides, the Gear Finder and the Talent Advisor follow each character's own Individual Progression tier, read from the server's MultiBot Bridge.
+
+The server pins a tested commit of `main` in its `versions.lock.json`; see its [integration guide](https://github.com/Syntax555/mod-playerbots-portable/blob/main/docs/zygor-progression.md). Upstream updates are merged into `main`; the original README follows.
+
+---
+
 # Zygor Guides Viewer Remaster
 
 Remastered Zygor Guides Viewer for **World of Warcraft: Wrath of the Lich King (WotLK) 3.3.5a (build 12340)**.

@@ -1,0 +1,84 @@
+name: Latest
+
+# Every push to main publishes the rolling Latest release with Zygor-IP-latest.zip,
+# an installer that downloads this exact commit from GitHub and verifies it.
+# The previous assets stay downloadable until the new installer is checked.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: latest
+  cancel-in-progress: false
+
+jobs:
+  installer-tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        # Windows PowerShell 5.1 is what players run; pwsh covers the rest.
+        os: [ubuntu-24.04, windows-2022]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Test the installer
+        run: python -m unittest discover -s .github/tests -p "test_*.py" -v
+
+  latest:
+    needs: installer-tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Lua 5.1
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lua5.1 > /dev/null
+
+      - name: Check Lua syntax and package
+        run: >-
+          python3 .github/scripts/package_installer.py --name "ZygorGuidesViewerRM" --path "ZygorGuidesViewerRM"
+          --luac luac5.1 --output "Zygor-IP-latest.zip"
+
+      - name: Install the packaged commit from GitHub
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $package = Join-Path $env:RUNNER_TEMP 'installer'
+          $addons = Join-Path $env:RUNNER_TEMP 'AddOns'
+          Expand-Archive -LiteralPath 'Zygor-IP-latest.zip' -DestinationPath $package
+          [void](New-Item -ItemType Directory -Path $addons)
+          & (Join-Path $package 'Install-Zygor.ps1') -AddOnsPath $addons
+          if ($LASTEXITCODE) { throw "The installer failed with exit code $LASTEXITCODE" }
+          python3 .github/scripts/package_installer.py --verify-installed (Join-Path $addons 'ZygorGuidesViewerRM') --installer-package $package
+
+      - name: Publish the Latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          notes="$RUNNER_TEMP/notes.md"
+          {
+            echo "Rolling build of \`main\` at ${GITHUB_SHA::12}."
+            echo
+            cat .github/release-notes.md
+          } > "$notes"
+          if gh release view latest > /dev/null 2>&1; then
+            gh release upload latest "Zygor-IP-latest.zip" --clobber
+            git tag -f latest "$GITHUB_SHA"
+            git push --force origin refs/tags/latest
+            gh release edit latest --title Latest --notes-file "$notes" --latest
+          else
+            gh release create latest "Zygor-IP-latest.zip" --target "$GITHUB_SHA" --title Latest --notes-file "$notes" --latest
+          fi
