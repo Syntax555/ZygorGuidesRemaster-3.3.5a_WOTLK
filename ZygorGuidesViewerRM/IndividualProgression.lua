@@ -367,7 +367,14 @@ end
 
 function IP:Changed()
 	self.guideChecks = nil
-	if ZGV.ItemScore and ZGV.ItemScore.GearFinder then ZGV.ItemScore.GearFinder.ResultsReady = nil end
+	local finder = ZGV.ItemScore and ZGV.ItemScore.GearFinder
+	if finder then
+		if finder.RefreshAfterSourceSettingChange then
+			finder:RefreshAfterSourceSettingChange()
+		else
+			finder.ResultsReady = nil
+		end
+	end
 	if ZGV.TalentAdvisorProgressionChanged then ZGV:TalentAdvisorProgressionChanged() end
 	if ZGV.UpdateFrame and ZGV.Frame then ZGV:UpdateFrame(true) end
 	local registry = LibStub and LibStub("AceConfigRegistry-3.0", true)

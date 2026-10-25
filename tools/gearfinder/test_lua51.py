@@ -13,9 +13,12 @@ addon = Path(sys.argv[1]).resolve()
 runtime = LuaRuntime(unpack_returned_tuples=True)
 assert runtime.eval("_VERSION") == "Lua 5.1"
 check = runtime.eval("function(source, name) local fn, err = loadstring(source, name); assert(fn, err) end")
-for relative in ("Item-GearFinder.lua", "Options.lua", "Code-WOTLK/Item-GearFinder.lua", "Data-WOTLK/GearFinderCraftedExpanded.lua", "Ver.lua"):
+for relative in ("Item-GearFinder.lua", "ZygorQuestLootDB.lua", "IndividualProgression.lua", "Options.lua", "Code-WOTLK/Item-GearFinder.lua", "Data-WOTLK/GearFinderCraftedExpanded.lua", "Ver.lua"):
     check((addon / relative).read_text(encoding="utf-8-sig"), relative)
 runtime.globals().arg = runtime.table_from({1: addon.as_posix()})
 runtime.execute((Path(__file__).parent / "test_crafted.lua").read_text(encoding="utf-8"))
 runtime.execute((Path(__file__).parent / "test_open_cache.lua").read_text(encoding="utf-8"))
-print("Lua 5.1 syntax and crafted regression suite passed")
+runtime.execute((Path(__file__).parent / "test_incremental_scan.lua").read_text(encoding="utf-8"))
+runtime.execute((Path(__file__).parent / "test_quest_cache.lua").read_text(encoding="utf-8"))
+runtime.execute((Path(__file__).parent / "test_progression_refresh.lua").read_text(encoding="utf-8"))
+print("Lua 5.1 syntax and Gear Finder regression suite passed")

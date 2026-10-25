@@ -40,8 +40,20 @@ ItemScore.GearFinder = GearFinder
 ItemScore.Items = {}
 GearFinder.ITEM_RESOLVE_RETRY_LIMIT = 60
 GearFinder.STARTUP_ITEM_INFO_GRACE = 6
+GearFinder.SCAN_TIME_BUDGET_MS = 4
+GearFinder.SCAN_ITEMS_PER_SLICE = 40
 local cancel_gearfinder_timer
 local queue_fallback_candidate
+
+-- Tooltip reads can be expensive on custom realms. Bound both source preparation
+-- and scoring, including sources containing hundreds of items, to small slices.
+local function yield_scan_if_needed()
+	GearFinder.ScanSliceItems = (GearFinder.ScanSliceItems or 0) + 1
+	if GearFinder.ScanSliceItems >= GearFinder.SCAN_ITEMS_PER_SLICE
+		or debugprofilestop() - GearFinder.ScanSliceStarted >= GearFinder.SCAN_TIME_BUDGET_MS then
+		coroutine.yield()
+	end
+end
 
 local function get_time()
 	return GetTime and GetTime() or (debugprofilestop and debugprofilestop() / 1000) or 0
@@ -1909,6 +1921,7 @@ local function loot_score_dungeon_thread()
 					end
 					GearFinder.ItemsToScore[ident][index]=nil
 				end
+				yield_scan_if_needed()
 			end
 			ZGV:Debug("&gear current scored %d of %d/%d",success_counter,total_current,total)
 			ZGV:Debug("&gear current failed %d",fail_counter)
@@ -1917,6 +1930,9 @@ local function loot_score_dungeon_thread()
 			GearFinder.MainFrame.Progress:SetPercent(ready)
 		end
 		if fail_counter==0 then break end
+		-- Keep server item queries at their old retry pace, independent of FPS.
+		local retryAt = get_time() + 0.1
+		while get_time() < retryAt do coroutine.yield() end
 	end
 
 	while true do
@@ -1993,6 +2009,7 @@ local function loot_score_dungeon_thread()
 					end
 					GearFinder.VendorItemsToScore[ident][index]=nil
 				end
+				yield_scan_if_needed()
 			end
 			ZGV:Debug("&gear external scored %d of %d/%d",success_counter,total_current,total)
 			ZGV:Debug("&gear external failed %d",fail_counter)
@@ -2001,6 +2018,8 @@ local function loot_score_dungeon_thread()
 			GearFinder.MainFrame.Progress:SetPercent(ready)
 		end
 		if fail_counter==0 then break end
+		local retryAt = get_time() + 0.1
+		while get_time() < retryAt do coroutine.yield() end
 	end
 
 	GearFinder.DungeonItemsScored = true
@@ -2148,6 +2167,7 @@ local function loot_score_dungeon_thread()
 						end
 						GearFinder.ItemsToMaybeScore[dungeon.ident][index]=nil
 					end
+					yield_scan_if_needed()
 				end
 				local ready = success_counter / total * 100
 				ZGV:Debug("&gear future scored %d of %d/%d",success_counter,total_future,total)
@@ -2157,6 +2177,8 @@ local function loot_score_dungeon_thread()
 			end
 		end
 		if fail_counter==0 then break end
+		local retryAt = get_time() + 0.1
+		while get_time() < retryAt do coroutine.yield() end
 	end
 
 	for i,slotupgrades in pairs(GearFinder.UpgradeQueue) do 
@@ -2249,7 +2271,7 @@ end
 -- prepares item lists for worker thread to work on
 -- items from valid dungeons are added to ItemsToScore
 -- items from dungeons that are not valid, but can be valid soon to ItemsToMaybeScore and dungeons to FutureDungeons
--- starts thread and resumes it 10 times a second
+-- prepares and scores in small coroutine slices, once per rendered frame
 -- no params
 -- no returns
 GearFinder.ItemsToScore = {}
@@ -2342,14 +2364,7 @@ function GearFinder:DeferFinalResultsForItemInfo()
 	return true
 end
 
-function GearFinder:ScoreDungeonItems(force)
-	if GearFinder.ResultsReady then return end
-	local startupGrace = not force and self:GetStartupItemInfoGraceRemaining()
-	if startupGrace and startupGrace > 0 then
-		self:ScheduleStartupItemInfoScan(startupGrace)
-		return
-	end
-
+local function prepare_dungeon_items(force)
 	GearFinder.CurrentExpansion = (GetClassicExpansionLevel and GetClassicExpansionLevel()) or (GetServerExpansionLevel and GetServerExpansionLevel()) or 2 -- 2 = WOTLK
 
 	GearFinder.TimeScoreStart = debugprofilestop()
@@ -2376,10 +2391,10 @@ function GearFinder:ScoreDungeonItems(force)
 	if not GF_HasAnySourceEnabled() then
 		GearFinder.DebugSummary.noSources = true
 		GearFinder:ShowNoSourcesMessage()
-		return
+		return false
 	end
 
-	local faction = self.playerfaction=="Alliance" and 1 or 2
+	local faction = GearFinder.playerfaction=="Alliance" and 1 or 2
 	local sourceInstances, validDungeons, futureDungeons, validVendorSources, vendorItems, craftedItems = 0, 0, 0, 0, 0, 0
 	local craftedSourceCount, validCraftedSources, craftedSkippedItems = 0, 0, 0
 	local skippedOutOfEraItems = 0
@@ -2413,6 +2428,7 @@ function GearFinder:ScoreDungeonItems(force)
 								skippedOutOfEraItems = skippedOutOfEraItems + 1
 								invalidReasons[knownClientReason or "out-of-era item"] = (invalidReasons[knownClientReason or "out-of-era item"] or 0) + 1
 							end
+							yield_scan_if_needed()
 						end
 					end
 				end
@@ -2444,6 +2460,7 @@ function GearFinder:ScoreDungeonItems(force)
 								skippedOutOfEraItems = skippedOutOfEraItems + 1
 								invalidReasons[knownClientReason or "out-of-era item"] = (invalidReasons[knownClientReason or "out-of-era item"] or 0) + 1
 							end
+							yield_scan_if_needed()
 						end
 					end
 				end
@@ -2482,6 +2499,7 @@ function GearFinder:ScoreDungeonItems(force)
 					skippedOutOfEraItems = skippedOutOfEraItems + 1
 					invalidReasons[knownClientReason or "out-of-era item"] = (invalidReasons[knownClientReason or "out-of-era item"] or 0) + 1
 				end
+				yield_scan_if_needed()
 			end
 		else
 			invalidReasons[comment or "invalid vendor source"] = (invalidReasons[comment or "invalid vendor source"] or 0) + 1
@@ -2532,6 +2550,7 @@ function GearFinder:ScoreDungeonItems(force)
 					craftedSkippedItems = craftedSkippedItems + 1
 					invalidReasons[itemComment or "invalid crafted item"] = (invalidReasons[itemComment or "invalid crafted item"] or 0) + 1
 				end
+				yield_scan_if_needed()
 			end
 		else
 			invalidReasons[comment or "invalid crafted source"] = (invalidReasons[comment or "invalid crafted source"] or 0) + 1
@@ -2562,26 +2581,55 @@ function GearFinder:ScoreDungeonItems(force)
 	GearFinder.DebugSummary.gearCraftedPvpItems = ZGV.db and ZGV.db.profile and ZGV.db.profile.gear_crafted_pvp_items ~= false
 	GearFinder.DebugSummary.professionSkills = GF_CompactMapKeys(GearFinder.PlayerProfessionSkills)
 	GearFinder.DebugSummary.professionSpecializations = GF_CompactMapKeys(GearFinder.PlayerProfessionSpecializations)
+	return true
+end
 
-	GearFinder.ScoreThread = coroutine.create(loot_score_dungeon_thread)
+function GearFinder:ScoreDungeonItems(force)
+	if GearFinder.ResultsReady or GearFinder.IsScanning then return end
+	local startupGrace = not force and self:GetStartupItemInfoGraceRemaining()
+	if startupGrace and startupGrace > 0 then
+		self:ScheduleStartupItemInfoScan(startupGrace)
+		return
+	end
+
+	-- Let the opening click finish before reading any candidate tooltips.
+	GearFinder.IsScanning = true
+	GearFinder.MainFrame.overlay:Hide()
+	GearFinder.MainFrame.Progress:SetPercent(0, "noanim")
+	GearFinder.MainFrame.Progress:Show()
+	GearFinder.ScoreThread = coroutine.create(function()
+		if prepare_dungeon_items(force) then loot_score_dungeon_thread() end
+	end)
 	if GearFinder.ScoreTimer then 
 		cancel_gearfinder_timer("ScoreTimer")
 	end
-	GearFinder.ScoreTimer = ZGV:ScheduleRepeatingTimer(function()
-		local ok,ret = coroutine.resume(GearFinder.ScoreThread)
-		if not ok or coroutine.status(GearFinder.ScoreThread)=="dead" then 
-			cancel_gearfinder_timer("ScoreTimer")
+	-- AceTimer runs at most ten times a second on this client. Resume once per
+	-- rendered frame so short slices do not turn a large source into a long wait.
+	GearFinder.ScoreFrame = GearFinder.ScoreFrame or CreateFrame("Frame")
+	GearFinder.ScoreFrame:SetScript("OnUpdate", function(frame)
+		local thread = GearFinder.ScoreThread
+		if not thread then return end
+		GearFinder.ScanSliceStarted = debugprofilestop()
+		GearFinder.ScanSliceItems = 0
+		local ok,ret = coroutine.resume(thread)
+		-- A refresh may replace the scan while its final results are displayed.
+		if GearFinder.ScoreThread ~= thread then return end
+		if not ok or coroutine.status(thread)=="dead" then
+			frame:SetScript("OnUpdate", nil)
+			frame:Hide()
+			GearFinder.IsScanning = false
+			GearFinder.ScoreThread = nil
+			cancel_gearfinder_timer("AntsTimer")
 			if not ok then
 				GearFinder.LastError = ret
 				ZGV:Debug("&gear score thread error: %s", tostring(ret))
 				GearFinder.ResultsReady = true
 				GearFinder.MainFrame.Progress:Hide()
-				cancel_gearfinder_timer("AntsTimer")
 				GearFinder:DisplayResults()
 			end
 		end
-	end,
-	0.1)
+	end)
+	GearFinder.ScoreFrame:Show()
 	GearFinder.AntsMode = ""
 	GearFinder.AntsTimer = ZGV:ScheduleRepeatingTimer(function() progress_dots() end, 0.5)
 end
@@ -3576,6 +3624,10 @@ function GearFinder:ClearResults()
 	
 	-- Signal running coroutine to exit gracefully
 	GearFinder.IsScanning = false
+	if GearFinder.ScoreFrame then
+		GearFinder.ScoreFrame:SetScript("OnUpdate", nil)
+		GearFinder.ScoreFrame:Hide()
+	end
 	
 	-- Cancel timers first
 	if GearFinder.ScoreTimer then

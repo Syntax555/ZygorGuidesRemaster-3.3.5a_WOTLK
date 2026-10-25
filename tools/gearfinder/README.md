@@ -39,6 +39,9 @@ py -3 -B tools/gearfinder/import_crafted.py
 py -3 -B tools/gearfinder/import_crafted.py --check
 lua tools/gearfinder/test_crafted.lua ZygorGuidesViewerRM
 lua tools/gearfinder/test_open_cache.lua ZygorGuidesViewerRM
+lua tools/gearfinder/test_incremental_scan.lua ZygorGuidesViewerRM
+lua tools/gearfinder/test_quest_cache.lua ZygorGuidesViewerRM
+lua tools/gearfinder/test_progression_refresh.lua ZygorGuidesViewerRM
 ```
 
 For exact Lua 5.1 validation, `test_lua51.py` uses the optional `lupa.lua51`
@@ -135,3 +138,15 @@ equip specializations, class restrictions, non-crafter BoEs, BoP acquisition,
 Russian skill names, the 3.3.5 spellbook fallback, metadata propagation, tooltips,
 unchanged source/progression behavior, expansion preferences, and repeated-open
 result reuse. In-client testing is still required.
+
+Source preparation and item scoring run in the same deferred coroutine. Both
+check elapsed time after each candidate, yielding after 4 ms or 40 candidates
+per rendered frame. An individual tooltip read can exceed that budget, but large
+sources no longer run all tooltip reads during the opening click or one scoring
+frame. Failed item lookups still wait at least 0.1 seconds between retry passes,
+so high frame rates do not exhaust the server-response retry limit early.
+Reopening while a scan is running keeps that scan. The server quest
+source hook also reuses its level-filtered data until the player level or source
+table changes. Server progression updates discard active scans and refresh
+visible results against the new tier and access rules. The regressions cover
+these paths, including invalidation, scan errors, and unchanged source eligibility.

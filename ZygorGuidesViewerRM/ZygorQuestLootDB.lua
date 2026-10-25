@@ -2552,12 +2552,19 @@ tinsert(ZGV.startups, {"QuestLootDB startup", function()
 	if not ZGV.ItemScore then return end
 	if not ZGV.ItemScore.GearFinder then return end
 
-	-- Hook: Wird vor jedem ScoreDungeonItems aufgerufen
-	-- um den Quest-Block dynamisch nach Spielerlevel zu befuellen.
+	-- Der Quest-Block aendert sich nur beim Levelwechsel oder beim Austausch
+	-- der Quelldaten. Fertige und laufende Scans brauchen keine Vorbereitung.
 	local origScore = ZGV.ItemScore.GearFinder.ScoreDungeonItems
+	local cachedItems, cachedLevel
 	ZGV.ItemScore.GearFinder.ScoreDungeonItems = function(self, ...)
+		if self.ResultsReady or self.IsScanning then return origScore(self, ...) end
+
 		ZGV.ItemScore.Items = ZGV.ItemScore.Items or {}
 		local Items = ZGV.ItemScore.Items
+		local playerLevel = UnitLevel('player') or 1
+		if Items == cachedItems and playerLevel == cachedLevel then
+			return origScore(self, ...)
+		end
 
 		-- Alten Quest-Block entfernen falls vorhanden
 		for i = #Items, 1, -1 do
@@ -2566,7 +2573,6 @@ tinsert(ZGV.startups, {"QuestLootDB startup", function()
 			end
 		end
 
-		local playerLevel = UnitLevel('player') or 1
 		local minQL = math.max(1, playerLevel - 5)
 		local maxQL = playerLevel + 2
 
@@ -2593,6 +2599,7 @@ tinsert(ZGV.startups, {"QuestLootDB startup", function()
 		if count > 0 then
 			table.insert(Items, questBlock)
 		end
+		cachedItems, cachedLevel = Items, playerLevel
 
 		return origScore(self, ...)
 	end
