@@ -1366,8 +1366,8 @@ function ItemScore:GetTalentState(classToken, level)
 		end
 	end
 
-	local eraPoints, eraTotal, eraAvailable
-	if ZGV.IP then eraPoints, eraTotal, eraAvailable = ZGV.IP:EraTalentPoints(classToken) end
+	local eraPoints, eraTotal, eraAvailable, eraFeralRank
+	if ZGV.IP then eraPoints, eraTotal, eraAvailable, eraFeralRank = ZGV.IP:EraTalentPoints(classToken) end
 	if eraPoints then
 		treePoints, totalPoints, availablePoints = eraPoints, eraTotal, eraAvailable
 		bestTree, bestPoints = fallbackBuild, 0
@@ -1402,6 +1402,7 @@ function ItemScore:GetTalentState(classToken, level)
 		bestPoints = bestPoints,
 		totalPoints = totalPoints,
 		availablePoints = availablePoints,
+		eraFeralRank = eraFeralRank,
 		preTalentState = preTalentState,
 		uncertain = uncertain,
 	}
@@ -1506,12 +1507,19 @@ function ItemScore:DetectActiveBuild(classToken, level)
 	local pointsTree = talentState.totalPoints > 0 and talentState.bestTree or nil
 	local pointsFallback = talentState.totalPoints > 0 and false or nil
 
-	-- Druid Feral specialization detection
+	if classToken == "DRUID" and pointsTree == 3 then return 4, false end
 	if classToken == "DRUID" and pointsTree == 2 then
-		-- Check points in Thick Hide talent (position 11 in Feral tree)
-		local _, _, pointsThickHide = GetTalentInfo(2, 11, false, false, activeTalentGroup)
-		
-		-- 2+ points in this talent = Tank build
+		local pointsThickHide = talentState.eraFeralRank
+		if pointsThickHide == nil and GetNumTalents and GetTalentLink and GetTalentInfo then
+			for index = 1, GetNumTalents(2, false, false) do
+				local link = GetTalentLink(2, index, false, false, activeTalentGroup)
+				if link and link:match("talent:(%d+)") == "794" then
+					pointsThickHide = select(5, GetTalentInfo(2, index, false, false, activeTalentGroup))
+					break
+				end
+			end
+		end
+		-- Thick Hide is a role heuristic; hybrid builds can select tank or DPS explicitly.
 		if pointsThickHide and pointsThickHide >= 2 then
 			return 3, false
 		else
@@ -1537,6 +1545,7 @@ function ItemScore:DetectActiveBuild(classToken, level)
 				tree = tonumber(result)
 			end
 		end
+		if classToken == "DRUID" and tree == 3 then return 4, false end
 		if tree and classRules and classRules[tree] then
 			return tree, false
 		end

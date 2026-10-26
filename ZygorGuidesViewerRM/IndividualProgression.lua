@@ -990,7 +990,7 @@ end
 
 -- EraTalents keeps a Vanilla/TBC character's points outside the native talent API, which then
 -- reports none spent and none free. Points per tab of the synchronised historical tree, the spent
--- total and the unspent points; nil while EraTalents does not manage this character.
+-- total, unspent points and optional Druid Thick Hide rank; nil while EraTalents does not manage this character.
 function IP:EraTalentPoints(classToken)
 	local era = _G.EraTalents
 	local state = era and era.state
@@ -999,7 +999,14 @@ function IP:EraTalentPoints(classToken)
 	for _, tree in pairs(trees or {}) do
 		if tree.className == classToken then
 			local points = era.SpecPoints(tree, state.ranks)
-			return points, points[1] + points[2] + points[3], tonumber(state.availPts) or 0
+			local feralRank
+			if classToken == "DRUID" then
+				feralRank = 0
+				for _, node in ipairs(tree.talents) do
+					if node.name == "Thick Hide" then feralRank = (state.ranks and state.ranks[node.id]) or 0; break end
+				end
+			end
+			return points, points[1] + points[2] + points[3], tonumber(state.availPts) or 0, feralRank
 		end
 	end
 end
@@ -1019,8 +1026,8 @@ function IP:WatchEraTalents()
 	hooksecurefunc(era, "Refresh", function()
 		local score = ZGV.ItemScore
 		if not (score and score.Initialised) then return end
-		local points, _, free = IP:EraTalentPoints(score.playerclass)
-		local signature = points and table.concat(points, ",") .. "/" .. free or ""
+		local points, _, free, feralRank = IP:EraTalentPoints(score.playerclass)
+		local signature = points and table.concat(points, ",") .. "/" .. free .. "/" .. (feralRank or "") or ""
 		if signature == last then return end
 		last = signature
 		score:DelayedRefreshUserData()
