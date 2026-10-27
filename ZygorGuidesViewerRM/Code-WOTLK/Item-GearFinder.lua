@@ -107,34 +107,37 @@ local function OnNonZygorClick()
 	end
 end
 
-function GearFinder:AttachFrame()
-	self.PaperDollButtonFrame = ZGV.ChainCall(ZGV.CreateFrameWithBG("FRAME",nil,PaperDollFrame))
-		:SetPoint("TOPRIGHT", PaperDollFrame, "TOPRIGHT", -40, -12)
+local function CreateLaunchButton(parent, onClick)
+	local frame = CHAIN(ZGV.CreateFrameWithBG("FRAME",nil,parent))
+		:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -40, -12)
 		:SetSize(50,50)
 		:SetBackdrop({bgFile="Interface\\Minimap\\MiniMap-TrackingBorder"})--,tile=true, tileSize=50})
 		:SetFrameLevel(610)
 		:Show()
 	.__END
 
-	self.PaperDollButton = ZGV.ChainCall(ZGV.CreateFrameWithBG("Button", nil , self.PaperDollButtonFrame))
+	local button = CHAIN(ZGV.CreateFrameWithBG("Button", nil , frame))
 		:SetSize(20,20)
-		:SetPoint("TOPLEFT", self.PaperDollButtonFrame, "TOPLEFT", 5, -5)
+		:SetPoint("TOPLEFT", frame, "TOPLEFT", 5, -5)
 		:SetBackdrop({bgFile=ZGV.DIR.."\\Skins\\zglogo-back"})
 		:SetNormalTexture(ZGV.DIR.."\\Skins\\zglogo")
 		:SetFrameLevel(611)
-		:SetScript("OnClick", function() 
-			GearFinder:ShowFinder()	
-		end)
+		:SetScript("OnClick", onClick)
 		:SetScript("OnEnter",function(self) 
 			CHAIN(GameTooltip):SetOwner(self, "ANCHOR_TOP") 
-			:SetText("Toggle Zygor Gear Finder") 
+			:SetText("Zygor " .. (L["gearfinder_title"] or "Gear Finder"))
 			:Show() 
 			end)
 		:SetScript("OnLeave",function(self) GameTooltip:Hide() end)
 		:Show()
 	.__END
-	self.PaperDollButton:GetNormalTexture():SetTexCoord(0,0,0,1/4 , 1,0,1,1/4)
+	button:GetNormalTexture():SetTexCoord(0,0,0,1/4 , 1,0,1,1/4)
+	return frame, button
+end
 
+function GearFinder:AttachFrame()
+	self.PaperDollButtonFrame, self.PaperDollButton = CreateLaunchButton(PaperDollFrame,
+		function() GearFinder:ShowFinder() end)
 end
 
 function GearFinder:UpdateSystemTab()
@@ -208,33 +211,22 @@ function GearFinder:AttachInspectDataHook()
 end
 
 function GearFinder:AttachInspectFrame()
-	if not InspectFrame or self.InspectButton then return end
-	local button = CHAIN(ZGV.CreateFrameWithBG("Button", nil, InspectFrame))
-		:SetSize(20, 20)
-		:SetPoint("TOPRIGHT", InspectFrame, "TOPRIGHT", -44, -38)
-		:SetBackdrop({bgFile=ZGV.DIR.."\\Skins\\zglogo-back"})
-		:SetNormalTexture(ZGV.DIR.."\\Skins\\zglogo")
-		:SetScript("OnClick", function() GearFinder:ShowInspectFinder(inspectedUnit()) end)
-		:SetScript("OnEnter", function(self)
-			GameTooltip:SetOwner(self, "ANCHOR_TOP")
-			GameTooltip:SetText("Zygor " .. (L["gearfinder_title"] or "Gear Finder"))
-			GameTooltip:Show()
-		end)
-		:SetScript("OnLeave", function() GameTooltip:Hide() end)
-		.__END
-	button:GetNormalTexture():SetTexCoord(0,0,0,1/4,1,0,1,1/4)
-	self.InspectButton = button
+	if not InspectFrame or not InspectPaperDollFrame or self.InspectButton then return end
+	local frame, button = CreateLaunchButton(InspectPaperDollFrame,
+		function() GearFinder:ShowInspectFinder(inspectedUnit()) end)
+	self.InspectButtonFrame, self.InspectButton = frame, button
 	local function refresh()
 		local unit = inspectedUnit()
 		local enabled = ZGV.db and ZGV.db.profile and ZGV.db.profile.autogear
-		if enabled and unit then button:Show() else button:Hide() end
+		if enabled and unit then frame:Show() else frame:Hide() end
 		if GearFinder.InspectUnit and (not unit or UnitGUID(unit) ~= GearFinder.InspectGuid) then
 			GearFinder.MainFrame:Hide()
 		end
 	end
 	self.RefreshInspectButton = refresh
 	InspectFrame:HookScript("OnShow", refresh)
-	InspectFrame:HookScript("OnHide", function()
+	InspectPaperDollFrame:HookScript("OnShow", refresh)
+	InspectPaperDollFrame:HookScript("OnHide", function()
 		if GearFinder.InspectUnit then GearFinder.MainFrame:Hide() end
 	end)
 	if InspectFrame_UnitChanged and hooksecurefunc then hooksecurefunc("InspectFrame_UnitChanged", refresh) end
@@ -243,10 +235,14 @@ end
 
 function GearFinder:ShowInspectFinder(unit)
 	if not unit or unit ~= inspectedUnit() then return end
+	if not InspectPaperDollFrame:IsVisible() then return end
 	if not (ZGV.db and ZGV.db.profile and ZGV.db.profile.autogear) then return end
 	if self.InspectGuid == UnitGUID(unit) and self.MainFrame:IsVisible() then self.MainFrame:Hide() return end
 	self.MainFrame:Hide()
-	if not self:BindTarget(unit) then return end
+	if not self:BindTarget(unit) then
+		ZGV:Print("Gear Finder for inspected bots is unavailable. Check the server connection and use the matching server update.")
+		return
+	end
 	self.InspectUnit, self.InspectGuid = unit, UnitGUID(unit)
 	self.MainFrame:SetParent(InspectFrame)
 	self.MainFrame:ClearAllPoints()
@@ -276,12 +272,12 @@ function GearFinder:ShowFinder()
 		ToggleCharacter("PaperDollFrame")
 	end
 
-	-- Hook character frame tabs to hide gear finder when user clicks them
+	-- DragonUI's custom tabs also use the native subframe switch.
 	if not GearFinder.HookedChar then
-		if hooksecurefunc and _G.CharacterFrameTab_OnClick then
-			hooksecurefunc("CharacterFrameTab_OnClick", function()
+		if hooksecurefunc and _G.CharacterFrame_ShowSubFrame then
+			hooksecurefunc("CharacterFrame_ShowSubFrame", function()
 				if not GearFinder.InspectUnit and GearFinder.MainFrame and GearFinder.MainFrame:IsVisible() then
-					GearFinder.ClosingCharacterFrame = nil
+					GearFinder.ClosingCharacterFrame = true
 					SetCharacterHeaderShown(true)
 					GearFinder.MainFrame:Hide()
 				end

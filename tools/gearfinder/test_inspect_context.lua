@@ -8,7 +8,7 @@ local snapshotStart = assert(mainSource:find("function GearFinder:TargetEquipmen
 local snapshotEnd = assert(mainSource:find("function GearFinder:BindTarget(unit, force)", snapshotStart, true))
 local snapshotHelper = mainSource:sub(snapshotStart, snapshotEnd - 1)
 local function object()
-  local result = { scripts = {}, hooks = {}, shown = true, level = 5 }
+  local result = { scripts = {}, hooks = {}, children = {}, parent = false, shown = true, level = 5 }
   function result:SetScript(event, callback) self.scripts[event] = callback end
   function result:HookScript(event, callback)
     self.hooks[event] = self.hooks[event] or {}
@@ -18,16 +18,41 @@ local function object()
     if self.scripts[event] then self.scripts[event](self, ...) end
     for _, callback in ipairs(self.hooks[event] or {}) do callback(self, ...) end
   end
-  function result:Show() if not self.shown then self.shown = true; self:Fire("OnShow") end end
-  function result:Hide() if self.shown then self.shown = false; self:Fire("OnHide") end end
+  function result:FireVisibility(event)
+    local children = {}
+    for _, child in ipairs(self.children) do if child.shown then children[#children+1] = child end end
+    self:Fire(event)
+    for _, child in ipairs(children) do child:FireVisibility(event) end
+  end
+  function result:Show()
+    if self.shown then return end
+    self.shown = true
+    if self:IsVisible() then self:FireVisibility("OnShow") end
+  end
+  function result:Hide()
+    local visible = self:IsVisible()
+    self.shown = false
+    if visible then self:FireVisibility("OnHide") end
+  end
   function result:IsShown() return self.shown end
-  result.IsVisible = result.IsShown
-  function result:SetParent(parent) self.parent = parent end
+  function result:IsVisible() return self.shown and (not self.parent or self.parent:IsVisible()) end
+  function result:SetParent(parent)
+    if self.parent then
+      for index, child in ipairs(self.parent.children) do
+        if child == self then table.remove(self.parent.children, index); break end
+      end
+    end
+    self.parent = parent
+    if parent then table.insert(parent.children, self) end
+  end
   function result:ClearAllPoints() self.points = {} end
   function result:SetPoint(...) self.points = { ... } end
   function result:GetFrameLevel() return self.level end
   function result:SetFrameLevel(level) self.level = level end
   function result:SetText(text) self.text = text end
+  function result:SetBackdrop(backdrop) self.backdrop = backdrop end
+  function result:SetNormalTexture(texture) self.texture = texture end
+  function result:SetSize(...) self.size = {...} end
   function result:GetNormalTexture() return self end
   function result:SetTexCoord() end
   return setmetatable(result, { __index = function() return function() end end })
@@ -41,6 +66,7 @@ local function chain(value)
 end
 local function fixture(sourceText, lateInspect, lateMultiBot, withDragon)
 local events, hooks, eventCounts, timers = {}, {}, {}, {}
+local notices = {}
 local equipment = {party1="item:100", party2="item:200"}
 local dragonReady, inspectCallback, registrations = false, nil, 0
 DragonUI = withDragon and {
@@ -51,14 +77,19 @@ local binds, releases, scans, ownerScores, ownerToggles = 0, 0, 0, 0, 0
 local native = object()
 native.Title, native.shown = object(), false
 CharacterFrame, PaperDollFrame = object(), object()
+PaperDollFrame:SetParent(CharacterFrame)
+native:SetParent(CharacterFrame)
 CharacterFrame.numTabs = 0
 CharacterNameText, CharacterFramePortrait, CharacterFrameCloseButton = object(), object(), object()
 local inspect = object()
+local inspectPaperDoll = object()
+inspectPaperDoll:SetParent(inspect)
 inspect.unit = "party1"
 InspectFrame = not lateInspect and inspect or nil
+InspectPaperDollFrame = not lateInspect and inspectPaperDoll or nil
 ZygorGearFinder = native
 local finder = { MainFrame = native }
-function finder:CreateMainFrame() end
+function finder:CreateMainFrame() self:AttachFrame() end
 function finder:BindTarget(unit)
   binds = binds + 1
   if self.refuse then return false end
@@ -85,7 +116,8 @@ ZygorGuidesViewer = {
   ItemScore = scores,
   db = { profile = { autogear = true } },
   ChainCall = chain,
-  CreateFrameWithBG = function(_, _, parent) local frame = object(); frame.parent = parent; return frame end,
+  CreateFrameWithBG = function(_, _, parent) local frame = object(); frame:SetParent(parent); return frame end,
+  Print = function(_, message) notices[#notices+1] = message end,
   AddEvent = function(_, event, callback)
     eventCounts[event] = (eventCounts[event] or 0) + 1
     events[event] = callback
@@ -107,6 +139,9 @@ local inGroup = true
 function UnitInParty() return inGroup end
 function UnitInRaid() return nil end
 function ToggleCharacter() ownerToggles = ownerToggles + 1 end
+function CharacterFrame_ShowSubFrame() end
+function CharacterFrameTab_OnClick() end
+function HideUIPanel(frame) frame:Hide() end
 function InspectFrame_UnitChanged() end
 function hooksecurefunc(owner, name, callback)
   if type(owner)=="string" then hooks[owner]=name else hooks[name]=callback end
@@ -131,11 +166,18 @@ end
 if lateInspect then
   assert(not finder.InspectButton, "inspect hooks wait for its native load-on-demand addon")
   InspectFrame = inspect
+  InspectPaperDollFrame = inspectPaperDoll
   events.ADDON_LOADED(nil, nil, "OtherAddon")
   assert(not finder.InspectButton, "unrelated addon loads do not attach inspect")
   events.ADDON_LOADED(nil, nil, "Blizzard_InspectUI")
 end
-assert(finder.InspectButton and finder.InspectButton.parent == InspectFrame, "inspect launch uses the native frame")
+assert(finder.InspectButton and finder.InspectButton.parent == finder.InspectButtonFrame
+  and finder.InspectButtonFrame.parent == InspectPaperDollFrame, "inspect launch belongs to the equipment tab")
+assert(finder.PaperDollButtonFrame.parent == PaperDollFrame, "owner launch belongs to the equipment tab")
+assert(finder.InspectButtonFrame.backdrop.bgFile == "Interface\\Minimap\\MiniMap-TrackingBorder"
+  and finder.InspectButtonFrame.size[1] == finder.PaperDollButtonFrame.size[1]
+  and finder.InspectButton.texture == finder.PaperDollButton.texture,
+  "both launchers reuse the native Gear Finder ring and icon")
 assert(events.ADDON_LOADED and events.UNIT_INVENTORY_CHANGED, "hooks are event driven")
 assert(eventCounts.PARTY_MEMBERS_CHANGED == 1 and eventCounts.RAID_ROSTER_UPDATE == 1,
   "roster events must register once")
@@ -147,8 +189,10 @@ assert(#InspectFrame.hooks.OnShow == attachCount, "inspect hooks must be install
 finder:ShowInspectFinder("party2")
 assert(binds == 0, "only the unit currently shown in inspect may be bound")
 finder.refuse = true
-finder:ShowInspectFinder("party1")
+finder.InspectButton:Fire("OnClick")
 assert(not native:IsShown() and finder.InspectUnit == nil, "a refused subject must not open recommendations")
+assert(#notices == 1 and notices[1]:find("unavailable", 1, true)
+  and notices[1]:find("server", 1, true), "an unavailable server must explain a refused click")
 finder.refuse = nil
 finder:ShowInspectFinder("party1")
 if withDragon then
@@ -241,6 +285,17 @@ if withDragon then
   inspectCallback("0xBot"); flush()
   assert(binds==unreadyBinds+1, "fresh matching data must refresh an invalidated snapshot")
 end
+local beforeEquipmentTab = binds
+InspectPaperDollFrame:Hide()
+assert(not native:IsShown() and finder.Context == nil,
+  "switching inspect to PvP releases the equipment recommendations")
+assert(not finder.InspectButton:IsVisible() and not finder.InspectButtonFrame:IsVisible(),
+  "inspect PvP must hide the full launcher through its equipment parent")
+finder:ShowInspectFinder("party1")
+assert(binds == beforeEquipmentTab and not native:IsShown(), "inspect launch requires a visible equipment tab")
+InspectPaperDollFrame:Show()
+finder.InspectButton:Fire("OnClick")
+assert(native:IsShown() and finder.Context, "the equipment launch click opens the inspected character")
 finder:ShowFinder()
 assert(native:IsShown() and native.parent == CharacterFrame and finder.Context == nil and finder.InspectUnit == nil,
   "the owner's launch restores the same native Finder to its player context")
@@ -248,9 +303,21 @@ assert(ownerScores == 0, "valid owner equipped cache must be preserved")
 local ownerBefore = ownerToggles
 native:Hide()
 assert(PaperDollFrame:IsShown(), "closing player Finder restores the native tab")
+for _, destination in ipairs({"SkillFrame", "DragonUIHonorFrame"}) do
+  finder.PaperDollButton:Fire("OnClick")
+  assert(native:IsShown() and not PaperDollFrame:IsShown(), "the owner's button opens the native Finder")
+  assert(hooks.CharacterFrame_ShowSubFrame, "all native and DragonUI tab switches must close the Finder")
+  hooks.CharacterFrame_ShowSubFrame(destination)
+  hooks.ToggleCharacter(destination)
+  assert(not native:IsShown() and not PaperDollFrame:IsShown() and CharacterFrame:IsShown(),
+    "a tab switch must keep its native destination without restoring equipment or closing the window")
+  assert(not finder.PaperDollButton:IsVisible(), "other character tabs must hide the owner's launcher")
+  PaperDollFrame:Show()
+end
 ZygorGuidesViewer.db.profile.autogear = false
 finder:UpdateSystemTab()
-assert(not finder.InspectButton:IsShown(), "disabled Gear Advisor hides both launch controls")
+assert(not finder.InspectButton:IsVisible() and not finder.PaperDollButton:IsVisible(),
+  "disabled Gear Advisor hides both launch controls")
 assert(ownerToggles == ownerBefore, "inspect lifecycle must not toggle the player's character frame")
 end
 local handle = assert(io.open(source, "rb"))
@@ -260,6 +327,20 @@ fixture(original, true)
 fixture(original, false, true)
 fixture(original, false, false, true)
 local mutations = {
+  {"shared launcher ring", 'bgFile="Interface\\\\Minimap\\\\MiniMap-TrackingBorder"', 'bgFile=""',
+    "both launchers reuse the native Gear Finder ring"},
+  {"inspect equipment parent", 'CreateLaunchButton(InspectPaperDollFrame,', 'CreateLaunchButton(InspectFrame,',
+    "inspect launch belongs to the equipment tab"},
+  {"inspect equipment teardown", 'InspectPaperDollFrame:HookScript("OnHide", function()',
+    'InspectFrame:HookScript("OnHide", function()', "switching inspect to PvP releases"},
+  {"visible inspect equipment", '\tif not InspectPaperDollFrame:IsVisible() then return end\n', '',
+    "inspect launch requires a visible equipment tab"},
+  {"unavailable inspect feedback", '\t\tZGV:Print("Gear Finder for inspected bots is unavailable. Check the server connection and use the matching server update.")', '',
+    "an unavailable server must explain a refused click"},
+  {"native character tab boundary", 'hooksecurefunc("CharacterFrame_ShowSubFrame", function()',
+    'hooksecurefunc("CharacterFrameTab_OnClick", function()', "all native and DragonUI tab switches"},
+  {"character destination preserved", '\t\t\t\t\tGearFinder.ClosingCharacterFrame = true',
+    '\t\t\t\t\tGearFinder.ClosingCharacterFrame = nil', "a tab switch must keep its native destination"},
   {"localized inspect title", '(L["gearfinder_title"] or "Gear Finder") .. " - "', '"Gear Finder - "',
     "localized window identifies"},
   {"roster event registration", '\t\tfor _, event in ipairs({"PARTY_MEMBERS_CHANGED", "RAID_ROSTER_UPDATE"}) do',
