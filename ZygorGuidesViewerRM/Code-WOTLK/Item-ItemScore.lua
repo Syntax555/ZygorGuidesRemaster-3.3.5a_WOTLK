@@ -29,17 +29,19 @@ local function get_slots_by_type(type)
 	return ItemScore.TypeToSlot[type], false
 end
 
-function ItemScore:GetValidSlots(item)
+function ItemScore:GetValidSlots(item, context)
 	if not item then return end
 	local s1, s2 = get_slots_by_type(item.type)
+	local dualWield = ItemScore.playerDualWield
+	if context and context.subject then dualWield = context.playerDualWield end
 
-	if item.type=="INVTYPE_WEAPON" and ItemScore.playerDualWield then -- dual wield, 1 handed weapons are valid in offhand
+	if item.type=="INVTYPE_WEAPON" and dualWield then -- dual wield, 1 handed weapons are valid in offhand
 		return s1, s2, false
 	end
 	if item.type=="INVTYPE_2HWEAPON" then -- two handed items go into main hand slot
 		return s1, false, true
 	end
-	if item.type=="INVTYPE_WEAPON" and not ItemScore.playerDualWield then -- no dual wield, 1 handed weapons are valid only in mainhand
+	if item.type=="INVTYPE_WEAPON" and not dualWield then -- no dual wield, 1 handed weapons are valid only in mainhand
 		return s1, false, false
 	end
 

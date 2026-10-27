@@ -24,15 +24,43 @@ function GearFinder:Initialise()
 	GearFinder:UpdateSystemTab()
 
 	GearFinder.MainFrame:SetScript("OnHide",function()
+		if GearFinder.InspectUnit then
+			GearFinder.InspectUnit, GearFinder.InspectGuid = nil, nil
+			GearFinder:ReleaseTarget()
+			return
+		end
 		SetCharacterHeaderShown(true)
 		-- Restore the character tab that was active before
 		if not GearFinder.ClosingCharacterFrame and PaperDollFrame then PaperDollFrame:Show() end
 		GearFinder.ClosingCharacterFrame = nil
 	end)
 
+	GearFinder:AttachInspectFrame()
+	GearFinder:AttachCombatProfileHook()
+	GearFinder:AttachInspectDataHook()
+	if ZGV.AddEvent and not GearFinder.InspectEventsHooked then
+		ZGV:AddEvent("ADDON_LOADED", function(_, _, name)
+			if name == "Blizzard_InspectUI" then GearFinder:AttachInspectFrame() end
+			if name == "MultiBot" then GearFinder:AttachCombatProfileHook() end
+			if name == "DragonUI" then GearFinder:AttachInspectDataHook() end
+		end)
+		for _, event in ipairs({"PARTY_MEMBERS_CHANGED", "RAID_ROSTER_UPDATE"}) do
+			ZGV:AddEvent(event, function()
+				if GearFinder.RefreshInspectButton then GearFinder.RefreshInspectButton() end
+			end)
+		end
+		ZGV:AddEvent("UNIT_INVENTORY_CHANGED", function(_, _, unit)
+			if GearFinder.InspectUnit and GearFinder.MainFrame:IsVisible()
+				and UnitGUID(unit) == GearFinder.InspectGuid then
+				GearFinder:QueueInspectRefresh()
+			end
+		end)
+		GearFinder.InspectEventsHooked = true
+	end
+
 	if not GearFinder.ToggleCharacterHooked and ToggleCharacter and hooksecurefunc then
 		hooksecurefunc("ToggleCharacter", function()
-			if GearFinder.MainFrame and GearFinder.MainFrame:IsShown() then
+			if not GearFinder.InspectUnit and GearFinder.MainFrame and GearFinder.MainFrame:IsShown() then
 				GearFinder.ClosingCharacterFrame = true
 				GearFinder.MainFrame:Hide()
 				if CharacterFrame and CharacterFrame:IsShown() and HideUIPanel then
@@ -111,6 +139,7 @@ end
 
 function GearFinder:UpdateSystemTab()
 	local enabled = ZGV.db and ZGV.db.profile and ZGV.db.profile.autogear
+	if GearFinder.RefreshInspectButton then GearFinder.RefreshInspectButton() end
 	if enabled then
 		if GearFinder.PaperDollButtonFrame then GearFinder.PaperDollButtonFrame:Show() end
 	else
@@ -119,12 +148,129 @@ function GearFinder:UpdateSystemTab()
 	end
 end
 
+local function inspectedUnit()
+	local unit = InspectFrame and InspectFrame.unit
+	if not unit or not UnitExists(unit) or UnitIsUnit(unit, "player") or not UnitIsPlayer(unit)
+		or not CanInspect(unit) then return nil end
+	if UnitInParty and UnitInRaid and not (UnitInParty(unit) or UnitInRaid(unit)) then return nil end
+	local name = UnitName(unit)
+	if MultiBot and type(MultiBot.isActive) == "function" and not MultiBot.isActive(name) then return nil end
+	return unit
+end
+
+function GearFinder:QueueInspectRefresh(force)
+	local context, unit, guid = self.Context, self.InspectUnit, self.InspectGuid
+	if not context or not unit or not self.MainFrame:IsVisible() then return end
+	self.InspectRefreshForced = self.InspectRefreshForced or force
+	if self.InspectRefreshTimer then return end
+	local timer
+	timer = ZGV:ScheduleTimer(function()
+		if self.InspectRefreshTimer ~= timer then return end
+		local forced = self.InspectRefreshForced
+		self.InspectRefreshTimer, self.InspectRefreshForced = nil, nil
+		if self.Context ~= context or self.InspectGuid ~= guid or not self.MainFrame:IsVisible() then return end
+		if unit ~= inspectedUnit() or UnitGUID(unit) ~= guid then self.MainFrame:Hide() return end
+		if not self:TargetEquipmentReady(unit) then return end
+		if not forced and self:IsTargetSnapshotCurrent(unit) then return end
+		if not self:BindTarget(unit, true) then self.MainFrame:Hide() return end
+		self:ScoreDungeonItems()
+	end, 0.1)
+	self.InspectRefreshTimer = timer
+end
+
+function GearFinder:AttachCombatProfileHook()
+	local comm = MultiBot and MultiBot.Comm
+	if self.CombatProfileHooked or not (comm and comm.FinishCombatProfileRequest and hooksecurefunc) then return end
+	hooksecurefunc(comm, "FinishCombatProfileRequest", function(_, result)
+		local context = GearFinder.Context
+		if context and type(result) == "table" and result.status == "ok" and type(result.botName) == "string"
+			and string.lower(result.botName) == string.lower(context.name)
+			and type(result.effective) == "string" and result.effective ~= ""
+			and result.effective ~= context.ip.profile then GearFinder:QueueInspectRefresh(true) end
+	end)
+	self.CombatProfileHooked = true
+end
+
+function GearFinder:AttachInspectDataHook()
+	if self.InspectDataHooked or not (DragonUI and DragonUI.RegisterInspectDataCallback and DragonUI.IsInspectDataFor) then return end
+	DragonUI:RegisterInspectDataCallback(function(ownerGUID)
+		local context = GearFinder.Context
+		if not context or not GearFinder.MainFrame:IsVisible() then return end
+		if ownerGUID == GearFinder.InspectGuid then
+			GearFinder:QueueInspectRefresh(true)
+		elseif not ownerGUID then
+			context.equipmentReady, context.ruleReady = false, nil
+			GearFinder:ClearResults()
+			GearFinder:ShowItemInfoLoadingMessage()
+		end
+	end)
+	self.InspectDataHooked = true
+end
+
+function GearFinder:AttachInspectFrame()
+	if not InspectFrame or self.InspectButton then return end
+	local button = CHAIN(ZGV.CreateFrameWithBG("Button", nil, InspectFrame))
+		:SetSize(20, 20)
+		:SetPoint("TOPRIGHT", InspectFrame, "TOPRIGHT", -44, -38)
+		:SetBackdrop({bgFile=ZGV.DIR.."\\Skins\\zglogo-back"})
+		:SetNormalTexture(ZGV.DIR.."\\Skins\\zglogo")
+		:SetScript("OnClick", function() GearFinder:ShowInspectFinder(inspectedUnit()) end)
+		:SetScript("OnEnter", function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_TOP")
+			GameTooltip:SetText("Zygor " .. (L["gearfinder_title"] or "Gear Finder"))
+			GameTooltip:Show()
+		end)
+		:SetScript("OnLeave", function() GameTooltip:Hide() end)
+		.__END
+	button:GetNormalTexture():SetTexCoord(0,0,0,1/4,1,0,1,1/4)
+	self.InspectButton = button
+	local function refresh()
+		local unit = inspectedUnit()
+		local enabled = ZGV.db and ZGV.db.profile and ZGV.db.profile.autogear
+		if enabled and unit then button:Show() else button:Hide() end
+		if GearFinder.InspectUnit and (not unit or UnitGUID(unit) ~= GearFinder.InspectGuid) then
+			GearFinder.MainFrame:Hide()
+		end
+	end
+	self.RefreshInspectButton = refresh
+	InspectFrame:HookScript("OnShow", refresh)
+	InspectFrame:HookScript("OnHide", function()
+		if GearFinder.InspectUnit then GearFinder.MainFrame:Hide() end
+	end)
+	if InspectFrame_UnitChanged and hooksecurefunc then hooksecurefunc("InspectFrame_UnitChanged", refresh) end
+	refresh()
+end
+
+function GearFinder:ShowInspectFinder(unit)
+	if not unit or unit ~= inspectedUnit() then return end
+	if not (ZGV.db and ZGV.db.profile and ZGV.db.profile.autogear) then return end
+	if self.InspectGuid == UnitGUID(unit) and self.MainFrame:IsVisible() then self.MainFrame:Hide() return end
+	self.MainFrame:Hide()
+	if not self:BindTarget(unit) then return end
+	self.InspectUnit, self.InspectGuid = unit, UnitGUID(unit)
+	self.MainFrame:SetParent(InspectFrame)
+	self.MainFrame:ClearAllPoints()
+	self.MainFrame:SetPoint("TOPLEFT", InspectFrame, "TOPLEFT")
+	self.MainFrame:SetFrameLevel(InspectFrame:GetFrameLevel() + 10)
+	self.MainFrame.Title:SetText("Zygor " .. (L["gearfinder_title"] or "Gear Finder") .. " - " .. UnitName(unit))
+	self.MainFrame:Show()
+	self:ScoreDungeonItems()
+end
+
 function GearFinder:ShowFinder()
 	if not (ZGV.db and ZGV.db.profile and ZGV.db.profile.autogear) then
 		GearFinder:UpdateSystemTab()
 		return
 	end
-	if ZygorGearFinder and ZygorGearFinder:IsVisible() then GearFinder.MainFrame:Hide() return end
+	local wasInspect = GearFinder.InspectUnit ~= nil
+	if wasInspect then GearFinder.MainFrame:Hide() end
+	GearFinder:ReleaseTarget()
+	if not wasInspect and ZygorGearFinder and ZygorGearFinder:IsVisible() then GearFinder.MainFrame:Hide() return end
+	GearFinder.MainFrame:SetParent(CharacterFrame)
+	GearFinder.MainFrame:ClearAllPoints()
+	GearFinder.MainFrame:SetPoint("TOPLEFT", CharacterFrame, "TOPLEFT")
+	GearFinder.MainFrame:SetFrameLevel(CharacterFrame:GetFrameLevel() + 10)
+	GearFinder.MainFrame.Title:SetText("|cffffff88Z|cffffee66y|cffffdd44g|cffffcc22o|cffffbb00r|r Guides Gear Finder")
 
 	if CharacterFrame and not CharacterFrame:IsShown() and ToggleCharacter then
 		ToggleCharacter("PaperDollFrame")
@@ -134,7 +280,7 @@ function GearFinder:ShowFinder()
 	if not GearFinder.HookedChar then
 		if hooksecurefunc and _G.CharacterFrameTab_OnClick then
 			hooksecurefunc("CharacterFrameTab_OnClick", function()
-				if GearFinder.MainFrame and GearFinder.MainFrame:IsVisible() then
+				if not GearFinder.InspectUnit and GearFinder.MainFrame and GearFinder.MainFrame:IsVisible() then
 					GearFinder.ClosingCharacterFrame = nil
 					SetCharacterHeaderShown(true)
 					GearFinder.MainFrame:Hide()

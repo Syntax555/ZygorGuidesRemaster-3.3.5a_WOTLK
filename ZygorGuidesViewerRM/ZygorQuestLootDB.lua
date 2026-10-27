@@ -2561,7 +2561,7 @@ tinsert(ZGV.startups, {"QuestLootDB startup", function()
 
 		ZGV.ItemScore.Items = ZGV.ItemScore.Items or {}
 		local Items = ZGV.ItemScore.Items
-		local playerLevel = UnitLevel('player') or 1
+		local playerLevel = self.Context and self.Context.playerlevel or UnitLevel('player') or 1
 		if Items == cachedItems and playerLevel == cachedLevel then
 			return origScore(self, ...)
 		end

@@ -15,7 +15,9 @@ local showFinder = source:sub(first)
 local env = setmetatable({}, {__index=_G})
 local ensureCalls, equippedCalls, scanCalls, showCalls = 0, 0, 0, 0
 local finder = {
-  MainFrame={Hide=function() end},
+  MainFrame={Hide=function() end, SetParent=function() end, ClearAllPoints=function() end,
+    SetPoint=function() end, SetFrameLevel=function() end, Title={SetText=function() end}},
+  ReleaseTarget=function() end,
   ScoreDungeonItems=function() scanCalls=scanCalls+1 end,
   UpdateSystemTab=function() end,
 }
@@ -35,7 +37,7 @@ env.ZGV=env.ZygorGuidesViewer
 env.GearFinder=finder
 env.ItemScore=itemScore
 env.ZygorGearFinder={IsVisible=function() return false end,Show=function() showCalls=showCalls+1 end}
-env.CharacterFrame={IsShown=function() return true end,numTabs=0}
+env.CharacterFrame={IsShown=function() return true end,GetFrameLevel=function() return 1 end,numTabs=0}
 env.SetCharacterHeaderShown=function() end
 compile(showFinder,"ShowFinder",env)()
 

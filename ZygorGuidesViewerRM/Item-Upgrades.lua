@@ -623,7 +623,7 @@ function Upgrades:GetItemUniqueness(id)
 	return fam,max
 end
 
-function Upgrades:CanUseUniqueItem(itemlink,slot)
+function Upgrades:CanUseUniqueItem(itemlink,slot,context)
 	if not itemlink then return false end
 	local item = get_ready_item_details(itemlink)
 
@@ -632,16 +632,31 @@ function Upgrades:CanUseUniqueItem(itemlink,slot)
 
 	if not uniqueness_fam then return true, "no family" end
 
+	local equipped, uniqueEquipped = Upgrades.EquippedItems, Upgrades.UniqueEquipped
+	if context and context.subject then
+		if not context.equippedItems then
+			context.equippedItems, context.uniqueEquipped = {}, {}
+			for position, link in pairs(context.equipped) do
+				local id = ZGV.ItemLink.GetItemID(link)
+				context.equippedItems[position] = {itemlink = link, itemid = id}
+				local family = id and self:GetItemUniqueness(id)
+				if family then context.uniqueEquipped[family] = (context.uniqueEquipped[family] or 0) + 1 end
+			end
+		end
+		equipped, uniqueEquipped = context.equippedItems, context.uniqueEquipped
+	end
+
 	local slot_1, slot_2 = item.slot, item.slot_2
+	if context and context.subject then slot_1, slot_2 = ItemScore:GetValidSlots(item, context) end
 	local current_itemid, equipped_item_1, equipped_item_2
 
 	if slot_1 then 
-		equipped_item_1 = Upgrades.EquippedItems[slot_1].itemid 
+		equipped_item_1 = (equipped[slot_1] or {}).itemid
 		if slot_1 == slot then current_itemid = equipped_item_1 end
 	end
 
 	if slot_2 then 
-		equipped_item_2 = Upgrades.EquippedItems[slot_2].itemid 
+		equipped_item_2 = (equipped[slot_2] or {}).itemid
 		if slot_2 == slot then current_itemid = equipped_item_2 end
 	end
 
@@ -655,7 +670,7 @@ function Upgrades:CanUseUniqueItem(itemlink,slot)
 		end
 	else 
 		-- more than one allowed, count all and see
-		local currently = Upgrades.UniqueEquipped[uniqueness_fam] or 0
+		local currently = uniqueEquipped[uniqueness_fam] or 0
 
 		if currently >= maxEquip then
 			-- we are at the threshold, suggest only if replacing other from same family

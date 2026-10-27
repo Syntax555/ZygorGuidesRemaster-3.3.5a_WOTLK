@@ -760,14 +760,15 @@ local function canonicalize_weapon_handedness(family, equipLoc)
 	return family
 end
 
-local function get_item_family(item)
+local function get_item_family(item, context)
 	if not item then return nil end
 	local equipLoc = item.equiploc or item.type
 	local equipFamily = resolve_family_from_equip_loc(equipLoc)
 	if equipFamily and equipFamily ~= "MISCARM" and equipFamily ~= "OFFHAND" then return equipFamily end
 	if item.family then return canonicalize_weapon_handedness(item.family, equipLoc) end
-	if (item.equiploc == "INVTYPE_RANGED" or item.equiploc == "INVTYPE_RANGEDRIGHT") and ItemScore and ItemScore.playerclass then
-		if ItemScore.playerclass == "PRIEST" or ItemScore.playerclass == "MAGE" or ItemScore.playerclass == "WARLOCK" then
+	local classToken = context and context.playerclass or (ItemScore and ItemScore.playerclass)
+	if (item.equiploc == "INVTYPE_RANGED" or item.equiploc == "INVTYPE_RANGEDRIGHT") and classToken then
+		if classToken == "PRIEST" or classToken == "MAGE" or classToken == "WARLOCK" then
 			return "WAND"
 		end
 	end
@@ -881,21 +882,21 @@ local function class_can_use_standard_family(classToken, family, level)
 	return wantedRank <= maxRank
 end
 
-local function get_item_slot_info(item)
+local function get_item_slot_info(item, context)
 	if not item or not item.type or item.type == "" then
 		return nil, nil, false, false, "not equipment"
 	end
 	if not EQUIPPABLE_INV_TYPES[item.type] then
 		return nil, nil, false, false, "unsupported slot"
 	end
-	local slot_1, slot_2, twohander = ItemScore:GetValidSlots(item)
+	local slot_1, slot_2, twohander = ItemScore:GetValidSlots(item, context)
 	if not slot_1 then
 		return nil, nil, false, false, "unsupported slot"
 	end
 	return slot_1, slot_2, twohander or false, true, "ok"
 end
 
-local function item_is_gear(item)
+local function item_is_gear(item, context)
 	if not item or not item.type or NON_GEAR_INV_TYPES[item.type] then
 		return false
 	end
@@ -905,7 +906,7 @@ local function item_is_gear(item)
 			return false
 		end
 	end
-	local _, _, _, equippable = get_item_slot_info(item)
+	local _, _, _, equippable = get_item_slot_info(item, context)
 	return equippable and true or false
 end
 
@@ -1814,9 +1815,11 @@ local function copy_simple_table(source)
 	return out
 end
 
-function ItemScore:BuildRuleContext(classToken, buildNum, level)
+function ItemScore:BuildRuleContext(classToken, buildNum, level, subject)
 	local resolvedBuild, usesFallback = self:GetResolvedBuild(classToken, level, buildNum)
-	local rules = self.rules and self.rules[classToken] and self.rules[classToken][resolvedBuild]
+	local classRules = self.rules and self.rules[classToken]
+	if subject and classRules and classRules[buildNum] then resolvedBuild, usesFallback = buildNum, false end
+	local rules = classRules and classRules[resolvedBuild]
 	if not rules then return nil end
 
 	local context = {
@@ -1836,6 +1839,33 @@ function ItemScore:BuildRuleContext(classToken, buildNum, level)
 		},
 	}
 
+	if subject then
+		context.subject = true
+		context.unit = subject.unit
+		context.playerDualWield = subject.playerDualWield == true
+		context.ip = subject.ip
+		context.playerclass = classToken
+		context.playerclassName = subject.className or (subject.unit and UnitClass(subject.unit))
+		context.playerraceName = subject.raceName or (subject.unit and UnitRace(subject.unit))
+		context.playerraceToken = subject.raceToken or (subject.unit and select(2, UnitRace(subject.unit)))
+		-- Inspect unit tokens can be reused while the source scan yields.
+		context.equipped = copy_simple_table(subject.equipped)
+		if not subject.equipped and subject.unit then
+			for slot = 1, 19 do context.equipped[slot] = GetInventoryItemLink(subject.unit, slot) end
+		end
+		-- A pending inspect item is not an empty equipment slot.
+		local complete = true
+		for _, link in pairs(context.equipped) do
+			local item, pending = self:GetResolvedItemDetailsReady(link)
+			if not item then
+				if not pending then self:GetItemDetailsQueued(link) end
+				complete = false
+			end
+		end
+		if not complete then return nil end
+		if subject.equippedStats then context.equippedStats = copy_simple_table(subject.equippedStats) end
+	end
+
 	local saved_vars_prefix = "gear_"..classToken.."_"..tostring(resolvedBuild).."_"
 	for _, stat in pairs(self.Keywords or {}) do
 		if ZGV.db.profile[saved_vars_prefix..(stat.blizz)] then
@@ -1853,6 +1883,32 @@ function ItemScore:BuildRuleContext(classToken, buildNum, level)
 	end
 	context.whiteScoreWeight = (lowestPositive or 1) * 0.1
 	return context
+end
+
+function ItemScore:GetContextItemLink(context, slot)
+	if context and context.equipped then return context.equipped[slot] end
+	return GetInventoryItemLink("player", slot)
+end
+
+function ItemScore:GetContextEquippedStatValue(context, statname)
+	if not (context and context.subject) then return self:GetEquippedStatValue(statname) end
+	if not context.equippedStats then
+		local totals, complete = {}, true
+		for _, link in pairs(context.equipped) do
+			local item = self:GetResolvedItemDetails(link)
+			if not item then
+				complete = false
+			else
+				for name, value in pairs(item.stats or {}) do
+					name = self:NormaliseStatName(name)
+					totals[name] = (totals[name] or 0) + value
+				end
+			end
+		end
+		if complete then context.equippedStats = totals end
+		return totals[statname] or 0
+	end
+	return context.equippedStats[statname] or 0
 end
 
 local WOTLK_SOCKET_GEM_CANDIDATES = {
@@ -1924,10 +1980,10 @@ local function socket_scoring_enabled()
 	return not (ZGV.db and ZGV.db.profile and ZGV.db.profile.itemscore_score_sockets == false)
 end
 
-local function get_effective_stat_weight(statname, statweights, caps, playerlevel)
+local function get_effective_stat_weight(statname, statweights, caps, playerlevel, context)
 	local statweight = statweights[statname] or 0
 	if caps and caps[statname] then
-		local current_rating = ItemScore:GetEquippedStatValue(statname)
+		local current_rating = context and context.subject and ItemScore:GetContextEquippedStatValue(context, statname) or ItemScore:GetEquippedStatValue(statname)
 		if (current_rating > caps[statname]) or playerlevel < GetMaxPlayerLevel() then
 			statweight = statweight / 2
 		end
@@ -1935,20 +1991,20 @@ local function get_effective_stat_weight(statname, statweights, caps, playerleve
 	return statweight
 end
 
-local function score_socket_candidate(candidate, statweights, caps, playerlevel)
+local function score_socket_candidate(candidate, statweights, caps, playerlevel, context)
 	local score = 0
 	for statname, amount in pairs(candidate) do
-		score = score + amount * get_effective_stat_weight(statname, statweights, caps, playerlevel)
+		score = score + amount * get_effective_stat_weight(statname, statweights, caps, playerlevel, context)
 	end
 	return score
 end
 
-local function score_socket_color(color, statweights, caps, playerlevel)
+local function score_socket_color(color, statweights, caps, playerlevel, context)
 	local candidates = WOTLK_SOCKET_GEM_CANDIDATES[color]
 	local bestScore = 0
 	if not candidates then return bestScore end
 	for _, candidate in ipairs(candidates) do
-		local score = score_socket_candidate(candidate, statweights, caps, playerlevel)
+		local score = score_socket_candidate(candidate, statweights, caps, playerlevel, context)
 		if score > bestScore then
 			bestScore = score
 		end
@@ -1956,7 +2012,7 @@ local function score_socket_color(color, statweights, caps, playerlevel)
 	return bestScore
 end
 
-local function get_item_socket_score(item, statweights, caps, playerlevel)
+local function get_item_socket_score(item, statweights, caps, playerlevel, context)
 	if not socket_scoring_enabled() or not item or not item.stats then return 0 end
 	local score = 0
 	local details = {}
@@ -1964,7 +2020,7 @@ local function get_item_socket_score(item, statweights, caps, playerlevel)
 		local color = SOCKET_STAT_TO_COLOR[ItemScore:NormaliseStatName(statname)]
 		if color then
 			local count = tonumber(statvalue) or 0
-			local socketScore = score_socket_color(color, statweights, caps, playerlevel)
+			local socketScore = score_socket_color(color, statweights, caps, playerlevel, context)
 			if count > 0 and socketScore > 0 then
 				score = score + socketScore * count
 				details[#details + 1] = ("%s %.1f"):format(SOCKET_COLOR_LABELS[color] or color:lower(), socketScore * count)
@@ -1989,7 +2045,7 @@ end
 
 function ItemScore:GetItemScoreForContext(itemlink, context)
 	local item = ItemScore:GetResolvedItemDetails(itemlink)
-	if not item then return -1, false, "no info yet" end
+	if not item or (context and context.subject and self:IsItemPendingResolution(item)) then return -1, false, "no info yet" end
 	if not context or not context.ActiveRuleSet then return -1, false, "no context" end
 
 	local stats = item.stats
@@ -2000,11 +2056,11 @@ function ItemScore:GetItemScoreForContext(itemlink, context)
 	for statname, statvalue in pairs(stats) do
 		statname = ItemScore:NormaliseStatName(statname)
 		if not SOCKET_STAT_KEYS[statname] then
-			local statweight = get_effective_stat_weight(statname, statweights, caps, context.playerlevel)
+			local statweight = get_effective_stat_weight(statname, statweights, caps, context.playerlevel, context)
 			score = score + statvalue * statweight
 		end
 	end
-	score = score + get_item_socket_score(item, statweights, caps, context.playerlevel)
+	score = score + get_item_socket_score(item, statweights, caps, context.playerlevel, context)
 
 	if not statweights.ARMOR and not item_has_non_armor_stats(item) then
 		score = score + (item.stats.ARMOR or 0) * context.whiteScoreWeight
@@ -2015,7 +2071,7 @@ function ItemScore:GetItemScoreForContext(itemlink, context)
 
 	if item.class == LE_ITEM_CLASS_ARMOR and item.type ~= "INVTYPE_CLOAK" then
 		local types = context.ActiveRuleSet.itemtypes
-		local subclass = get_item_family(item)
+		local subclass = get_item_family(item, context)
 		local limit = types[subclass] or 0
 		if limit < 0 then
 			if context.playerlevel >= (-limit + 10) then
@@ -2036,9 +2092,11 @@ end
 function ItemScore:GetItemValidityForContext(itemlink, future, context)
 	if not context then return {valid = false, final = false, reason = "No context", code = "missing_context"} end
 	local item = ItemScore:GetResolvedItemDetails(itemlink)
-	if not item then return {valid = false, final = false, reason = "No info", code = "missing_info"} end
+	if not item or (context.subject and self:IsItemPendingResolution(item)) then
+		return {valid = false, final = false, reason = "No info", code = "missing_info"}
+	end
 
-	local slot_1, slot_2, twohander, equippable, slotReason = get_item_slot_info(item)
+	local slot_1, slot_2, twohander, equippable, slotReason = get_item_slot_info(item, context)
 	if not equippable then
 		return {valid = false, final = true, reason = slotReason or "not equipment", code = "slot", item = item}
 	end
@@ -2047,7 +2105,7 @@ function ItemScore:GetItemValidityForContext(itemlink, future, context)
 		return {valid = false, final = true, reason = "test item", code = "test_item", item = item}
 	end
 
-	if item.unusable_by_tooltip then
+	if item.unusable_by_tooltip and not context.subject then
 		return {valid = false, final = true, reason = "unsupported item type", code = "tooltip_subtype", item = item, slot = slot_1, slot_2 = slot_2, twohander = twohander}
 	end
 
@@ -2089,7 +2147,7 @@ function ItemScore:GetItemValidityForContext(itemlink, future, context)
 		}
 	end
 
-	local fallbackFamily = get_item_family(item)
+	local fallbackFamily = get_item_family(item, context)
 	local standardFamilyAllowed = class_can_use_standard_family(context.classToken or context.playerclass, fallbackFamily, context.playerlevel)
 	if standardFamilyAllowed == false then
 		return {
@@ -2138,19 +2196,34 @@ local function context_get_normalized_stat_value(item, statname)
 end
 
 function ItemScore:GetUpgradeComparisonForContext(slot, newitem, context, secondnewitem)
+	if context and context.subject then
+		local links = {newitem and newitem.itemlink, secondnewitem and secondnewitem.itemlink,
+			self:GetContextItemLink(context, slot)}
+		if (newitem and newitem.twohander) or secondnewitem then
+			links[4], links[5] = self:GetContextItemLink(context, INVSLOT_MAINHAND), self:GetContextItemLink(context, INVSLOT_OFFHAND)
+		end
+		for _, link in pairs(links) do
+			if not self:GetResolvedItemDetailsReady(link) then return nil end
+		end
+	end
 	local candidateScore = newitem and (select(1, self:GetItemScoreForContext(newitem.itemlink, context)) or 0) or 0
 	local baselineScore = 0
-	local currentLink = GetInventoryItemLink("player", slot)
+	local currentLink = self:GetContextItemLink(context, slot)
 	local current = currentLink and ItemScore:GetResolvedItemDetails(currentLink)
 	local hasBaselineItem = currentLink and true or false
 	if currentLink then
 		baselineScore = select(1, self:GetItemScoreForContext(currentLink, context)) or 0
 	end
 
-	if secondnewitem and (slot == INVSLOT_MAINHAND or slot == INVSLOT_OFFHAND) then
+	if context and context.subject and newitem and newitem.twohander and slot == INVSLOT_MAINHAND and not secondnewitem then
+		local mh = self:GetContextItemLink(context, INVSLOT_MAINHAND)
+		local oh = self:GetContextItemLink(context, INVSLOT_OFFHAND)
+		hasBaselineItem = (mh and true) or (oh and true) or false
+		baselineScore = (mh and (select(1, self:GetItemScoreForContext(mh, context)) or 0) or 0) + (oh and (select(1, self:GetItemScoreForContext(oh, context)) or 0) or 0)
+	elseif secondnewitem and (slot == INVSLOT_MAINHAND or slot == INVSLOT_OFFHAND) then
 		candidateScore = candidateScore + (select(1, self:GetItemScoreForContext(secondnewitem.itemlink, context)) or 0)
-		local mh = GetInventoryItemLink("player", INVSLOT_MAINHAND)
-		local oh = GetInventoryItemLink("player", INVSLOT_OFFHAND)
+		local mh = self:GetContextItemLink(context, INVSLOT_MAINHAND)
+		local oh = self:GetContextItemLink(context, INVSLOT_OFFHAND)
 		hasBaselineItem = (mh and true) or (oh and true) or false
 		baselineScore = (mh and (select(1, self:GetItemScoreForContext(mh, context)) or 0) or 0) + (oh and (select(1, self:GetItemScoreForContext(oh, context)) or 0) or 0)
 	end
@@ -3678,8 +3751,33 @@ local function ItemScore_SetTooltipData(tooltip, tooltipobj)
 
 		local fulllink = originalLink
 		local itemlink = item.itemlink
-		if not item_is_gear(item) then
+		local owner = tooltipobj.GetOwner and tooltipobj:GetOwner()
+		local context = owner and owner.zygorGearContext
+		if not item_is_gear(item, context) then
 			ItemScore.TooltipPatched = true
+			return
+		end
+
+		if context then
+			ItemScore.TooltipPatched = true
+			if context.ip and context.ip.closed then return end
+			local verdict = ItemScore:GetItemValidityForContext(itemlink, nil, context)
+			local score, success = ItemScore:GetItemScoreForContext(itemlink, context)
+			if not verdict.final or not success then return end
+			tooltip:AddLine(" ")
+			tooltip:AddLine(branded_tooltip_header("ItemScore"))
+			tooltip:AddLine(("|cffcccccc%s:|r %s"):format(context.name or context.playerclassName,
+				ItemScore:GetBuildName(context.playerclass, context.buildNum, context.playerlevel, context.usesFallback)))
+			if verdict.valid then
+				local comparison = verdict.slot and ItemScore:GetUpgradeComparisonForContext(verdict.slot, item, context)
+				if verdict.slot_2 then
+					local second = ItemScore:GetUpgradeComparisonForContext(verdict.slot_2, item, context)
+					if second and (not comparison or (second.deltaScore or 0) > (comparison.deltaScore or 0)) then comparison = second end
+				end
+				tooltip:AddLine("|r " .. format_tooltip_value(comparison, score, ItemScore:GetContextScoreWeightTotal(context)))
+			else
+				tooltip:AddLine("|cffff3333Unusable|r")
+			end
 			return
 		end
 

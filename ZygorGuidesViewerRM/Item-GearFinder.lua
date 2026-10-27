@@ -21,8 +21,13 @@ local function GF_GetSlotLabel(slotKey, fallback)
 end
 
 local tinsert,tremove,print,ipairs,pairs,wipe,debugprofilestop=tinsert,tremove,print,ipairs,pairs,wipe,debugprofilestop
+local GearFinder
 local completedQuestsCache = {}
 local function IsQuestFlaggedCompleted(questID)
+	if GearFinder and GearFinder.Context then
+		local answer = GearFinder.Context.ip:Quest(questID)
+		return answer and answer.status == "R" or false
+	end
 	if _G.IsQuestFlaggedCompleted then
 		return _G.IsQuestFlaggedCompleted(questID)
 	end
@@ -35,13 +40,136 @@ local function IsQuestFlaggedCompleted(questID)
 end
 
 local ItemScore = ZGV.ItemScore
-local GearFinder = {}
+GearFinder = {}
 ItemScore.GearFinder = GearFinder
 ItemScore.Items = {}
 GearFinder.ITEM_RESOLVE_RETRY_LIMIT = 60
 GearFinder.STARTUP_ITEM_INFO_GRACE = 6
 GearFinder.SCAN_TIME_BUDGET_MS = 4
 GearFinder.SCAN_ITEMS_PER_SLICE = 40
+
+local function GF_Subject()
+	return GearFinder.Context or ItemScore
+end
+
+local function GF_Progression()
+	return GearFinder.Context and GearFinder.Context.ip or ZGV.IP
+end
+
+local function GF_QuestSource(id)
+	if not id then return true end
+	if not GearFinder.Context then return not IsQuestFlaggedCompleted(id) end
+	local answer = GearFinder.Context.ip:Quest(id)
+	return answer and (answer.status == "A" or answer.status == "I" or answer.status == "C") or false
+end
+
+local function GF_Build()
+	return GearFinder.Context and GearFinder.Context.buildNum or (ZGV.db and ZGV.db.char and ZGV.db.char.gear_active_build)
+end
+
+local function GF_Validity(link, future)
+	if GearFinder.Context then return ItemScore:GetItemValidityForContext(link, future, GearFinder.Context) end
+	return ItemScore:GetItemValidity(link, future)
+end
+
+local function GF_Score(link)
+	if GearFinder.Context then return ItemScore:GetItemScoreForContext(link, GearFinder.Context) end
+	return ItemScore:GetItemScore(link)
+end
+
+local function GF_Comparison(slot, item)
+	if GearFinder.Context then return ItemScore:GetUpgradeComparisonForContext(slot, item, GearFinder.Context) end
+	return ItemScore.Upgrades:GetUpgradeComparison(slot, item)
+end
+
+local function GF_Equipped(slot)
+	local context = GearFinder.Context
+	if not context then return ItemScore.Upgrades:GetEquippedItemData(slot) end
+	local link = context.equipped[slot]
+	return {itemlink=link, itemid=link and ZGV.ItemLink.GetItemID(link)}
+end
+
+local PROFILE_BUILDS = {
+	WARRIOR={arms=1, fury=2, prot=3}, PALADIN={holy=1, prot=2, ret=3},
+	HUNTER={bm=1, mm=2, surv=3}, ROGUE={assassin=1, combat=2, subtlety=3},
+	PRIEST={disc=1, holy=2, shadow=3}, DEATHKNIGHT={blood=1, frost=2, unholy=3},
+	SHAMAN={ele=1, enh=2, resto=3}, MAGE={arcane=1, fire=2, frost=3, frostfire=2},
+	WARLOCK={affli=1, demo=2, destro=3}, DRUID={balance=1, cat=2, bear=3, resto=4},
+}
+
+function GearFinder:ResolveTargetRules()
+	local context = self.Context
+	if not context or context.ruleReady then return end
+	if context.equipmentReady == false then return end
+	local ip = context.ip
+	if not (ip and ip.state and ip.profile and (not ip.state.ip or ip.access) and not ip.error) then return end
+	local build = PROFILE_BUILDS[context.playerclass] and PROFILE_BUILDS[context.playerclass][ip.profile]
+	local rules = build and ItemScore:BuildRuleContext(context.playerclass, build, context.playerlevel,
+		{unit=context.unit,equipped=context.equipped,className=context.playerclassName,
+		 raceName=context.playerraceName,raceToken=context.playerraceToken,ip=ip,playerDualWield=ip.dualWield})
+	if rules then
+		for key,value in pairs(rules) do context[key]=value end
+		context.ruleReady = true
+	end
+end
+
+function GearFinder:ReleaseTarget()
+	if self.InspectRefreshTimer then
+		ZGV:CancelTimer(self.InspectRefreshTimer, true)
+		self.InspectRefreshTimer, self.InspectRefreshForced = nil, nil
+	end
+	if not self.Context then return end
+	if self.Context.ip then self.Context.ip.closed = true end
+	if ZGV.IP and ZGV.IP.target == self.Context.ip then ZGV.IP.target = nil end
+	self.Context = nil
+	self:ClearResults()
+end
+
+function GearFinder:TargetEquipmentReady(unit)
+	return not (DragonUI and DragonUI.IsInspectDataFor) or DragonUI:IsInspectDataFor(unit)
+end
+
+function GearFinder:IsTargetSnapshotCurrent(unit)
+	local context = self.Context
+	if not context or context.equipmentReady == false or context.guid ~= UnitGUID(unit)
+		or context.playerlevel ~= UnitLevel(unit) then return false end
+	for slot=1,19 do
+		if context.equipped[slot] ~= GetInventoryItemLink(unit, slot) then return false end
+	end
+	return true
+end
+
+function GearFinder:BindTarget(unit, force)
+	local guid = unit and UnitGUID(unit)
+	if not guid or not UnitExists(unit) or not CanInspect(unit) or UnitIsUnit(unit, "player") then return false end
+	if not force and self.Context and self.Context.guid == guid then return true end
+	self:ReleaseTarget()
+	local className, class = UnitClass(unit)
+	local raceName, race = UnitRace(unit)
+	local context = {unit=unit, guid=guid, name=UnitName(unit), playerclass=class, playerclassName=className,
+		playerlevel=UnitLevel(unit), playerraceName=raceName, playerraceToken=race,
+		faction=UnitFactionGroup(unit), equipped={}, equipmentReady=self:TargetEquipmentReady(unit)}
+	if context.equipmentReady then
+		for slot=1,19 do context.equipped[slot] = GetInventoryItemLink(unit, slot) end
+	end
+	self.Context = context
+	local pending
+	local function changed()
+		if self.Context ~= context or UnitGUID(unit) ~= guid or pending then return end
+		pending = true
+		ZGV:ScheduleTimer(function()
+			pending = nil
+			if self.Context ~= context or UnitGUID(unit) ~= guid then return end
+			self:ResolveTargetRules()
+			self:ClearResults()
+			if self.MainFrame and self.MainFrame:IsVisible() then self:ScoreDungeonItems() end
+		end, 0.1)
+	end
+	context.ip = ZGV.IP and ZGV.IP:ForInspect(unit, changed)
+	if not context.ip then self.Context = nil; return false end
+	self:ClearResults()
+	return true
+end
 local cancel_gearfinder_timer
 local queue_fallback_candidate
 
@@ -245,36 +373,40 @@ local function GF_EvaluateUpgrade(itemlink, future)
 	itemlink = GF_StripLink(itemlink) or itemlink
 	if not itemlink then return false, nil, 0, 0, "no link" end
 
-	local is_upgrade, slot, change, score, comment, futurevalid, slot_2, change_2 = ItemScore.Upgrades:IsUpgrade(itemlink, future)
+	local is_upgrade, slot, change, score, comment, futurevalid, slot_2, change_2
+	if not GearFinder.Context then
+		is_upgrade, slot, change, score, comment, futurevalid, slot_2, change_2 = ItemScore.Upgrades:IsUpgrade(itemlink, future)
+	end
 	if is_upgrade then
 		return is_upgrade, slot, change, score, comment, futurevalid, slot_2, change_2
 	end
 
-	if ItemScore.Upgrades.BadUpgrades and ItemScore.Upgrades.BadUpgrades[itemlink] then
+	if not GearFinder.Context and ItemScore.Upgrades.BadUpgrades and ItemScore.Upgrades.BadUpgrades[itemlink] then
 		return false, slot, change or 0, score or 0, comment or "rejected", futurevalid, slot_2, change_2
 	end
 
 	local item = ItemScore:GetResolvedItemDetails(itemlink) or ItemScore:GetItemDetailsQueued(itemlink, true) or ItemScore:GetItemDetailsFromDB(itemlink)
+	if item and GearFinder.Context then local copy = {}; for key,value in pairs(item) do copy[key]=value end; item=copy end
 	if not item then
 		return false, slot, change or 0, score or 0, comment or "pending details", futurevalid, slot_2, change_2
 	end
 
-	local scored, success = ItemScore:GetItemScore(itemlink)
+	local scored, success = GF_Score(itemlink)
 	if success then
 		item.score = scored
 	elseif item.score == nil then
 		return false, slot, change or 0, score or 0, comment or "not scored", futurevalid, slot_2, change_2
 	end
 
-	local validity = ItemScore:GetItemValidity(itemlink, future)
+	local validity = GF_Validity(itemlink, future)
 	if not (validity and validity.valid) then
 		return false, validity and validity.slot or slot, 0, item.score or score or 0, validity and validity.reason or comment or "not valid", futurevalid, validity and validity.slot_2 or slot_2, change_2
 	end
 
 	local function positive_comparison(slotid)
 		if not slotid then return nil end
-		if ItemScore.Upgrades.CanUseUniqueItem and not ItemScore.Upgrades:CanUseUniqueItem(itemlink, slotid) then return nil end
-		local comparison = ItemScore.Upgrades:GetUpgradeComparison(slotid, item)
+		if ItemScore.Upgrades.CanUseUniqueItem and not ItemScore.Upgrades:CanUseUniqueItem(itemlink, slotid, GearFinder.Context) then return nil end
+		local comparison = GF_Comparison(slotid, item)
 		if comparison and (comparison.isNewItem or (tonumber(comparison.deltaScore) or 0) > 0) then
 			return comparison
 		end
@@ -301,7 +433,7 @@ end
 
 local function GF_ShouldIncludeCandidate(itemlink, future)
 	if not itemlink then return false end
-	local verdict = ItemScore:GetItemValidity(itemlink, future)
+	local verdict = GF_Validity(itemlink, future)
 	if not (verdict and verdict.valid) then return false end
 
 	-- Future dungeons are limited to a small look-ahead window, so their drops
@@ -311,7 +443,7 @@ local function GF_ShouldIncludeCandidate(itemlink, future)
 	if future then
 		local item = verdict.item
 		local requiredLevel = tonumber(item and item.minlevel) or 0
-		local playerLevel = tonumber(ItemScore.playerlevel) or 0
+		local playerLevel = tonumber(GF_Subject().playerlevel) or 0
 		if requiredLevel > playerLevel + GearFinder.FUTURE_DUNGEONS_LIMIT then
 			return false
 		end
@@ -320,8 +452,9 @@ local function GF_ShouldIncludeCandidate(itemlink, future)
 	return true
 end
 
-local function GF_IsCuratedSourceKey(dungeonKey)
+local function GF_IsCuratedSourceKey(dungeonKey, data)
 	return type(dungeonKey) == "string" and dungeonKey:find("\\", 1, true) ~= nil
+		or GearFinder.Context ~= nil and type(data) == "table" and data.dungeon == "quests"
 end
 
 local function GF_GetBossDropItems(bossdata, player)
@@ -343,7 +476,8 @@ end
 
 local function GF_IsPhaseActive(phase)
 	if not phase then return true end
-	local earned = ZGV.IP and ZGV.IP:PhaseActive(phase)
+	local ip = GF_Progression()
+	local earned = ip and ip:PhaseActive(phase)
 	if earned ~= nil then return earned end
 	if ZGV.IsClassicWOTLK and type(phase) == "string" and phase:match("^wotlk%d") then
 		return true
@@ -353,7 +487,7 @@ end
 
 local function GF_GetFactionVendor(source)
 	if type(source) ~= "table" or type(source.vendors) ~= "table" then return nil end
-	local faction = (UnitFactionGroup and UnitFactionGroup("player")) or GearFinder.playerfaction or "Alliance"
+	local faction = (GearFinder.Context and GearFinder.Context.faction) or (UnitFactionGroup and UnitFactionGroup("player")) or GearFinder.playerfaction or "Alliance"
 	return source.vendors[faction] or source.vendors.Neutral
 end
 
@@ -469,17 +603,17 @@ local function GF_IsValidVendorSource(source)
 	if source.expansionLevel and source.expansionLevel > (GearFinder.CurrentExpansion or 2) then
 		return false, "no expansion " .. source.expansionLevel
 	end
-	if (tonumber(ItemScore.playerlevel) or 0) >= 80 and source.expansionLevel and source.expansionLevel < 2 then
+	if (tonumber(GF_Subject().playerlevel) or 0) >= 80 and source.expansionLevel and source.expansionLevel < 2 then
 		return false, "old expansion currency filtered out"
 	end
-	if source.minLevel and source.minLevel > (ItemScore.playerlevel or 0) then
+	if source.minLevel and source.minLevel > (GF_Subject().playerlevel or 0) then
 		return false, "need level " .. source.minLevel
 	end
 	if not GF_IsPhaseActive(source.phase) then
 		return false, "phase inactive"
 	end
-	if ZGV.IP then
-		local check, reason = ZGV.IP:VendorCheck(source)
+	if GF_Progression() then
+		local check, reason = GF_Progression():VendorCheck(source)
 		if check ~= "ok" then return false, "Individual Progression: " .. tostring(reason) end
 	end
 	return true
@@ -499,11 +633,12 @@ local function GF_IsCraftedExpansionEnabled(expansionLevel)
 end
 
 local function GF_IsValidCraftedSource(source)
+	if GearFinder.Context then return false, "not an inspect source" end
 	if not source then return false, "missing crafted source" end
 	if ZGV.db and ZGV.db.profile and ZGV.db.profile.gear_crafted_items == false then
 		return false, "crafted filtered out"
 	end
-	local playerLevel = tonumber(ItemScore.playerlevel) or 0
+	local playerLevel = tonumber(GF_Subject().playerlevel) or 0
 	local tierProgression = ZGV.db and ZGV.db.profile and ZGV.db.profile.gear_tier_progression_mode == true
 	if playerLevel >= 80 then
 		if source.expansionLevel and source.expansionLevel < 2 then
@@ -528,7 +663,7 @@ local function GF_IsValidCraftedSource(source)
 	if source.expansionLevel and source.expansionLevel > (GearFinder.CurrentExpansion or 2) then
 		return false, "no expansion " .. source.expansionLevel
 	end
-	if source.minLevel and source.minLevel > (ItemScore.playerlevel or 0) then
+	if source.minLevel and source.minLevel > (GF_Subject().playerlevel or 0) then
 		return false, "need level " .. source.minLevel
 	end
 	if not GF_IsPhaseActive(source.phase) then
@@ -586,7 +721,7 @@ local function GF_IsValidCraftedItem(source, itemSource)
 		local mask = tonumber(itemSource.allowableClassMask) or -1
 		if mask > 0 then
 			local bits = { WARRIOR=1, PALADIN=2, HUNTER=4, ROGUE=8, PRIEST=16, DEATHKNIGHT=32, SHAMAN=64, MAGE=128, WARLOCK=256, DRUID=1024 }
-			local classBit = bits[ItemScore.playerclass or (UnitClass and select(2, UnitClass("player")))]
+			local classBit = bits[GF_Subject().playerclass or (UnitClass and select(2, UnitClass("player")))]
 			if classBit and math.floor(mask / classBit) % 2 == 0 then return false, "wrong class" end
 		end
 	elseif professionOnly or bind == "bop" then
@@ -604,11 +739,11 @@ local function GF_IsValidCraftedItem(source, itemSource)
 		return false, ("need %s"):format(tostring(specialization))
 	end
 	local minLevel = tonumber(itemSource.minLevel or source.minLevel) or 0
-	if minLevel > (tonumber(ItemScore.playerlevel) or 0) then
+	if minLevel > (tonumber(GF_Subject().playerlevel) or 0) then
 		return false, ("need level %d"):format(minLevel)
 	end
-	if ZGV.IP then
-		local check, reason = ZGV.IP:CraftCheck(source, itemSource)
+	if GF_Progression() then
+		local check, reason = GF_Progression():CraftCheck(source, itemSource)
 		if check ~= "ok" then return false, "Individual Progression: " .. tostring(reason) end
 	end
 	return true
@@ -929,6 +1064,9 @@ local function GF_GetFallbackFooterImageForLevel(level)
 end
 
 local function GF_GetDungeonData(ident)
+	if ident == "quests" and GearFinder.Context then
+		return {name=QUESTS_LABEL or "Quests", expansionLevel=0, minLevel=1, maxScaleLevel=80}
+	end
 	local dungeons = ZGV.Dungeons
 	if not dungeons then return nil end
 	return dungeons[ident] or (dungeons.hardcoded_dungeons and dungeons.hardcoded_dungeons[ident]) or nil
@@ -981,7 +1119,7 @@ local WOTLK_CATCHUP_DUNGEONS = {
 
 -- remove all non-player class drops, and all bosses that do not drop anything for player
 function GearFinder:TrimDatabase() 
-	local player = ZGV.ItemScore.playerclass
+	local player = GF_Subject().playerclass
 
 	for i,instance in pairs(ZygorGuidesViewer.ItemScore.Items) do
 		for bossindex,boss in pairs(instance) do
@@ -1013,6 +1151,9 @@ end
 --	mythic - bool - is this a mythic dungeon
 --	comment - string - verbose message
 function GearFinder:IsValidDungeon(dungeon, instanceId, dungeonName, heroic)
+	if GearFinder.Context and (dungeon == "quests" or instanceId == "quests") then
+		return true, false, "quests", GF_Subject().playerlevel, false, false, "quest rewards"
+	end
 	local ident = GF_ResolveDungeonIdent(dungeon, instanceId, dungeonName, heroic)
 	if ident==0 and instanceId then ident="e_"..instanceId end
 
@@ -1021,8 +1162,8 @@ function GearFinder:IsValidDungeon(dungeon, instanceId, dungeonName, heroic)
 	if not dungeon then return false, false, ident, 0, false, false, "no dungeon" end
 	-- Content this character has not earned yet is a future source; an
 	-- unverified source is neither current nor future.
-	if ZGV.IP then
-		local check, reason = ZGV.IP:DungeonCheck(ident, dungeon)
+	if GF_Progression() then
+		local check, reason = GF_Progression():DungeonCheck(ident, dungeon)
 		if check ~= "ok" then return false, check == "locked", ident, dungeon.maxScaleLevel or 80, false, false, "Individual Progression: " .. tostring(reason) end
 	end
 	if dungeon.phase and not GF_IsPhaseActive(dungeon.phase) then return false, false, ident, 0, false, false, "phase inactive" end
@@ -1031,32 +1172,35 @@ function GearFinder:IsValidDungeon(dungeon, instanceId, dungeonName, heroic)
 	local maxScaleLevel = dungeon.maxScaleLevel or 80
 
 	-- handle permanent rejects
-	if dungeon.max_level and dungeon.max_level<ItemScore.playerlevel then return false, false, ident, 0, false, false, "instance disabled" end
+	if dungeon.max_level and dungeon.max_level<GF_Subject().playerlevel then return false, false, ident, 0, false, false, "instance disabled" end
 	if dungeon.expansionLevel>GearFinder.CurrentExpansion then return false, false, ident, 0, false, false, "no expansion " ..dungeon.expansionLevel end
-	if (tonumber(ItemScore.playerlevel) or 0) >= 80 and dungeon.expansionLevel and dungeon.expansionLevel < 2 then return false, false, ident, 0, false, false, "old expansion filtered out" end
+	if (tonumber(GF_Subject().playerlevel) or 0) >= 80 and dungeon.expansionLevel and dungeon.expansionLevel < 2 then return false, false, ident, 0, false, false, "old expansion filtered out" end
 	if ZGV.db and ZGV.db.profile and ZGV.db.profile.gear_tier_progression_mode == true and WOTLK_CATCHUP_DUNGEONS[ident] then return false, false, ident, 0, false, false, "catch-up dungeon filtered out" end
 	if dungeon.difficulty and not ZGV.db.profile["gear_"..dungeon.difficulty] then return false, false, ident, 0, false, false, "instance filtered out"..dungeon.difficulty end
 
 	if dungeon.isHoliday then return false, false, ident, 0, false, false, "holiday dungeons not supported" end
-	if dungeon.minLevel and dungeon.minLevel > (ItemScore.playerlevel+GearFinder.FUTURE_DUNGEONS_LIMIT) then return false, false, ident, 0, false, false, "need way higher level "..dungeon.minLevel end
-	if dungeon.minLevel and dungeon.minLevel < (ItemScore.playerlevel-GearFinder.PAST_DUNGEONS_LIMIT) then return false, false, ident, 0, false, false, "outleveled "..dungeon.minLevel end
-	if maxScaleLevel < (ItemScore.playerlevel-GearFinder.PAST_DUNGEONS_LIMIT) then return false, false, ident, 0, false, false, "outleveled "..maxScaleLevel..":"..(ItemScore.playerlevel-GearFinder.PAST_DUNGEONS_LIMIT)  end
+	if dungeon.minLevel and dungeon.minLevel > (GF_Subject().playerlevel+GearFinder.FUTURE_DUNGEONS_LIMIT) then return false, false, ident, 0, false, false, "need way higher level "..dungeon.minLevel end
+	if dungeon.minLevel and dungeon.minLevel < (GF_Subject().playerlevel-GearFinder.PAST_DUNGEONS_LIMIT) then return false, false, ident, 0, false, false, "outleveled "..dungeon.minLevel end
+	if maxScaleLevel < (GF_Subject().playerlevel-GearFinder.PAST_DUNGEONS_LIMIT) then return false, false, ident, 0, false, false, "outleveled "..maxScaleLevel..":"..(GF_Subject().playerlevel-GearFinder.PAST_DUNGEONS_LIMIT)  end
 
 	-- 3.3.5a: no LFG dungeon joinable check, no mythic
 	local mythic = false
 	local mythicplus = false
 
 	-- handle future rejects
-	if dungeon.minLevel and dungeon.minLevel > ItemScore.playerlevel then return false, true, ident, dungeon.maxScaleLevel, mythic, mythicplus, "need higher level" end
+	if dungeon.minLevel and dungeon.minLevel > GF_Subject().playerlevel then return false, true, ident, dungeon.maxScaleLevel, mythic, mythicplus, "need higher level" end
 	-- 3.3.5a: no player ilvl system, skip min_ilevel check
 
 	-- attunements
+	if dungeon.attunement_achieve and GearFinder.Context then
+		return false, true, ident, maxScaleLevel, mythic, mythicplus, "attunement not verified"
+	end
 	if dungeon.attunement_achieve then
 		local _,_,_,complete = GetAchievementInfo(dungeon.attunement_achieve)
 		if not complete then return false, true, ident, maxScaleLevel, mythic, mythicplus, "attunement needed" end
 	end	
 	if dungeon.attunement_quest and not IsQuestFlaggedCompleted(dungeon.attunement_quest) then return false, true, ident, maxScaleLevel, mythic, mythicplus, "attunement needed" end
-	if dungeon.attunement_queston and not (IsQuestFlaggedCompleted(dungeon.attunement_queston) or ZGV.Parser.ConditionEnv.haveq(dungeon.attunement_queston)) then return false, true, ident, maxScaleLevel, mythic, mythicplus, "attunement needed" end
+	if dungeon.attunement_queston and not (IsQuestFlaggedCompleted(dungeon.attunement_queston) or (not GearFinder.Context and ZGV.Parser.ConditionEnv.haveq(dungeon.attunement_queston))) then return false, true, ident, maxScaleLevel, mythic, mythicplus, "attunement needed" end
 
 	return true, true, ident, maxScaleLevel, mythic, mythicplus, "ok"
 end
@@ -1135,7 +1279,7 @@ end
 
 local function set_slot_compare_reject(slot, item)
 	if not slot or not item or not ItemScore or not ItemScore.Upgrades or not ItemScore.Upgrades.GetUpgradeComparison then return end
-	local comparison = ItemScore.Upgrades:GetUpgradeComparison(slot, item)
+	local comparison = GF_Comparison(slot, item)
 	if not comparison then return end
 	local delta = tonumber(comparison.deltaScore) or 0
 	local candidate = tonumber(comparison.candidateScore) or 0
@@ -1176,6 +1320,12 @@ local function safe_get_item_details(itemlink)
 	if not ok then
 		return nil, result
 	end
+	if result and GearFinder.Context then
+		local copy = {}
+		for key,value in pairs(result) do copy[key]=value end
+		copy.score = GF_Score(itemlink)
+		result = copy
+	end
 	return result, nil
 end
 
@@ -1210,7 +1360,7 @@ local function is_candidate_equipped_in_slot(slot, itemid)
 	if not slot or not itemid then return false end
 	local upgrades = ItemScore and ItemScore.Upgrades
 	if not upgrades or not upgrades.GetEquippedItemData then return false end
-	local equipped = upgrades:GetEquippedItemData(slot)
+	local equipped = GF_Equipped(slot)
 	if not equipped then return false end
 	local equippedID = tonumber(equipped.itemid) or GF_GetItemID(equipped.itemlink)
 	return equippedID and equippedID == itemid or false
@@ -1237,14 +1387,14 @@ end
 
 local function is_known_negative_fallback(slot, item)
 	if not slot or not item or not ItemScore or not ItemScore.Upgrades or not ItemScore.Upgrades.GetUpgradeComparison then return false end
-	local comparison = ItemScore.Upgrades:GetUpgradeComparison(slot, item)
+	local comparison = GF_Comparison(slot, item)
 	local delta = comparison and tonumber(comparison.deltaScore)
 	return delta and delta < 0 or false
 end
 
 local function is_known_positive_fallback(slot, item)
 	if not slot or not item or not ItemScore or not ItemScore.Upgrades or not ItemScore.Upgrades.GetUpgradeComparison then return false end
-	local comparison = ItemScore.Upgrades:GetUpgradeComparison(slot, item)
+	local comparison = GF_Comparison(slot, item)
 	local delta = comparison and tonumber(comparison.deltaScore)
 	return (comparison and comparison.isNewItem) or (delta and delta > 0) or false
 end
@@ -1307,7 +1457,7 @@ end
 local function get_equipped_item_level(slot)
 	local upgrades = ItemScore and ItemScore.Upgrades
 	if not upgrades or not upgrades.GetEquippedItemData then return 0 end
-	local equipped = upgrades:GetEquippedItemData(slot)
+	local equipped = GF_Equipped(slot)
 	local details = equipped and equipped.itemlink and ItemScore:GetItemDetails(equipped.itemlink)
 	return details and details.itemlvl or 0
 end
@@ -1368,7 +1518,7 @@ local function get_progression_priority(item)
 	local difficulty = tonumber(dungeon.difficulty) or 99
 	local phase = PHASE_PRIORITY[(item and item.phase) or dungeon.phase] or 99
 	local minLevel = tonumber(dungeon.minLevel) or 0
-	local levelGap = math.max(0, minLevel - (tonumber(ItemScore.playerlevel) or 0))
+	local levelGap = math.max(0, minLevel - (tonumber(GF_Subject().playerlevel) or 0))
 	local ident = item.ident
 	local tier
 
@@ -1402,7 +1552,7 @@ local function get_access_priority(item)
 	local contentBucket = difficulty >= 3 and 4 or 1
 	local phase = PHASE_PRIORITY[(item and item.phase) or dungeon.phase] or 99
 	local minLevel = tonumber(dungeon.minLevel) or 0
-	local levelGap = math.max(0, minLevel - (tonumber(ItemScore.playerlevel) or 0))
+	local levelGap = math.max(0, minLevel - (tonumber(GF_Subject().playerlevel) or 0))
 	return contentBucket, difficulty, phase, levelGap, minLevel
 end
 
@@ -1450,8 +1600,8 @@ local function get_bis_progression_preference(slot, item)
 	if not slot or not item or not ItemScore or not ItemScore.BISData then return nil end
 	local itemID = get_candidate_item_id(item)
 	if not itemID then return nil end
-	local classToken = ItemScore.playerclass
-	local buildNum = ItemScore.GetResolvedBuild and ItemScore:GetResolvedBuild(classToken, ItemScore.playerlevel, ZGV.db and ZGV.db.char and ZGV.db.char.gear_active_build) or (ZGV.db and ZGV.db.char and ZGV.db.char.gear_active_build)
+	local classToken = GF_Subject().playerclass
+	local buildNum = ItemScore.GetResolvedBuild and ItemScore:GetResolvedBuild(classToken, GF_Subject().playerlevel, GF_Build()) or (GF_Build())
 	local category = get_progression_bis_category(item)
 	local slotList = classToken and buildNum and category and ItemScore.BISData[classToken] and ItemScore.BISData[classToken][buildNum] and ItemScore.BISData[classToken][buildNum][category] and ItemScore.BISData[classToken][buildNum][category][slot]
 	if not slotList then return nil end
@@ -1622,7 +1772,7 @@ end
 local function get_equipped_item_details(slot)
 	local upgrades = ItemScore and ItemScore.Upgrades
 	if not upgrades or not upgrades.GetEquippedItemData then return nil end
-	local equipped = upgrades:GetEquippedItemData(slot)
+	local equipped = GF_Equipped(slot)
 	return equipped and equipped.itemlink and ItemScore:GetItemDetails(equipped.itemlink) or nil
 end
 
@@ -1648,14 +1798,14 @@ local FINDER_ARMOR_FAMILY_ORDER = {
 
 local function finder_family_allowed(family)
 	if not family then return true end
-	local maxFamily = FINDER_CLASS_MAX_ARMOR_FAMILY[ItemScore.playerclass]
+	local maxFamily = FINDER_CLASS_MAX_ARMOR_FAMILY[GF_Subject().playerclass]
 	local maxRank = maxFamily and FINDER_ARMOR_FAMILY_ORDER[maxFamily]
 	local wantedRank = FINDER_ARMOR_FAMILY_ORDER[family]
 	if not maxRank or not wantedRank then return true end
-	if family == "MAIL" and (ItemScore.playerclass == "HUNTER" or ItemScore.playerclass == "SHAMAN") and (tonumber(ItemScore.playerlevel) or 0) < 40 then
+	if family == "MAIL" and (GF_Subject().playerclass == "HUNTER" or GF_Subject().playerclass == "SHAMAN") and (tonumber(GF_Subject().playerlevel) or 0) < 40 then
 		return false
 	end
-	if family == "PLATE" and ItemScore.playerclass ~= "DEATHKNIGHT" and (tonumber(ItemScore.playerlevel) or 0) < 40 then
+	if family == "PLATE" and GF_Subject().playerclass ~= "DEATHKNIGHT" and (tonumber(GF_Subject().playerlevel) or 0) < 40 then
 		return false
 	end
 	return wantedRank <= maxRank
@@ -1668,7 +1818,7 @@ local function queue_local_meta_candidate(itemlink, itemdata, ident, future)
 	if meta.family and not finder_family_allowed(meta.family) then return end
 
 	local pseudo = { type = meta.equipLoc }
-	local slot1, slot2 = ItemScore:GetValidSlots(pseudo)
+	local slot1, slot2 = ItemScore:GetValidSlots(pseudo, GearFinder.Context)
 	if not slot1 then return end
 
 	local function maybe_queue(slot)
@@ -1704,7 +1854,7 @@ local function queue_bare_fallback_candidate(itemlink, itemdata, ident, future)
 	if not itemName or not itemEquipLoc or itemEquipLoc == "" then return end
 
 	local pseudo = { type = itemEquipLoc }
-	local slot1, slot2 = ItemScore:GetValidSlots(pseudo)
+	local slot1, slot2 = ItemScore:GetValidSlots(pseudo, GearFinder.Context)
 	if not slot1 then return end
 
 	local function maybe_queue(slot)
@@ -1739,7 +1889,7 @@ queue_fallback_candidate = function(slot, item, itemdata, ident, future)
 		set_slot_reject(slot, "reject: no fallback queue")
 		return false
 	end
-	if itemdata and itemdata.quest and IsQuestFlaggedCompleted(itemdata.quest) then
+	if itemdata and not GF_QuestSource(itemdata.quest) then
 		set_slot_reject(slot, ("reject: quest completed %s"):format(tostring(itemdata.quest)))
 		return false
 	end
@@ -1839,7 +1989,7 @@ local function loot_score_dungeon_thread()
 	local success_counter = 0
 
 
-	local equipped_weapon = GetInventoryItemLink("player",INVSLOT_MAINHAND) and ItemScore:GetItemDetails(GetInventoryItemLink("player",INVSLOT_MAINHAND))
+	local equipped_weapon = ItemScore:GetContextItemLink(GearFinder.Context, INVSLOT_MAINHAND) and ItemScore:GetItemDetails(ItemScore:GetContextItemLink(GearFinder.Context, INVSLOT_MAINHAND))
 	local twohander_equipped = equipped_weapon and equipped_weapon.twohander
 
 	while true do
@@ -1866,7 +2016,7 @@ local function loot_score_dungeon_thread()
 					else
 						success_counter = success_counter + 1
 						local is_upgrade, slot, change, score, comment, futurevalid, slot_2, change_2  = GF_EvaluateUpgrade(itemlink)
-						local validity = ItemScore:GetItemValidity(itemlink)
+						local validity = GF_Validity(itemlink)
 						if validity and validity.slot then
 							add_slot_debug(validity.slot, "resolved")
 							if validity.valid then add_slot_debug(validity.slot, "valid") end
@@ -1888,7 +2038,7 @@ local function loot_score_dungeon_thread()
 						queuedItem.itemlinkfull = queuedItem.itemlinkfull or itemlink
 						queuedItem.cached_name = queuedItem.cached_name or queuedItem.name
 						queuedItem.change = change
-						if not (queuedItem.quest and IsQuestFlaggedCompleted(queuedItem.quest)) then
+						if GF_QuestSource(queuedItem.quest) then
 							queue_upgrade_candidate(slot, queuedItem)
 
 							if slot_2 then
@@ -1959,7 +2109,7 @@ local function loot_score_dungeon_thread()
 				else
 					success_counter = success_counter + 1
 					local is_upgrade, slot, change, score, comment, futurevalid, slot_2, change_2  = GF_EvaluateUpgrade(itemlink)
-					local validity = ItemScore:GetItemValidity(itemlink)
+					local validity = GF_Validity(itemlink)
 					if validity and validity.slot then
 						add_slot_debug(validity.slot, "resolved")
 						if validity.valid then add_slot_debug(validity.slot, "valid") end
@@ -2040,8 +2190,8 @@ local function loot_score_dungeon_thread()
 
 	-- remove duplicates from primary/secondary slots
 	for first,second in pairs(slot_pairs) do
-		local first_equipped = ItemScore:GetItemDetails(ItemScore.Upgrades.EquippedItems[first].itemlink)
-		local second_equipped = ItemScore:GetItemDetails(ItemScore.Upgrades.EquippedItems[second].itemlink)
+		local first_equipped = ItemScore:GetItemDetails(GF_Equipped(first).itemlink)
+		local second_equipped = ItemScore:GetItemDetails(GF_Equipped(second).itemlink)
 		local first_queue = GearFinder.UpgradeQueue[first]
 		local second_queue = GearFinder.UpgradeQueue[second]
 
@@ -2106,7 +2256,7 @@ local function loot_score_dungeon_thread()
 					else
 						success_counter = success_counter + 1
 						local is_upgrade, slot, change, score, comment, validfuture, slot_2, change_2 = GF_EvaluateUpgrade(itemlink,"future")
-						local validity = ItemScore:GetItemValidity(itemlink, true)
+						local validity = GF_Validity(itemlink, true)
 						if validity and validity.slot then
 							add_slot_debug(validity.slot, "resolved")
 							if validity.valid then add_slot_debug(validity.slot, "valid") end
@@ -2133,7 +2283,7 @@ local function loot_score_dungeon_thread()
 								queuedItem.itemlinkfull = queuedItem.itemlinkfull or itemlink
 								queuedItem.cached_name = queuedItem.cached_name or queuedItem.name
 								queuedItem.change = change
-								if not (queuedItem.quest and IsQuestFlaggedCompleted(queuedItem.quest)) then
+								if GF_QuestSource(queuedItem.quest) then
 									queue_upgrade_candidate(slot, queuedItem)
 
 									if slot_2 then
@@ -2310,6 +2460,7 @@ function GearFinder:ShowItemInfoLoadingMessage()
 		button.itemicon:SetTexture(button.slotTexture)
 		button.itemlink:SetText(" ")
 		button.link = nil
+		button.zygorGearContext = nil
 		button.sourceTooltipLines = nil
 		button.dungeonguide = nil
 		button.bisTooltipText = nil
@@ -2378,7 +2529,7 @@ local function prepare_dungeon_items(force)
 	GearFinder.PlayerProfessionSpecializations = nil
 	reset_debug_slot_stats()
 
-	local player = ZGV.ItemScore.playerclass or "ALL"
+	local player = GF_Subject().playerclass or "ALL"
 	for i,v in pairs(GearFinder.UpgradeQueue) do table.wipe(v) end
 	for i,v in pairs(GearFinder.FallbackQueue) do table.wipe(v) end
 	table.wipe(GearFinder.ItemsToScore)
@@ -2394,7 +2545,7 @@ local function prepare_dungeon_items(force)
 		return false
 	end
 
-	local faction = GearFinder.playerfaction=="Alliance" and 1 or 2
+	local faction = (GearFinder.Context and GearFinder.Context.faction or GearFinder.playerfaction)=="Alliance" and 1 or 2
 	local sourceInstances, validDungeons, futureDungeons, validVendorSources, vendorItems, craftedItems = 0, 0, 0, 0, 0, 0
 	local craftedSourceCount, validCraftedSources, craftedSkippedItems = 0, 0, 0
 	local skippedOutOfEraItems = 0
@@ -2402,10 +2553,10 @@ local function prepare_dungeon_items(force)
 
 	-- 3.3.5a: no mythic+, no modified instances
 	for dungeon,dungeondata in pairs(ZGV.ItemScore.Items) do
-		if GF_IsCuratedSourceKey(dungeon) then
+		if GF_IsCuratedSourceKey(dungeon, dungeondata) then
 		sourceInstances = sourceInstances + 1
 		local valid, future, ident, maxscale, mythic, mythicplus, comment = GearFinder:IsValidDungeon(dungeondata.dungeon or dungeondata.dungeonmap, dungeondata.instanceId, dungeon, dungeondata.heroic)
-		local capped_player_level = math.min(maxscale or 80, ItemScore.playerlevel)
+		local capped_player_level = math.min(maxscale or 80, GF_Subject().playerlevel)
 
 		if valid then
 			validDungeons = validDungeons + 1
@@ -2417,7 +2568,8 @@ local function prepare_dungeon_items(force)
 						for _,itemlink in pairs(player_items) do
 							if type(itemlink)=="number" then itemlink = "item:"..itemlink end
 							local knownClientItem, knownClientReason = GF_IsKnownClientItem(itemlink)
-							if knownClientItem and GF_ShouldIncludeCandidate(itemlink, false) then
+							if knownClientItem and GF_ShouldIncludeCandidate(itemlink, false)
+								and GF_QuestSource(bossdata.quest and bossdata.quest[faction]) then
 								-- 3.3.5a: no level scaling, no mythic bonuses
 								local qname
 								if bossdata.quest and bossdata.quest[faction] then
@@ -2449,7 +2601,8 @@ local function prepare_dungeon_items(force)
 						for _,itemlink in pairs(player_items) do
 							if type(itemlink)=="number" then itemlink = "item:"..itemlink end
 							local knownClientItem, knownClientReason = GF_IsKnownClientItem(itemlink)
-							if knownClientItem and GF_ShouldIncludeCandidate(itemlink, true) then
+							if knownClientItem and GF_ShouldIncludeCandidate(itemlink, true)
+								and GF_QuestSource(bossdata.quest and bossdata.quest[faction]) then
 								-- 3.3.5a: no level scaling, no mythic bonuses
 								local qname
 								if bossdata.quest and bossdata.quest[faction] then
@@ -2585,6 +2738,18 @@ local function prepare_dungeon_items(force)
 end
 
 function GearFinder:ScoreDungeonItems(force)
+	if self.Context and not self.MainFrame:IsVisible() then return end
+	self:ResolveTargetRules()
+	if self.Context and (not self.Context.ruleReady or self.Context.ip.error) then
+		self.HadUnresolvedItems = not self.Context.ip.error
+		self:ShowItemInfoLoadingMessage()
+		if self.Context.ip.error then
+			self.MainFrame.Progress:Hide()
+			self.MainFrame.DungeonName:SetText(self.Context.ip.L.unknown)
+			self.MainFrame.DungeonDesc:SetText(self.Context.ip.L.gear_unknown)
+		end
+		return
+	end
 	if GearFinder.ResultsReady or GearFinder.IsScanning then return end
 	local startupGrace = not force and self:GetStartupItemInfoGraceRemaining()
 	if startupGrace and startupGrace > 0 then
@@ -2607,6 +2772,12 @@ function GearFinder:ScoreDungeonItems(force)
 	-- rendered frame so short slices do not turn a large source into a long wait.
 	GearFinder.ScoreFrame = GearFinder.ScoreFrame or CreateFrame("Frame")
 	GearFinder.ScoreFrame:SetScript("OnUpdate", function(frame)
+		local context = GearFinder.Context
+		if context and (not GearFinder.MainFrame:IsVisible() or UnitGUID(context.unit) ~= context.guid) then
+			GearFinder:ReleaseTarget()
+			GearFinder.MainFrame:Hide()
+			return
+		end
 		local thread = GearFinder.ScoreThread
 		if not thread then return end
 		GearFinder.ScanSliceStarted = debugprofilestop()
@@ -2791,7 +2962,7 @@ local function make_button(object)
 			GameTooltip:Hide()
 		end)
 		:SetScript("OnClick",function(self,b)
-			if button.dungeonguide then
+			if not GearFinder.Context and button.dungeonguide then
 				if ZGV.Tabs and ZGV.Tabs.LoadGuideToTab then
 					ZGV.Tabs:LoadGuideToTab(button.dungeonguide,button.dungeonguide.CurrentStepNum or 1)
 				end
@@ -2887,8 +3058,9 @@ function GearFinder:CreateMainFrame()
 		:SetPoint("TOPRIGHT",-2,-2)
 		:SetSize(20,20)
 		:SetScript("OnClick", function()
+			local parent = GearFinder.InspectUnit and InspectFrame or CharacterFrame
 			MF:Hide()
-			HideUIPanel(CharacterFrame)
+			HideUIPanel(parent)
 		end)
 		.__END
 
@@ -3115,7 +3287,7 @@ function GearFinder:CreateMainFrame()
 			GameTooltip:Hide()
 		end)
 		:SetScript("OnClick",function()
-			if GearFinder.BestDungeonGuide and ZGV.Tabs and ZGV.Tabs.LoadGuideToTab then
+			if not GearFinder.Context and GearFinder.BestDungeonGuide and ZGV.Tabs and ZGV.Tabs.LoadGuideToTab then
 				ZGV.Tabs:LoadGuideToTab(GearFinder.BestDungeonGuide,GearFinder.BestDungeonGuide.CurrentStepNum or 1)
 			end
 		end)
@@ -3364,7 +3536,7 @@ function GearFinder:DisplayResults()
 			local tooltipLink = (itemlink and itemlink:match("%[")) and itemlink or upgrade.itemlinkfull or itemlink or upgrade.itemlink
 			local displayLink = (itemlink and itemlink:match("%[")) and itemlink or nil
 			local bossLabel = upgrade.bossname or GF_StaticItemBossNames[upgrade.itemid] or nil
-			local bis = upgrade.itemid and ItemScore.GetBISAnnotation and ItemScore:GetBISAnnotation(upgrade.itemid, slotID) or nil
+			local bis = not GearFinder.Context and upgrade.itemid and ItemScore.GetBISAnnotation and ItemScore:GetBISAnnotation(upgrade.itemid, slotID) or nil
 			local icon = upgrade.texture
 			if not icon and GetItemIcon then
 				icon = GetItemIcon(upgrade.itemid or upgrade.itemlink)
@@ -3372,6 +3544,7 @@ function GearFinder:DisplayResults()
 			button.itemicon:SetTexture(icon or button.slotTexture)
 			button.itemlink:SetText(displayLink or displayName)
 			button.link = tooltipLink or nil
+			button.zygorGearContext = GearFinder.Context
 			button.sourceTooltipLines = GF_GetSourceTooltipLines(upgrade)
 			button.itemicon:SetDesaturated(upgrade.future)
 			button:SetAlpha(1)
@@ -3406,10 +3579,10 @@ function GearFinder:DisplayResults()
 				button.itemencounter:SetText(GF_FormatCraftedLine(upgrade))
 			elseif upgrade.future then
 				button:SetAlpha(0.5)
-				local playeritemlvl = ItemScore.playeritemlvl or 0
-				if upgrade.minlevel and upgrade.minlevel > ItemScore.playerlevel then
+				local playeritemlvl = GF_Subject().playeritemlvl or 0
+				if upgrade.minlevel and upgrade.minlevel > GF_Subject().playerlevel then
 					button.itemencounter:SetText("(requires level "..upgrade.minlevel..")")
-				elseif dungeon and dungeon.minLevel and dungeon.minLevel > ItemScore.playerlevel then
+				elseif dungeon and dungeon.minLevel and dungeon.minLevel > GF_Subject().playerlevel then
 					button.itemencounter:SetText("(requires level "..dungeon.minLevel..")")
 				elseif dungeon and dungeon.min_ilevel and dungeon.min_ilevel > playeritemlvl then
 					button.itemencounter:SetText("(requires item level "..dungeon.min_ilevel..")")
@@ -3419,6 +3592,7 @@ function GearFinder:DisplayResults()
 			elseif upgrade.approximate then
 				dungeons[upgrade.ident] = (dungeons[upgrade.ident] or 0) + 1
 				button.dungeonguide, button.dungeon = find_dungeon_guide(upgrade.ident)
+				if GearFinder.Context then button.dungeonguide = nil end
 				local specialSource = GF_FormatSpecialSource(upgrade)
 				local staticSource = GF_FormatStaticItemSource(upgrade)
 				if specialSource then
@@ -3438,6 +3612,7 @@ function GearFinder:DisplayResults()
 			else
 				dungeons[upgrade.ident] = (dungeons[upgrade.ident] or 0) + 1
 				button.dungeonguide, button.dungeon = find_dungeon_guide(upgrade.ident)
+				if GearFinder.Context then button.dungeonguide = nil end
 				local specialSource = GF_FormatSpecialSource(upgrade)
 				local staticSource = GF_FormatStaticItemSource(upgrade)
 				if specialSource then
@@ -3459,13 +3634,14 @@ function GearFinder:DisplayResults()
 			button.itemicon:SetTexture(button.slotTexture)
 			button.itemlink:SetText(" ")
 			button.link = nil
+		button.zygorGearContext = nil
 			button.sourceTooltipLines = nil
 			button.dungeonguide = nil
 			button.dungeon = nil
 			button.itemdungeon:SetText(L["gearfinder_no_upgrade"])
 			button:SetResultState(false, false)
 			local equippedBIS, bisInfo = false, nil
-			if ItemScore.IsEquippedBIS then
+			if not GearFinder.Context and ItemScore.IsEquippedBIS then
 				equippedBIS, bisInfo = ItemScore:IsEquippedBIS(slotID)
 			end
 			if equippedBIS then
@@ -3526,7 +3702,7 @@ function GearFinder:DisplayResults()
 			MF.DungeonImage:SetTexture(nil)
 			MF.DungeonImage:Hide()
 		end
-		if dungeon_guide then
+		if dungeon_guide and not GearFinder.Context then
 			GearFinder.BestDungeonGuide = dungeon_guide
 			MF.AddButton:Show()
 		else
@@ -3549,7 +3725,7 @@ function GearFinder:DisplayResults()
 		MF.DungeonReason:Show()
 	else
 		GearFinder.BestDungeonGuide = nil
-		local footerImage = GF_GetFallbackFooterImageForLevel(ItemScore.playerlevel)
+		local footerImage = GF_GetFallbackFooterImageForLevel(GF_Subject().playerlevel)
 		MF.FooterArt:SetTexture(footerImage)
 		MF.FooterArt:Show()
 		MF.DungeonImage:SetTexture(nil)
@@ -3583,6 +3759,7 @@ function GearFinder:ShowNoSourcesMessage()
 		button.itemicon:SetTexture(button.slotTexture)
 		button.itemlink:SetText(" ")
 		button.link = nil
+		button.zygorGearContext = nil
 		button.sourceTooltipLines = nil
 		button.dungeonguide = nil
 		button.dungeon = nil
@@ -3595,7 +3772,7 @@ function GearFinder:ShowNoSourcesMessage()
 		if button.SetResultState then button:SetResultState(false, false) end
 	end
 
-	local footerImage = GF_GetFallbackFooterImageForLevel(ItemScore.playerlevel)
+	local footerImage = GF_GetFallbackFooterImageForLevel(GF_Subject().playerlevel)
 	if MF.FooterArt then
 		MF.FooterArt:SetTexture(footerImage)
 		MF.FooterArt:Show()
@@ -3674,6 +3851,7 @@ function GearFinder:ClearResults()
 		button.itemicon:SetTexture(button.slotTexture)
 		button.itemlink:SetText(" ")
 		button.link = nil
+		button.zygorGearContext = nil
 		button.sourceTooltipLines = nil
 		button.dungeonguide = nil
 		button.bisTooltipText = nil
@@ -3688,6 +3866,7 @@ function GearFinder:ClearResults()
 end
 
 function GearFinder:RefreshForInventoryChange()
+	if self.Context then return end
 	GearFinder:ClearResults()
 	if GearFinder.MainFrame and GearFinder.MainFrame:IsVisible() then
 		GearFinder:ScoreDungeonItems()
@@ -3823,10 +4002,10 @@ function GearFinder:GetTraceLines(input)
 	lines[#lines + 1] = ("ZGFT input=%s id=%s player=%s/%s level=%s build=%s resultsReady=%s scored=%s"):format(
 		tostring(input),
 		tostring(itemID),
-		tostring(ItemScore.playerclass),
-		tostring(ItemScore.playerclassName),
-		tostring(ItemScore.playerlevel),
-		tostring(ZGV.db and ZGV.db.char and ZGV.db.char.gear_active_build),
+		tostring(GF_Subject().playerclass),
+		tostring(GF_Subject().playerclassName),
+		tostring(GF_Subject().playerlevel),
+		tostring(GF_Build()),
 		GF_TraceBool(GearFinder.ResultsReady),
 		GF_TraceBool(GearFinder.DungeonItemsScored)
 	)
@@ -3845,7 +4024,7 @@ function GearFinder:GetTraceLines(input)
 
 	local dbitem = ItemScore:GetItemDetailsFromDB(itemlink)
 	local item = safe_get_item_details(itemlink)
-	local validity = ItemScore:GetItemValidity(itemlink)
+	local validity = GF_Validity(itemlink)
 	local is_upgrade, slot, change, score, comment, futurevalid, slot_2, change_2 = GF_EvaluateUpgrade(itemlink)
 	lines[#lines + 1] = ("ZGFT db found=%s name=%s ilvl=%s req=%s slot=%s family=%s"):format(GF_TraceBool(dbitem), tostring(dbitem and dbitem.name), tostring(dbitem and dbitem.itemlvl), tostring(dbitem and dbitem.minlevel), tostring(dbitem and dbitem.equiploc), tostring(dbitem and dbitem.family))
 	lines[#lines + 1] = ("ZGFT item found=%s name=%s fromdb=%s pending=%s type=%s slot=%s slot2=%s score=%s"):format(GF_TraceBool(item), tostring(item and item.name), GF_TraceBool(item and item.fromdb), GF_TraceBool(item and ItemScore:IsItemPendingResolution(item)), tostring(item and item.type), tostring(item and item.slot), tostring(item and item.slot_2), tostring(item and item.score))
@@ -3854,10 +4033,10 @@ function GearFinder:GetTraceLines(input)
 
 	local sourceCount = 0
 	for dungeon, dungeondata in pairs(ZGV.ItemScore.Items or {}) do
-		if GF_IsCuratedSourceKey(dungeon) and type(dungeondata) == "table" then
+		if GF_IsCuratedSourceKey(dungeon, dungeondata) and type(dungeondata) == "table" then
 			for bossindex, bossdata in pairs(dungeondata) do
 				if type(bossdata) == "table" then
-					local player_items = GF_GetBossDropItems(bossdata, ItemScore.playerclass or "ALL")
+					local player_items = GF_GetBossDropItems(bossdata, GF_Subject().playerclass or "ALL")
 					if player_items then
 						for _, candidate in pairs(player_items) do
 							if GF_TraceItemMatches(candidate, itemID, itemlink) then

@@ -87,6 +87,7 @@ local function scenario(workMilliseconds, unresolved)
       item={minlevel=(future and id % 5 == 0) and 87 or 80}}
   end
   score.GetItemDetails = function() return nil end
+  score.GetContextItemLink = function() return nil end
   local function drops(base)
     local out = {}; for i=1,120 do out[#out + 1] = base + i end
     out[#out + 1] = 55001 -- Must still respect the WotLK client-item cutoff.

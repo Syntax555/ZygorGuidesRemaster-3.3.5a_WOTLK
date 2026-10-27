@@ -279,6 +279,7 @@ end
 ------------------------------------------------------------------------
 
 function IP:Mode()
+	if self.targetName then return "on" end
 	local mode = ZGV.db and ZGV.db.profile and ZGV.db.profile.ip_mode
 	return (mode == "on" or mode == "off") and mode or "auto"
 end
@@ -305,6 +306,7 @@ end
 -- the account and no game master mode bypasses it.
 function IP:Gated()
 	local s = self.state
+	if self.targetName and s and s.strict then return s.ip end
 	return s ~= nil and s.ip and s.account == "N" and not s.gm
 end
 
@@ -366,9 +368,13 @@ local function SameState(a, b)
 end
 
 function IP:Changed()
+	if self.targetName then
+		if not self.closed and self.onChanged then self.onChanged() end
+		return
+	end
 	self.guideChecks = nil
 	local finder = ZGV.ItemScore and ZGV.ItemScore.GearFinder
-	if finder then
+	if finder and not finder.Context then
 		if finder.RefreshAfterSourceSettingChange then
 			finder:RefreshAfterSourceSettingChange()
 		else
@@ -390,7 +396,7 @@ function IP:ApplyState(state)
 	self.accessAt = nil
 	if state.ip then self:RequestAccess(true) end
 	self:Changed()
-	if first and state.ip and ZGV.Print then
+	if first and state.ip and ZGV.Print and not self.targetName then
 		ZGV:Print(L.title .. ": " .. L.status_active:format(state.effective, self:TierName(state.effective)))
 	end
 end
@@ -420,6 +426,8 @@ local function Channel()
 end
 
 function IP:Send(message)
+	if self.closed then return false end
+	if self.targetSuffix then return IP.Send(IP, message .. self.targetSuffix) end
 	local player = UnitName and UnitName("player")
 	if not player or #message > MAX_MESSAGE then return false end
 	local channel = Channel()
@@ -432,6 +440,7 @@ function IP:Send(message)
 end
 
 function IP:Token()
+	if self.targetName then return IP:Token() end
 	self.sequence = self.sequence + 1
 	return "zip" .. self.sequence
 end
@@ -452,6 +461,12 @@ end
 function IP:RequestState()
 	if self.bridge ~= "ready" then return end
 	self.watchToken = self.watchToken or self:Token()
+	if self.targetName then
+		self.requests[self.watchToken] = {kind="IP_STATE", at=self:Now(), items={}}
+		self:ExpireTargetRequest(self.watchToken)
+		self:Send("GET~IP_STATE~" .. self.watchToken)
+		return
+	end
 	self.watchAt = self:Now()
 	self:Send("GET~IP_STATE~" .. self.watchToken .. "~WATCH")
 end
@@ -466,23 +481,25 @@ function IP:RequestAccess(force)
 	self.accessAt = now
 	local token = self:Token()
 	self.requests[token] = {kind="IP_ACCESS", at=now, items={}}
+	self:ExpireTargetRequest(token)
 	self:Send("GET~IP_ACCESS~" .. token)
 end
 
 function IP:QueueQuest(id)
-	if self.bridge ~= "ready" or not (self.state and self.state.ip) then return end
+	if self.bridge ~= "ready" or not (self.state and (self.state.ip or self.targetName)) then return end
 	if self.queued[id] or self.inflight[id] then return end
 	self.queued[id] = true
 	if not self.flushPending then
 		self.flushPending = true
 		if ZGV.ScheduleTimer then
-			ZGV:ScheduleTimer(function() IP:Flush() end, FLUSH_DELAY)
+			ZGV:ScheduleTimer(function() if not self.closed then self:Flush() end end, FLUSH_DELAY)
 		end
 	end
 end
 
 -- Sends queued quest IDs in batches that fit one addon message.
 function IP:Flush()
+	if self.closed then return end
 	self.flushPending = nil
 	local ids = {}
 	for id in pairs(self.queued) do ids[#ids + 1] = id end
@@ -492,10 +509,11 @@ function IP:Flush()
 		if #batch == 0 then return end
 		local token = self:Token()
 		self.requests[token] = {kind="IP_QUESTS", at=self:Now(), items={}, ids=batch, generation=self.generation}
+		self:ExpireTargetRequest(token)
 		self:Send("GET~IP_QUESTS~" .. token .. "~" .. table.concat(batch, ","))
 		batch, size, sent = {}, 0, sent + 1
 	end
-	local base = #"GET~IP_QUESTS~" + #"zip" + 10
+	local base = #"GET~IP_QUESTS~" + #"zip" + 10 + #(self.targetSuffix or "")
 	for _, id in ipairs(ids) do
 		local text = tostring(id)
 		if #batch >= MAX_BATCH or base + size + #text > MAX_MESSAGE then send() end
@@ -508,12 +526,24 @@ function IP:Flush()
 	send()
 	if next(self.queued) and ZGV.ScheduleTimer then
 		self.flushPending = true
-		ZGV:ScheduleTimer(function() IP:Flush() end, FLUSH_INTERVAL)
+		ZGV:ScheduleTimer(function() if not self.closed then self:Flush() end end, FLUSH_INTERVAL)
 	end
 end
 
 function IP:Settle(request)
 	for _, id in ipairs(request.ids or {}) do self.inflight[tonumber(id)] = nil end
+end
+
+function IP:ExpireTargetRequest(token)
+	if not self.targetName or not ZGV.ScheduleTimer then return end
+	local request = self.requests[token]
+	ZGV:ScheduleTimer(function()
+		if self.closed or self.requests[token] ~= request then return end
+		self.requests[token] = nil
+		self:Settle(request)
+		self.error = "TIMEOUT"
+		self:Changed()
+	end, REQUEST_TIMEOUT)
 end
 
 function IP:Requeue(request)
@@ -566,7 +596,8 @@ function IP:StoreQuests(request)
 			self.quests[id] = {status=status, reasons=reasons, tier=tier, generation=self.generation, at=now}
 		end
 	end
-	if ZGV.UpdateFrame and ZGV.Frame then ZGV:UpdateFrame() end
+	if self.targetName then self:Changed()
+	elseif ZGV.UpdateFrame and ZGV.Frame then ZGV:UpdateFrame() end
 end
 
 function IP:StoreAccess(request)
@@ -580,14 +611,21 @@ function IP:StoreAccess(request)
 end
 
 function IP:OnMessage(prefix, message, sender)
+	if self.closed then return end
 	if prefix ~= PREFIX or type(message) ~= "string" or #message > 255 then return end
 	local player = UnitName and UnitName("player")
 	sender = sender and string.gsub(sender, "%-.*$", "")
 	-- The bridge answers as the player's own addon message sender.
 	if not player or not sender or string.lower(sender) ~= string.lower(player) then return end
 	local fields = SplitFields(message)
+	if self == IP and self.target then self.target:OnMessage(prefix, message, sender) end
 	local opcode = fields[1]
-	if opcode == "CAPS_BEGIN" and self.helloPending then
+	if opcode == "IP_TARGET" and self.targetName and fields[2] == self.watchToken then
+		if #fields == 4 and fields[3]:match("^[a-z_]+$") and (fields[4] == "0" or fields[4] == "1") then
+			self.profile, self.dualWield = fields[3], fields[4] == "1"
+			self:Changed()
+		end
+	elseif opcode == "CAPS_BEGIN" and self.helloPending then
 		self.caps = {}
 	elseif opcode == "CAPS" and self.helloPending then
 		for cap in string.gmatch(fields[2] or "", "[^,]+") do self.caps[cap] = true end
@@ -597,6 +635,7 @@ function IP:OnMessage(prefix, message, sender)
 		if self.bridge == "ready" then self:RequestState() else self:Changed() end
 	elseif opcode == "IP_STATE" then
 		if fields[2] ~= self.watchToken then return end
+		if self.targetName then self.requests[fields[2]] = nil end
 		local state = self:ParseState(fields)
 		if state then self:ApplyState(state) end
 	elseif opcode == "IP_QUESTS_BEGIN" or opcode == "IP_ACCESS_BEGIN" then
@@ -624,10 +663,50 @@ function IP:OnMessage(prefix, message, sender)
 		if request then
 			self.requests[fields[4]] = nil
 			self:Settle(request)
+			if self.targetName then
+				if fields[5] == "RATE_LIMIT" and (self.rateRetries or 0) < 3 then
+					self.rateRetries = (self.rateRetries or 0) + 1
+					ZGV:ScheduleTimer(function()
+						if self.closed then return end
+						if request.kind == "IP_STATE" then self:RequestState()
+						elseif request.kind == "IP_ACCESS" then self:RequestAccess(true)
+						else self:Requeue(request) end
+					end, 2)
+				else self.error = fields[5] or "UNAVAILABLE"; self:Changed() end
+				return
+			end
 			if request.kind == "IP_ACCESS" then self.accessAt = nil end
 			if request.kind == "IP_QUESTS" and fields[5] == "RATE_LIMIT" then self:Requeue(request) end
 		end
 	end
+end
+
+-- An inspect view shares the native policies and wire parser, with its own
+-- answers and tokens. It never renews a WATCH or starts a background poll.
+function IP:ForInspect(unit, onChanged)
+	if not (self.bridge == "ready" and self.caps and self.caps.IP_TARGET_V1) then return nil end
+	local name, guid = UnitName(unit), UnitGUID(unit)
+	if not name or not guid then return nil end
+	if self.target then self.target.closed = true end
+	local encoded = name:gsub("[^%w_.%-]", function(char) return string.format("%%%02X", string.byte(char)) end)
+	local target = setmetatable({targetName=name, targetGUID=guid, targetSuffix="~BOT~" .. encoded,
+		bridge="ready", quests={}, queued={}, inflight={}, requests={}, generation=1, onChanged=onChanged},
+		{__index=function(_, key)
+			local value = IP[key]
+			if type(value) == "function" or key:match("^[A-Z_]+$") then return value end
+		end})
+	self.target = target
+	target:RequestState()
+	if ZGV.ScheduleTimer then
+		ZGV:ScheduleTimer(function()
+			if not target.closed and not (target.state and target.profile) then
+				target.error = "TIMEOUT"
+				target.requests = {}
+				target:Changed()
+			end
+		end, REQUEST_TIMEOUT)
+	end
+	return target
 end
 
 ------------------------------------------------------------------------
@@ -656,7 +735,7 @@ end
 -- The server's answer for a quest, or nil while unknown; asks for it when
 -- needed. An outdated answer stays in use until its replacement arrives.
 function IP:Quest(id)
-	if not id or not (self.state and self.state.ip) then return nil end
+	if not id or not (self.state and (self.state.ip or self.targetName)) then return nil end
 	local entry = self.quests[id]
 	if not entry or entry.generation ~= self.generation or
 		(hasbit(entry.reasons, R.REPEAT) and self:Now() - entry.at >= REPEAT_TTL) then
