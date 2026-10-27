@@ -181,7 +181,7 @@ ZygorGuidesViewer_L("Main", "enUS", function() return {
 	['opt_group_progress_desc'] = "To ensure optimal leveling progress, this addon can dynamically skip quests you would not benefit from at your level.",
 
 	['opt_levelsahead'] = "Allow levels ahead",
-	['opt_levelsahead_desc'] = "This setting controls how far ahead of the guide do you want to be able to play.\nWith a setting of 0, all quests usually done below your level will be skipped (if they have no follow-ups).\nWith a setting of 1 and more, only quests more than that many levels below you will be skipped.",
+	['opt_levelsahead_desc'] = "This setting controls how many levels ahead of the guide you can be before lower-level quests are treated as obsolete.\nHigher values keep more lower-level quests available; setting it to 80 effectively covers the full WotLK level range.\nTo prevent automatic low-level quest skipping entirely, turn off Skip obsolete steps above.",
 
 	['opt_showobsolete'] = "Mark obsolete steps",
 	['opt_showobsolete_desc'] = "Indicate obsolete steps with a gray background.\nSteps are judged as obsolete when they refer to quests that are too low level for you.",
