@@ -129,6 +129,7 @@ GetInventoryItemLink=function(_,slot) return equipped[slot] end
 assert(loadfile(root.."/Parser.lua"))()
 local hordeKegStep
 local unequipConditions={}
+local hordeDailyResetCondition
 for faction,guides in pairs(factionGuides) do
 	for kind,guide in pairs(guides) do
 		local parsed,err,line,linedata=ZGV:ParseEntry(guide.rawdata)
@@ -136,6 +137,17 @@ for faction,guides in pairs(factionGuides) do
 		if faction=="Horde" and kind=="quest" then
 			for _,step in ipairs(parsed.steps) do
 				if step.condition_until_raw=="questobjective(11412,1)" then hordeKegStep=step break end
+			end
+		end
+		if faction=="Horde" and kind=="daily" then
+			for _,step in ipairs(parsed.steps) do
+				for _,goal in ipairs(step.goals) do
+					if goal.condition_complete_raw=="not completedq(11408,11407,12020)" then
+						hordeDailyResetCondition=goal.condition_complete
+						break
+					end
+				end
+				if hordeDailyResetCondition then break end
 			end
 		end
 		if kind=="quest" then
@@ -169,6 +181,14 @@ ZGV.questsbyid[11412].goals[1].num=3
 ok,result=pcall(hordeKegStep.condition_until)
 if not ok then fail("Horde keg completed exit condition failed at runtime: "..tostring(result)) end
 if not result then fail("Horde keg route did not exit at 3/3") end
+
+if not hordeDailyResetCondition then fail("Horde daily reset condition was not parsed") end
+ZGV.completedQuests={}
+ok,result=pcall(hordeDailyResetCondition)
+if not ok or not result then fail("Horde daily reset condition did not activate before any alternative quest was completed") end
+ZGV.completedQuests={[12020]=true}
+ok,result=pcall(hordeDailyResetCondition)
+if not ok or result then fail("Horde daily reset condition ignored completion of its third alternative quest") end
 
 if #unequipConditions<8 then fail("Parsed guides are missing automatic goggles-removal conditions") end
 equipped[1]="|cff0070dd|Hitem:46735:0:0:0:0:0:0:0:80|h[Synthebrew Goggles]|h|r"

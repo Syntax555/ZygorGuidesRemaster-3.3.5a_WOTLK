@@ -226,6 +226,26 @@ end
 local CONDITION_RACE_NAMES = { "Human", "Dwarf", "NightElf", "Gnome", "Draenei", "Orc", "Undead", "Scourge", "Tauren", "Troll", "BloodElf" }
 local CONDITION_CLASS_NAMES = { "Warrior", "Paladin", "Hunter", "Rogue", "Priest", "DeathKnight", "Shaman", "Mage", "Warlock", "Druid" }
 
+local function ConditionQuestCompleted(value)
+	local text = tostring(value or "")
+	local id,objnum = text:match("^(%d+)/(%d+)$")
+	id = tonumber(id or value)
+	objnum = tonumber(objnum)
+	if not id then return false end
+	if ZGV.completedQuests and (ZGV.completedQuests[id] or ZGV.completedQuests[tostring(id)]) then return true end
+	if IsQuestFlaggedCompleted and IsQuestFlaggedCompleted(id) then return true end
+	if not objnum then return false end
+	local quest = ZGV.questsbyid and ZGV.questsbyid[id]
+	if not quest then return false end
+	if quest.complete then return true end
+	local objective = quest.goals and quest.goals[objnum]
+	if not objective then return false end
+	if objective.complete then return true end
+	local current = tonumber(objective.num) or 0
+	local needed = tonumber(objective.needed) or 1
+	return current >= needed
+end
+
 ZGV.ConditionEnv = {
 	_G = _G,
 	-- variables needing update
@@ -238,11 +258,24 @@ ZGV.ConditionEnv = {
 		local _, _, _, completed = GetAchievementInfo(id)
 		return completed
 	end,
-	completedq = function(id)
-		if ZGV.completedQuests then
-			return ZGV.completedQuests[id] or ZGV.completedQuests[tostring(id)]
+	completedq = function(...)
+		for index = 1, select("#", ...) do
+			if ConditionQuestCompleted(select(index, ...)) then return true end
 		end
 		return false
+	end,
+	completedallq = function(...)
+		for index = 1, select("#", ...) do
+			if not ConditionQuestCompleted(select(index, ...)) then return false end
+		end
+		return true
+	end,
+	countcompletedq = function(...)
+		local count = 0
+		for index = 1, select("#", ...) do
+			if ConditionQuestCompleted(select(index, ...)) then count = count + 1 end
+		end
+		return count
 	end,
 
 	_Update = function()
@@ -335,8 +368,24 @@ ZGV.ConditionEnv = {
 		end
 		return false
 	end,
-	haveq = function(id)
-		return ZGV.ConditionEnv.havequest(id)
+	haveq = function(...)
+		for index = 1, select("#", ...) do
+			if ZGV.ConditionEnv.havequest(select(index, ...)) then return true end
+		end
+		return false
+	end,
+	haveallq = function(...)
+		for index = 1, select("#", ...) do
+			if not ZGV.ConditionEnv.havequest(select(index, ...)) then return false end
+		end
+		return true
+	end,
+	counthaveq = function(...)
+		local count = 0
+		for index = 1, select("#", ...) do
+			if ZGV.ConditionEnv.havequest(select(index, ...)) then count = count + 1 end
+		end
+		return count
 	end,
 	questobjective = function(id,objnum)
 		id,objnum = tonumber(id),tonumber(objnum)

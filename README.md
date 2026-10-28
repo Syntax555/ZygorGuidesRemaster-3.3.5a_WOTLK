@@ -185,6 +185,12 @@ This addon is fully open source and can be inspected before use.
 
 ## Changelog
 
+### Revision 255 - 3.0.255
+
+- Fixed imported guide conditions that pass multiple alternative quest IDs so `completedq(...)` and `haveq(...)` evaluate every supplied ID instead of only the first.
+- Added the matching all/count helpers and objective-form checks used by Retail guides, preventing daily/event steps from skipping or looping on the wrong quest state.
+- Clarified how the Progress options retain lower-level quests and fixed the Retail compatibility image path escaping.
+
 ### Revision 254 - 3.0.254
 
 - Improved the Horde Brewfest capital-city route with explicit Dalaran and Silvermoon/Undercity choices, missing portal/elevator approach points, and direct Dungeon Finder guidance for Coren Direbrew.
@@ -212,12 +218,6 @@ This addon is fully open source and can be inspected before use.
 - Corrected the Horde Brewfest quest giver to Glodrak Huntsniper and added explicit sampler acquisition and S.T.O.U.T. targeting guidance for both factions.
 - Restored the Horde Pink Elekks travel sequence through the Undercity/Silvermoon orbs, zeppelin, and capital-city flight paths.
 - Added a manual ram-delivery fallback for servers that do not immediately refresh the three-keg quest objective.
-
-### Revision 249 - 3.0.249
-
-- Updated both faction Brewfest guides for the current WotLK souvenir quests while retaining older quest IDs for private-server compatibility.
-- Removed invalid Synthebrew Goggles helm checks and made Blackrock Depths entry advance after the player enters the dungeon.
-- Corrected the Horde Brewfest Diet level-tip typo and added focused Brewfest guide parsing coverage.
 
 ## Notes
 
