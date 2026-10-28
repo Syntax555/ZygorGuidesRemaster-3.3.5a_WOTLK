@@ -1,296 +1,98 @@
+# Zygor Guides Viewer Remaster for Playerbots Portable
+
+A guide viewer, waypoint arrow and Gear Finder for **WoW 3.3.5a, build 12340**
+(Interface `30300`), adapted to each character's earned progression in
+[Playerbots Portable](https://github.com/Syntax555/mod-playerbots-portable).
+This maintained fork uses the `main` branch.
+
+## Install or update
+
+1. Download [Zygor-IP-latest.zip](https://github.com/Syntax555/ZygorGuidesRemaster-3.3.5a_WOTLK/releases/latest/download/Zygor-IP-latest.zip)
+   from this fork's [Latest release](https://github.com/Syntax555/ZygorGuidesRemaster-3.3.5a_WOTLK/releases/latest).
+2. Extract it to a writable folder outside WoW, then close WoW completely.
+3. Run `Install-Zygor.cmd` and select your client's `Interface\AddOns` folder.
+   Internet access and Windows PowerShell 5.1 or later are required; no
+   administrator rights are needed.
+4. Enable Zygor Guides Viewer in the addon list. Disable separate
+   `ZygorGuidesViewer` and `ZygorTalentAdvisor` addons; the installed
+   `ZygorGuidesViewerRM` already contains the advisor.
+
+The ZIP contains an **installer, not the addon**. It downloads its exact fork
+commit from GitHub, verifies every addon file against SHA-256 hashes and
+installs `Interface/AddOns/ZygorGuidesViewerRM/ZygorGuidesViewerRM.toc`. It backs
+up an existing addon folder and preserves account and character SavedVariables
+in `WTF/`. Use the same steps for updates; do not mix versions or nest folders.
+`SOURCE_REVISION.txt` and `SOURCE_MANIFEST.json` identify the installed source.
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Install-Zygor.ps1 -AddOnsPath 'C:\Games\WoW\Interface\AddOns'
+```
+
 ## mod-playerbots-portable fork
 
-This fork carries what [mod-playerbots-portable](https://github.com/Syntax555/mod-playerbots-portable) needs on top of [ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK](https://github.com/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK). Work happens on `main`; every push publishes `Zygor-IP-latest.zip` in the [Latest release](https://github.com/Syntax555/ZygorGuidesRemaster-3.3.5a_WOTLK/releases/latest).
-
-The ZIP holds an installer, not the addon: extract it outside your WoW folder, close WoW and run `Install-Zygor.cmd`. It downloads exactly that commit from GitHub, checks every file of `ZygorGuidesViewerRM` against SHA-256 hashes and installs it; an existing folder is backed up and SavedVariables are kept. Enable Zygor Guides Viewer in the character selection screen. Disable a separate `ZygorGuidesViewer` or `ZygorTalentAdvisor` addon if present; `ZygorGuidesViewerRM` already contains them.
-
-Changes on `main`:
-
-- Guides, the Gear Finder and the Talent Advisor follow each character's own Individual Progression tier, read from the server's MultiBot Bridge.
-
-The server pins a tested commit of `main` in its `versions.lock.json`; see its [integration guide](https://github.com/Syntax555/mod-playerbots-portable/blob/main/docs/zygor-progression.md). Upstream updates are merged into `main`; the original README follows.
-
----
-
-# Zygor Guides Viewer Remaster
-
-Remastered Zygor Guides Viewer for **World of Warcraft: Wrath of the Lich King (WotLK) 3.3.5a (build 12340)**.
-
-A remastered version of the classic Zygor Guides Viewer, updated for WotLK 3.3.5a private servers with a cleaner UI and maintained compatibility.
-
-This project keeps the classic Zygor workflow while delivering a cleaner remastered presentation and active upkeep for the 3.3.5a community.
-
-[![Download](https://img.shields.io/badge/Download-Addon-2ea043?style=for-the-badge&labelColor=555555)](https://github.com/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK/archive/refs/heads/main.zip)
-[![Install](https://img.shields.io/badge/Install-Quickly-8250df?style=for-the-badge&labelColor=555555)](#-quick-install)
-[![Help](https://img.shields.io/badge/Help-Localize-f0883e?style=for-the-badge&labelColor=555555)](#-support-wanted-localization-qa)
-[![Safety](https://img.shields.io/badge/Safety-VirusTotal_Report-1f6feb?style=for-the-badge&labelColor=555555)](https://www.virustotal.com/gui/url/d55dfec1532a98b39fc87a1a4f34c06b644de5988b24288bf207610b0c1b46fa/detection)
-
-![Guides Included](https://img.shields.io/badge/Guides-Included-orange) ![Last Commit](https://img.shields.io/github/last-commit/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK?label=Updated&color=brightgreen) ![WoW Compatible](https://img.shields.io/badge/For-WoW-yellow) ![Era WotLK 3.3.5a](https://img.shields.io/badge/Era-WotLK_3.3.5a-blue)
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/T6T01U9GMM)
-
-## Version
-
-- Version: ![Version](https://img.shields.io/github/commit-activity/t/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK?label=Version%203.0.&color=1f6feb)
-- Intended client: **WotLK 3.3.5a / 12340**
-
-## Who This Is For
-
-This addon is intended for:
-
-- World of Warcraft **WotLK 3.3.5a (build 12340)** clients
-- Private server environments (for example TrinityCore-based servers)
-- Players who want the classic Zygor guide experience with a cleaner UI
-
-This project is primarily focused on **WotLK 3.3.5a**. Other clients may work, but support and testing are centered on 3.3.5a.
-
-## What You Get
-
-- Step-by-step leveling and quest progression guidance.
-- Arrow and waypoint navigation while you play.
-- Structured objective flow (accept, complete, and turn-in).
-- A cleaner, more readable viewer UI designed for long play sessions.
-- Includes talent guidance via the bundled `ZygorTalentAdvisor` module inside `ZygorGuidesViewerRM`.
-
-## What Stayed the Same
-
-Core 3.3.5a-era behavior is preserved:
-
-- Guide parser and step engine.
-- Map and waypoint workflow.
-- Legacy guide execution patterns.
-- Base `ZygorTalentAdvisor` behavior and structure.
-
-## What's New in the Remaster
-
-- Cleaner, retail-inspired UI shell for both guide browsing and options.
-- New standalone Guide Manager (Home / Featured / Current / Recent) with category sidebar, search, favorites, and folder-style tree behavior.
-- New in-app Options experience with categorized navigation, searchable pages, and improved layout consistency.
-- Remastered waypoint arrow and objective text styling updates, including clearer action/title/distance presentation and distance color gradients.
-- Accessibility improvements including colorblind presets and simplified noun-color handling for better readability.
-- Ongoing compatibility focus for 3.3.5a environments and expanded guide coverage where applicable.
-
-## Included Components
-
-1. `ZygorGuidesViewerRM` - Remastered viewer and guide runtime.
-2. `ZygorTalentAdvisor` - bundled inside `ZygorGuidesViewerRM` and loaded as part of the addon package.
-
-## Key Controls
-
-- Minimap icon:
-  - Left-click toggles the guide viewer.
-  - Right-click opens the Guide Manager.
-  - Shift + Right-click opens options.
-- Viewer toolbar:
-  - Guides left-click opens the legacy quick guide dropdown.
-  - Guides right-click opens the Guide Manager.
-  - Settings left-click opens quick settings.
-  - Settings right-click opens Guide Manager options.
-- Gear Advisor role shortcuts:
-  - `/zygortank` or `/ztank` selects the class's tank profile for the active talent group.
-  - `/zygordps` or `/zdps` selects a matching damage profile.
-  - `/zygorheal` or `/zheal` selects a healing profile; `/zygorsupport`, `/zsupport`, `/zygorsup`, and `/zsup` use the same healing-role profile because WotLK has no separate support stat set.
-  - `/zygorrole auto` or `/zrole auto` returns only the active talent group to automatic talent-tree detection.
-
-## Quick Install
-
-### Installation Overview
-
-1. Download the ZIP.
-2. Extract to `Interface\AddOns\`.
-3. Launch the game.
-4. Enable the addon.
-
-### Detailed Steps
-
-1. Close World of Warcraft.
-2. Open `%WoWFolder%\Interface\AddOns\`.
-3. Remove older folders if present:
-   - `ZygorGuidesViewer`
-   - `ZygorTalentAdvisor`
-   - This avoids mixed files from older releases.
-4. Copy this folder into `AddOns`:
-   - `ZygorGuidesViewerRM`
-5. Confirm the top-level folder exists:
-   - `Interface\AddOns\ZygorGuidesViewerRM\ZygorGuidesViewerRM.toc`
-6. Launch the game and enable the addon.
-
-## Common Issues
-
-**Addon not showing in-game**
-
-- Make sure the folder structure is:
-  - `Interface\AddOns\ZygorGuidesViewerRM\ZygorGuidesViewerRM.toc`
-- Do not nest folders (no double folder level).
-
-**Out of date warning**
-
-- Enable **Load out of date AddOns** on the character select screen.
-
-**Guide not progressing**
-
-- Some imported guides may not fully match 3.3.5a data.
-- See the Known Issues section below.
-
-## Update Notes
-
-1. Install or update the `ZygorGuidesViewerRM` folder as a single addon package.
-2. `/reload` is usually enough for Lua-only changes.
-3. A full relaunch is safer when files, XML includes, assets, or bundled modules change.
-
-## Guide Profiles
-
-- Current default guide content is the remastered, TrinityCore-oriented profile for WotLK 3.3.5a private servers.
-- An optional Alliance fallback profile exists at `Guides\Leveling_Original\ZygorGuidesAlliance.lua`.
-- That fallback is original, unmodified classic Zygor content and should only be used if the remastered default route is problematic for a specific session.
-
-## Localization
-
-Localization key coverage is complete across shipped locales (`Main` + `NPCs`) with placeholder and format-consistency checks.
-
-Current focus is community QA review:
-
-- natural phrasing in live gameplay context,
-- terminology consistency,
-- official localized NPC proper names,
-- encoding and readability verification.
-
-Localization was largely AI-assisted and should be treated as needing community review until native-speaker QA confirms quality.
-
-### Community Credits
-
-- [`mikki33`](https://github.com/mikki33) for providing Russian localization changes and review updates.
-- [`yad`](https://github.com/yad) for the localized quest databases, integration work, and reproducible AzerothCore data generator contributed in pull request #88.
-- [`SnaxxNZ`](https://github.com/SnaxxNZ) for researching the Classic Tailoring dataset and the six-profession crafted Gear Finder expansion, including recipe sources and profession requirements.
-
-## Support Wanted (Localization QA)
-
-If you can validate translations in-game, your help is very welcome.
-
-Please report:
-
-- mistranslations,
-- awkward phrasing,
-- broken placeholders (`%s`, `%d`, `|n`, color codes),
-- incorrect NPC names,
-- encoding artifacts.
-
-## Safety and Trust
-
-This addon is fully open source and can be inspected before use.
-
-- [![VirusTotal Report](https://img.shields.io/badge/VirusTotal-View_Report-3bb143?style=flat-square)](https://www.virustotal.com/gui/url/d55dfec1532a98b39fc87a1a4f34c06b644de5988b24288bf207610b0c1b46fa/detection)
-- You can review all files and changes directly in this repository.
-- A VirusTotal scan of the download link is provided for transparency.
-
-## Changelog
-
-### Revision 255 - 3.0.255
-
-- Fixed imported guide conditions that pass multiple alternative quest IDs so `completedq(...)` and `haveq(...)` evaluate every supplied ID instead of only the first.
-- Added the matching all/count helpers and objective-form checks used by Retail guides, preventing daily/event steps from skipping or looping on the wrong quest state.
-- Clarified how the Progress options retain lower-level quests and fixed the Retail compatibility image path escaping.
-
-### Revision 254 - 3.0.254
-
-- Improved the Horde Brewfest capital-city route with explicit Dalaran and Silvermoon/Undercity choices, missing portal/elevator approach points, and direct Dungeon Finder guidance for Coren Direbrew.
-- Made Synthebrew Goggles removal advance automatically for both factions and removed a fragile souvenir turn-in condition that could hide the next step.
-- Corrected the Horde Harvest Festival approach so players entering Ashenvale from the east are no longer sent back through the western waypoints first.
-
-### Revision 253 - 3.0.253
-
-- Fixed replacement characters in the remastered waypoint arrow, guide text, and Gear Advisor controls by using the game client's locale font on CJK clients.
-- Centralized remaster font selection while preserving the bundled Cyrillic-capable fonts for Russian clients, with regression coverage for CJK, Russian, and English locale behavior.
-
-### Revision 252 - 3.0.252
-
-- Fixed the Horde Brewfest keg-loop exit condition so it reads the live quest objective without calling unavailable guide shorthand from the condition environment.
-- Added runtime regression coverage for both the incomplete 2/3 and completed 3/3 delivery states.
-
-### Revision 251 - 3.0.251
-
-- Fixed item-name `|equipped` goals so Synthebrew Goggles and other imported equipment steps detect the item in any equipped slot.
-- Refreshes inline and standalone guide actions when bag or equipment contents change, and makes manual confirmation lines advance immediately.
-- Corrected the Horde Brewfest keg round trip, souvenir ordering, Tirisfal arrival, Dalaran portal shortcuts, and Thunder Bluff flight-master coordinates.
-
-### Revision 250 - 3.0.250
-
-- Corrected the Horde Brewfest quest giver to Glodrak Huntsniper and added explicit sampler acquisition and S.T.O.U.T. targeting guidance for both factions.
-- Restored the Horde Pink Elekks travel sequence through the Undercity/Silvermoon orbs, zeppelin, and capital-city flight paths.
-- Added a manual ram-delivery fallback for servers that do not immediately refresh the three-keg quest objective.
-
-## Notes
-
-- Intended target client is **WotLK 3.3.5a (12340)**.
-- It may work on other versions, but compatibility is not guaranteed.
-- `ZygorTalentAdvisor` is bundled and loaded from within `ZygorGuidesViewerRM`.
-
-## Known Issues
-
-- Arrow scale/position drift:
-  - On some setups, changing Waypoint Arrow Scale can shift the arrow position unexpectedly.
-  - Resetting arrow position may not fully normalize the anchor in all UI/minimap addon combinations.
-  - Status: deferred for now.
-
-- Some imported guides may be incomplete or not fully aligned to 3.3.5a data.
-- If a guide behaves incorrectly, disable it in `ZygorGuidesViewerRM/Guides/Autoload.xml` and report it.
-
-## Q&A
-
-**Is this remaster free?**
-
-Yes. This remastered version is and will remain free.
-
-**Where should I download it from?**
-
-Use the main repository download link in this README.
-
-**Are third-party mirrors or repacks safe?**
-
-Not always. Use other sites/downloads at your own risk.
-
-## License
-
-This repository contains Zygor-derived viewer code, remaster contributions, guide/data material, and bundled third-party components.
-
-The classic viewer metadata carried forward by this project declares `## X-License: GPL`, but the upstream material available with this codebase does not identify a specific GPL version. To avoid inventing GPLv2/GPLv3 terms on behalf of upstream copyright holders, this project preserves the upstream `GPL` designation without selecting a version.
-
-That viewer license metadata should not automatically be treated as a blanket license for every guide, database, image, or other third-party content file in the repository. Original Zygor material and bundled third-party components retain their applicable copyright and license terms.
-
-See [LICENSE](LICENSE) for the detailed licensing and attribution notice.
-
-## Credits
-
-Original Zygor Guides concept and content belong to the original creators.
-
-This remaster focuses on UI/UX modernization, packaging quality, compatibility maintenance, and localization completion for the 3.3.5a player community.
-
-## Example Images
-
-### New Guide + Options Menus
-
-![options menu display](docs/images/options-menu-display.png)
-![guide manager selection preview](docs/images/guide-manager-selection-preview.png)
-<img width="1248" height="845" alt="image" src="https://github.com/user-attachments/assets/6d66d7d6-67bc-4c52-bbb5-5cea38e5bbde" />
-
-### New Pointer Arrow
-
-![new pointer arrow](docs/images/new-arrow.gif)
-
-### ... With Colorblind Options
-
-![colorblind deuteran](docs/images/new-arrow-deuteran.gif)
-![colorblind protan](docs/images/new-arrow-protan.gif)
-![colorblind tritan](docs/images/new-arrow-tritan.gif)
-
-### New And Legacy Looks
-
-<img width="436" height="264" alt="Viewer Step Flow" src="https://github.com/user-attachments/assets/f0dddbf0-7bfa-4b95-a250-0692c7690921" />
-<img width="586" height="260" alt="Guide Window Layout" src="https://github.com/user-attachments/assets/e6b85c9c-8835-4e49-96b1-608ad9944b0f" />
-<img width="637" height="197" alt="Waypoint and Route Display" src="https://github.com/user-attachments/assets/cd258eb1-ebb6-420d-9516-4abe9d75d88c" />
-<img width="443" height="687" alt="Talent Advisor Panel" src="https://github.com/user-attachments/assets/b3f2c2ef-2bef-4ca4-b033-37c314b151d5" />
-
-### New Route and Loop guide modes
-
-<img width="433" height="247" alt="image" src="https://github.com/user-attachments/assets/579b6acb-df5e-4f40-8ef3-7d6b33e1015d" />
-<img width="436" height="248" alt="image" src="https://github.com/user-attachments/assets/a845b881-2831-43e3-bd26-5287f9783d68" />
+With the matching server's MultiBot Bridge, guides, guide chains, quest goals,
+Gear Finder sources and Wrath best-in-slot lists follow the character's own
+Individual Progression tier. The addon reads server state and cannot grant
+gear, progression or access. Open **Progress** with `/zgprogress`, inspect
+state with `/zygorip`, or request it again with `/zygorip refresh`.
+
+Automatic mode follows server progression when available and uses ordinary
+realm behavior without bridge support. On keeps later content locked while no
+answer is available; Off disables the addon's progression filters. Server
+access rules apply in every mode. While progression filters apply, transition
+quests remain manual.
+The bundled Talent Advisor knows Wrath trees only and stays inactive before
+Wrath or while the era is unknown when progression filters apply, and always
+for EraTalents characters.
+
+The Gear Finder uses historical talent data for the player's profile when
+available. `/zygortank`, `/zygordps` and `/zygorheal` select role weights;
+`/zygorrole auto` restores automatic selection. These are the viewer's stat
+weights, not a historical combat simulation.
+
+On a controlled altbot's Blizzard or DragonUI **equipment inspect tab**, click
+the Zygor button for that bot's Gear Finder. The bot must be online, in your
+group and within normal inspect range, with matching inspected-bot server
+support. Recommendations use its equipment, effective combat profile and own
+progression. Unknown sources remain unavailable; bot crafting recommendations
+are excluded because learned recipes are not reported. Changing tabs or the
+inspected character closes the view. This only recommends sources; normal bot
+loot and equipment evaluation remain server behavior.
+
+Imported guides and source tables can differ from realm data. Full client
+interaction, guide routes and every addon combination have not been verified
+in game. See the [integration guide](https://github.com/Syntax555/mod-playerbots-portable/blob/main/docs/zygor-progression.md)
+for supported behavior and limits. For viewer controls, left-click the minimap
+icon to toggle the viewer, right-click for the Guide Manager, or Shift-right-click
+for options.
+
+## Source and contributions
+
+Changes belong on this fork's `main` branch. Its
+[Latest workflow](https://github.com/Syntax555/ZygorGuidesRemaster-3.3.5a_WOTLK/blob/main/.github/workflows/latest.yml)
+checks Lua and the installer before publishing the rolling release. The
+server's [manifest](https://github.com/Syntax555/mod-playerbots-portable/blob/main/versions.lock.json)
+pins its tested fork commit; Latest may be newer. Follow the
+[contributing guide](https://github.com/Syntax555/mod-playerbots-portable/blob/main/CONTRIBUTING.md)
+for source updates and checks. Report fork problems in
+[this issue tracker](https://github.com/Syntax555/ZygorGuidesRemaster-3.3.5a_WOTLK/issues)
+with the installed revision, client build, reproduction and complete first Lua
+error (`/console scriptErrors 1`).
+
+## Provenance, credits and license
+
+Based on [ErebusAres's remaster](https://github.com/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK),
+last imported at
+[`d2aae8d0f1f3`](https://github.com/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK/commit/d2aae8d0f1f3782d964e4179907b215aab484787).
+The [original README](https://github.com/ErebusAres/ZygorGuidesRemaster-3.3.5a_WOTLK/blob/d2aae8d0f1f3782d964e4179907b215aab484787/README.md)
+provides general viewer features and upstream credits. Original Zygor Guides
+concept and content belong to their creators. Community credit includes
+[mikki33](https://github.com/mikki33) for Russian localization,
+[yad](https://github.com/yad) for localized quest databases and their generator,
+and [SnaxxNZ](https://github.com/SnaxxNZ) for profession and Gear Finder data.
+
+The viewer retains upstream's `GPL` designation without an identified version.
+It does not license every guide, database, image or bundled library. Preserve
+component notices and read the [licensing notice](https://github.com/Syntax555/ZygorGuidesRemaster-3.3.5a_WOTLK/blob/main/LICENSE).
+The installer's [MIT license](https://github.com/Syntax555/ZygorGuidesRemaster-3.3.5a_WOTLK/blob/main/.github/installer/LICENSE)
+covers its tooling only; the installer ZIP contains no addon files.
