@@ -2199,7 +2199,7 @@ local function loot_score_dungeon_thread()
 			if not first_equipped or first_equipped.twohander then
 				ZGV:Debug("&itemscore SDG same item, drop second, no first")
 				table.remove(second_queue,1)
-			elseif not first_equipped then		
+			elseif not second_equipped then
 				ZGV:Debug("&itemscore SDG same item, drop first, no second")
 				table.remove(first_queue,1)
 			elseif second_queue[2] then
