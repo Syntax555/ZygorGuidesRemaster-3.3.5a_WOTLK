@@ -5808,6 +5808,45 @@ ZygorGuidesViewer:RegisterGuide("Zygor's Horde Leveling Guides\\Levels (20-25)",
 	faction horde
 	next Zygor's Horde Leveling Guides\\Levels (25-30)
 	startlevel 20
+	step //0.1
+		'Go to Silvermoon City|goto Silvermoon City|noway|c
+		only BloodElf Paladin
+	step //0.2
+		goto Silvermoon City,89.3,35.2
+		.talk Knight-Lord Bloodvalor##17717
+		..accept The Second Trial##9690 |noobsolete
+		only BloodElf Paladin
+		info2 Before Wrath of the Lich King, this chain teaches Sense Undead; trainers do not.
+	step //0.3
+		'Go northwest to the Ruins of Silvermoon|goto Eversong Woods,42.9,28.7,0.5|noway|c
+		only BloodElf Paladin
+	step //0.4
+		goto Eversong Woods,42.9,28.7
+		.talk Master Kelerun Bloodmourn##17807
+		..turnin The Second Trial##9690 |noobsolete
+		..accept The Second Trial##9686 |noobsolete
+		only BloodElf Paladin
+	step //0.5
+		goto 42.9,28.7
+		.' Defeat the four Blood Knight champions|goal Defeat the four Blood Knight champions|q 9686/1
+		only BloodElf Paladin
+	step //0.6
+		goto 42.9,28.7
+		.talk Master Kelerun Bloodmourn##17807
+		..turnin The Second Trial##9686 |noobsolete
+		..accept Return to Silvermoon##9691 |noobsolete
+		only BloodElf Paladin
+	step //0.7
+		'Go southeast to Silvermoon City|goto Silvermoon City|noway|c
+		only BloodElf Paladin
+	step //0.8
+		goto Silvermoon City,89.3,35.2
+		.talk Knight-Lord Bloodvalor##17717
+		..turnin Return to Silvermoon##9691 |noobsolete
+		only BloodElf Paladin
+	step //0.9
+		'Go to the Barrens|goto The Barrens|noway|c
+		only BloodElf Paladin
 	step //1
 		goto The Barrens,52.2,46.1
 		.' Kill raptors

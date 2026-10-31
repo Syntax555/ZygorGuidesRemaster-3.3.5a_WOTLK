@@ -41,6 +41,13 @@ realm behavior without bridge support. On keeps later content locked while no
 answer is available; Off disables the addon's progression filters. Server
 access rules apply in every mode. While progression filters apply, transition
 quests remain manual.
+
+Before Wrath, trainers on that server do not sell the lessons class quests
+taught then. The leveling guides take level-20 paladins through The Tome of
+Valor, or blood elves through The Second Trial and Return to Silvermoon, for
+Sense Undead. Level-30 warriors go through The Islander and The Affray for
+Berserker Stance and Intercept.
+
 The bundled Talent Advisor knows Wrath trees only and stays inactive before
 Wrath or while the era is unknown when progression filters apply, and always
 for EraTalents characters.

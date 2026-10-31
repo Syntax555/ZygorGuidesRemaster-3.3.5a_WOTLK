@@ -5615,6 +5615,46 @@ ZygorGuidesViewer:RegisterGuide("Zygor's Alliance Leveling Guides\\Levels (20-25
 		.get 10 Battleworn Axe|q 20/1
 	step //4
 		'Hearth to Lakeshire|goto Redridge Mountains,26.9,44.9,0.5|use Hearthstone##6948|noway|c
+	step //4.1
+		'Fly to Stormwind|goto Stormwind City|noway|c
+		only Paladin
+	step //4.2
+		goto Stormwind City,50.6,47.5
+		.talk Duthorian Rall##6171
+		..accept The Tome of Valor##1650 |noobsolete
+		only Paladin
+		info2 Before Wrath of the Lich King, this chain teaches Sense Undead; trainers do not.
+	step //4.3
+		'Fly to Sentinel Hill|goto Westfall,53.4,50.8,3|noway|c
+		only Paladin
+	step //4.4
+		goto Westfall,41.7,89.2
+		.talk Daphne Stilwell##6182
+		..turnin The Tome of Valor##1650 |noobsolete
+		..accept The Tome of Valor##1651 |noobsolete
+		only Paladin
+	step //4.5
+		goto 41.7,89.2
+		.' Defend Daphne Stilwell from the Defias attack|goal Defend Daphne Stilwell from the Defias attack|q 1651/1
+		only Paladin
+		info2 Neither of you may die until the last Defias wave falls.
+	step //4.6
+		goto 41.7,89.2
+		.talk Daphne Stilwell##6182
+		..turnin The Tome of Valor##1651 |noobsolete
+		..accept The Tome of Valor##1652 |noobsolete
+		only Paladin
+	step //4.7
+		'Fly to Stormwind|goto Stormwind City|noway|c
+		only Paladin
+	step //4.8
+		goto Stormwind City,50.6,47.5
+		.talk Duthorian Rall##6171
+		..turnin The Tome of Valor##1652 |noobsolete
+		only Paladin
+	step //4.9
+		'Fly to Lakeshire|goto Redridge Mountains|noway|c
+		only Paladin
 	step //5
 		'Fly to Stormwind|goto Stormwind City|noway|c
 		only Gnome Warlock,Human Warlock
