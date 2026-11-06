@@ -101,5 +101,5 @@ and [SnaxxNZ](https://github.com/SnaxxNZ) for profession and Gear Finder data.
 The viewer retains upstream's `GPL` designation without an identified version.
 It does not license every guide, database, image or bundled library. Preserve
 component notices and read the [licensing notice](https://github.com/Syntax555/ZygorGuidesRemaster-3.3.5a_WOTLK/blob/main/LICENSE).
-The installer's [MIT license](https://github.com/Syntax555/ZygorGuidesRemaster-3.3.5a_WOTLK/blob/main/.github/installer/LICENSE)
+The installer's [MIT license](https://github.com/Syntax555/mod-playerbots-portable/blob/main/scripts/addon-installer/LICENSE)
 covers its tooling only; the installer ZIP contains no addon files.
