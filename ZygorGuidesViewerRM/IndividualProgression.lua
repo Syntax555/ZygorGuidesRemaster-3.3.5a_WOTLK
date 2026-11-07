@@ -859,8 +859,10 @@ function IP:InstanceCheck(map, difficulty)
 	return "locked", L["access_" .. code], code
 end
 
+-- Guides write "Zone/0 x,y", "Zone,x,y" and "Zone x,y"; each names the zone first.
 local function ZoneName(text)
 	text = string.gsub(string.gsub(text, "/.*$", ""), "^%s+", "")
+	text = string.gsub(text, "%s+[%d%.]+$", "")
 	return (string.gsub(text, "%s+$", ""))
 end
 
