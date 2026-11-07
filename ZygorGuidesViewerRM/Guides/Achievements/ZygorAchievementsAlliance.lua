@@ -2547,9 +2547,9 @@ step
 .' Complete "A Hero's Headgear" daily |achieve 961/8
 |confirm
 step
-#include FrenzyheartPreQuests
+#include "A_Frenzyheart_PreQuests"
 step
-#include FrenzyheartDailies
+#include "A_Frenzyheart_Dailies"
 step
 .' After you have completed the 8 daily quests that the Frenzyheart Tribe have to offer at least once, you will have completed the "Honorary Frenzyheart" achievement.  It will take several days to earn this achievement, so try to be patient.
 .' Earn Honorary Frenzyheart |achieve 961
@@ -2575,9 +2575,9 @@ step
 .' Complete the "Song of Fecundity" daily |achieve 962/8
 |confirm
 step
-#include OraclePreQuests
+#include "A_Oracles_PreQuests"
 step
-#include OracleDailies
+#include "A_Oracles_Dailies"
 step
 .' After you have completed the 8 daily quests that the Oracles have to offer at least once, you will have completed the "Savior of the Oracles" achievement.  It will take several days to earn this achievement, so try to be patient.
 .' Earn Saivor of the Oracles |achieve 962
@@ -2590,23 +2590,26 @@ description Complete the main storyline quests involving Drakuru.
 	faction alliance
 step
 condition achieved(1596)
-.' In order to complete this achievement, you will have to complete a large series of quests, as well as go through the Instance Drak'tharon Keep.
+.' Guru of Drakuru needs Cleansing Drak'Tharon and Betrayal.
+.' The Grizzly Hills leveling guide follows Drakuru's quests to Cleansing Drak'Tharon, which the Drak'Tharon Keep Quests guide turns in.
+.' The Zul'Drak leveling guide follows his quests to Betrayal.
+.' Click here to continue. |confirm
 step
-.' There are 2 parts to the Guru of Drakuru Achievement:
-.' Cleansing Drak'Tharon |achieve 1596/1
-.' Betrayal |achieve 1596/2
+goto Grizzly Hills,71.7,26.2
+.' Use Drakuru's Elixir next to the brazier |use Drakuru's Elixir##35797
+.talk Image of Drakuru##26787
+..accept Cleansing Drak'Tharon##12238
+|tip This follows Voices From the Dust, the last of his Grizzly Hills quests.
 step
-#include CleansingDrakTharon
+.' Defeat The Prophet Tharon'ja inside Drak'Tharon Keep, then talk to Drakuru there |achieve 1596/1
+|tip Drakuru takes Cleansing Drak'Tharon at the end of the dungeon.
 step
-.' Earn Cleansing Drak'tharon |achieve 1596/1
-step
-#include BetrayalDrakuru
+.' Complete Drakuru's quests in Zul'Drak up to Betrayal |achieve 1596/2
+|tip The Zul'Drak leveling guide leads through them.
 step
 goto Zul'Drak,14.1,73.8
-.talk 28518
-..turnin 12713
-step
-.' Earn Betrayal |achieve 1596/2
+.talk Stefan Vadu##28518
+..turnin Betrayal##12713
 step
 .' Earn Guru of Drakuru |achieve 1596
 step

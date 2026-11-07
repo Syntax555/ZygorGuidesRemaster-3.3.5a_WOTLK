@@ -2566,9 +2566,7 @@ description Complete the 8 daily quests for the Frenzyheart listed below.
 step
 condition achieved(961)
 label "begin"
-#include FrenzyheartPreQuests
-step
-#include FrenzyheartDailies
+leechsteps "Zygor's Horde Dailies Guides\\Sholazar Basin\\Frenzyheart Tribe Dailies"
 step
 'The 8 Dailies are as follows: |tip It will take several days to earn this achievement, so try to be patient.
 .' Complete the "Chicken Party!" daily |achieve 961/1
@@ -2590,9 +2588,7 @@ description Complete the 8 daily quests for the Oracles listed below.
 	faction horde
 step
 condition achieved(962)
-#include OraclePreQuests
-step
-#include OracleDailies
+leechsteps "Zygor's Horde Dailies Guides\\Sholazar Basin\\The Oracles Dailies"
 step
 'The 8 Dailies are as follows: |tip It will take several days to earn this achievement, so try to be patient.
 .' Complete the "Appeasing the Great Rain Stone" daily |achieve 962/1
@@ -2614,14 +2610,26 @@ description Complete the main storyline quests involving Drakuru.
 	faction horde
 step
 condition achieved(1596)
-#include "CleansingDrakTharon"
+.' Guru of Drakuru needs Cleansing Drak'Tharon and Betrayal.
+.' The Grizzly Hills leveling guide follows Drakuru's quests to Cleansing Drak'Tharon, which the Drak'Tharon Keep Quests guide turns in.
+.' The Zul'Drak leveling guide follows his quests to Betrayal.
+.' Click here to continue. |confirm
 step
-#include "BetrayalDrakuru"
+goto Grizzly Hills,71.7,26.2
+.' Use Drakuru's Elixir next to the brazier |use Drakuru's Elixir##35797
+.talk Image of Drakuru##26787
+..accept Cleansing Drak'Tharon##12238
+|tip This follows Voices From the Dust, the last of his Grizzly Hills quests.
+step
+.' Defeat The Prophet Tharon'ja inside Drak'Tharon Keep, then talk to Drakuru there |achieve 1596/1
+|tip Drakuru takes Cleansing Drak'Tharon at the end of the dungeon.
+step
+.' Complete Drakuru's quests in Zul'Drak up to Betrayal |achieve 1596/2
+|tip The Zul'Drak leveling guide leads through them.
 step
 goto Zul'Drak,14.1,73.8
-.talk 28518
-..turnin 12713
-.' Complete the Betrayal |achieve 1596/2
+.talk Stefan Vadu##28518
+..turnin Betrayal##12713
 .' Earn the Guru of Drakuru achievement! |achieve 1596
 step
 'Congratulations!  You've earned the Guru of Drakuru achievement!
@@ -3436,29 +3444,29 @@ step
 condition achieved(126)
 .' To get this, you simply need to achieve 150 fishing.  You can fish anywhere for this, but Stormwind is recommended for the easiest catches.
 step
-#include trainFishing
+goto Orgrimmar,69.8,29.2
+.talk Lumak##3332
 .' Learn the Apprentice Fishing skill |skillmax Fishing,75
 step
-goto Orgrimmar,66.6,41.6
+goto Orgrimmar,70.0,29.8
 .talk 3333
 .buy 1 Fishing Pole##6256
 .buy 10 Shiny Bauble##6529
 step
-goto 66.5,41.5
+goto Orgrimmar,70.0,29.8
 .' Equip your Fishing Pole |use Fishing Pole##6256
 .' Use the Shiny Bauble to temporarily increase your Fishing skill, to make it easier to catch fish |use Shiny Bauble##6529 |tip If your Shiny Bauble Fishing skill boost expires, you can buy more Shiny Baubles to help you fish.
-.' Stand on the end of this wooden dock
-.' Use your Fishing skill to fish in the water all around the wooden dock |cast Fishing##7620
+.' Use your Fishing skill in the pond next to Lumak, the fishing trainer |cast Fishing##7620
 .' Get your Fishing skill to level 75 |skill Fishing,75
 step
-#include trainFishing
+goto Orgrimmar,69.8,29.2
+.talk Lumak##3332
 .' Learn the Journeyman Fishing skill |skillmax Fishing,150
 step
-goto 66.5,41.5
+goto Orgrimmar,70.0,29.8
 .' Equip your Fishing Pole, if it's not already equipped |use Fishing Pole##6256
 .' Use the Shiny Bauble to temporarily increase your Fishing skill, to make it easier to catch fish |use Shiny Bauble##6529 |tip If your Shiny Bauble Fishing skill boost expires, you can buy more Baubles or Nightcrawlers to help you fish.
-.' Stand on the end of this wooden dock
-.' Use your Fishing skill to fish in the water all around the wooden dock |cast Fishing##7620
+.' Use your Fishing skill in the pond next to Lumak, the fishing trainer |cast Fishing##7620
 .' Get your Fishing skill to level 150 |skill Fishing,150
 step
 .' Earn Journeyman Fisherman Achievement. |achieve 126

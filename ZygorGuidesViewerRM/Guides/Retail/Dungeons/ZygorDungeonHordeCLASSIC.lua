@@ -7291,6 +7291,7 @@ ZygorGuidesViewer:RegisterGuide("Dungeon Guides\\The Burning Crusade\\The Mechan
 author="support@zygorguides.com",
 description="This guide will walk you through the The Mechanar dungeon.",
 },[[
+step
 Run into the portal |goto Netherstorm/0 70.66,69.84
 |tip On the floating island.
 Enter The Mechanar Dungeon |goto The Mechanar/0 0.00,0.00 |c |noway
