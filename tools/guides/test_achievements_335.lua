@@ -200,6 +200,11 @@ local function removedProblems(text)
 	for _, id in ipairs(MISSING) do
 		if text:find("achieve " .. id .. "%f[^%d]") or text:find("achieved%(" .. id .. "%)") then found[#found + 1] = "achievement " .. id end
 	end
+	-- Darna Honeybock and the Brewfest Spy have no spawns, so neither Save Brewfest! nor the Insult
+	-- Coren Direbrew quest that needs it can be taken; Coren's own gossip starts the fight.
+	for _, id in ipairs({ 12318, 12062 }) do
+		if text:find("##" .. id .. "%f[^%d]") then found[#found + 1] = "unobtainable quest " .. id end
+	end
 	if text:find("Worgen |achieve", 1, true) or text:find("Goblin |achieve", 1, true)
 		or text:find("Worgen Rogue |achieve", 1, true) or text:find("Goblin Rogue |achieve", 1, true) then
 		found[#found + 1] = "a Cataclysm race criterion"
@@ -213,5 +218,8 @@ for _, path in ipairs(files) do all[#all + 1] = read(path) end
 check("loaded guides", removedProblems, table.concat(all, "\n"), function(text)
 	return text .. "\n.' Visit the Sundering |achieve 4827/2\n"
 end)
+check("loaded guides", removedProblems, table.concat(all, "\n"), function(text)
+	return text .. "\naccept Save Brewfest!##12318\n"
+end)
 
-print("PASS: achievement guides, exploration criteria, Brew of the Year and corrected quest steps follow 3.3.5a in " .. #files .. " guide files")
+print("PASS: achievement guides, exploration criteria, Brew of the Year, Brewfest and corrected quest steps follow 3.3.5a in " .. #files .. " guide files")

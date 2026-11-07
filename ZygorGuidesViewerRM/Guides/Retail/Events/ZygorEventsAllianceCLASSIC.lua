@@ -153,28 +153,13 @@ Reach Level 65 |ding 65
 |tip Coren Direbrew is level 72 elite.
 |tip During Brewfest, you may also press I and use the Dungeon Finder to queue directly for Coren Direbrew.
 step
-talk Darna Honeybock##27584
-accept Save Brewfest!##12318 |goto 45.86,52.69
-|tip This quest is elite and will require a group.
-step
-Enter the Blackrock Depths Dungeon with your Group |complete zone("Blackrock Depths") |q 12062 |future
-step
-talk Brewfest Spy##26719
-|tip After defeating the Dark Iron ambush, interact with the Mole Machine Consoles at the beginning of the dungeon.
-|tip Inside the Grim Guzzler in the Blackrock Depths dungeon.
-turnin Save Brewfest!##12318
-accept Insult Coren Direbrew##12062
-|tip This quest is elite and will require a group.
-step
-talk Coren Direbrew##23872
-|tip Inside the Grim Guzzler in the Blackrock Depths dungeon.
-turnin Insult Coren Direbrew##12062
-|tip This quest is elite and will require a group.
+Enter the Blackrock Depths Dungeon with your Group |complete zone("Blackrock Depths")
+|tip Coren Direbrew waits in the Grim Guzzler during Brewfest.
 step
 kill Coren Direbrew##23872
-|tip Form a group and travel to the Blackrock Depths dungeon.
-|tip Someone with the daily quest "Insult Coren Direbrew" can talk to him to make him hostile.
-|tip This quest is available in the Grim Guzzler in Blackrock Depths.
+|tip Inside the Grim Guzzler in the Blackrock Depths dungeon.
+|tip Talk to him and choose "Insult Coren Direbrew's brew." to start the fight.
+|tip This fight will require a group.
 ]])
 ZygorGuidesViewer:RegisterGuide("Events Guides\\Brewfest\\Brewfest Dailies",{
 author="support@zygorguides.com",
@@ -318,36 +303,14 @@ Reach Level 65 |ding 65 |or
 |tip Coren Direbrew is level 72 elite.
 '|complete not completedq(11293,11294,12020) |next "Begin_Dailies" |or
 step
-talk Darna Honeybock##27584
-accept Save Brewfest!##12318 |goto 45.86,52.69 |or
-|tip This quest is elite and will require a group.
-'|complete not completedq(11293,11294,12020) |next "Begin_Dailies" |or
-step
-Enter the Blackrock Depths Dungeon with your Group |complete zone("Blackrock Depths") |q 12062 |future |or
-'|complete not completedq(11293,11294,12020) |next "Begin_Dailies" |or
-step
-talk Brewfest Spy##26719
-|tip After defeating the Dark Iron ambush, interact with the Mole Machine Consoles at the beginning of the dungeon.
-|tip Inside the Grim Guzzler in the Blackrock Depths dungeon.
-turnin Save Brewfest!##12318 |or
-'|complete not completedq(11293,11294,12020) |next "Begin_Dailies" |or
-step
-talk Brewfest Spy##26719
-|tip Inside the Grim Guzzler in the Blackrock Depths dungeon.
-accept Insult Coren Direbrew##12062 |or
-|tip This quest is elite and will require a group.
-'|complete not completedq(11293,11294,12020) |next "Begin_Dailies" |or
-step
-talk Coren Direbrew##23872
-|tip Inside the Grim Guzzler in the Blackrock Depths dungeon.
-turnin Insult Coren Direbrew##12062 |or
-|tip This quest is elite and will require a group.
+Enter the Blackrock Depths Dungeon with your Group |complete zone("Blackrock Depths") |or
+|tip Coren Direbrew waits in the Grim Guzzler during Brewfest.
 '|complete not completedq(11293,11294,12020) |next "Begin_Dailies" |or
 step
 kill Coren Direbrew##23872
-|tip Form a group and travel to the Blackrock Depths dungeon.
-|tip Someone with the daily quest "Insult Coren Direbrew" can talk to him to make him hostile.
-|tip This quest is available in the Grim Guzzler in Blackrock Depths.
+|tip Inside the Grim Guzzler in the Blackrock Depths dungeon.
+|tip Talk to him and choose "Insult Coren Direbrew's brew." to start the fight.
+|tip This fight will require a group.
 Click Here to Continue |confirm |or
 '|complete not completedq(11293,11294,12020) |next "Begin_Dailies" |or
 step
@@ -509,19 +472,13 @@ condition_end=function() return achieved(295) end,
 description="\nKill Coren Direbrew.",
 },[[
 step
-talk Brewfest Spy##26719
-|tip Inside the dungeon to the right of the entrance, a Mole Machine console will take you to the bar.
-|tip The Brewfewst Spy is located in the bar.
-accept Insult Coren Direbrew##12062 |goto Blackrock Depths/0 0.00,0.00 |or
-'|achieve 295 |or
-step
-talk Coren Direbrew##23872
-|tip Coren Direbrew is located in the bar.
-|tip He will attack you after turnin this quest in.
-turnin Insult Coren Direbrew##12062 |or
+Enter the Blackrock Depths Dungeon with your Group |complete zone("Blackrock Depths") |or
+|tip During Brewfest, you may also press I and use the Dungeon Finder to queue directly for Coren Direbrew.
 '|achieve 295 |or
 step
 kill Coren Direbrew##23872
+|tip Inside the Grim Guzzler in the Blackrock Depths dungeon.
+|tip Talk to him and choose "Insult Coren Direbrew's brew." to start the fight.
 Earn the "Direbrewfest" Achievement |achieve 295
 step
 _Congratulations!_
