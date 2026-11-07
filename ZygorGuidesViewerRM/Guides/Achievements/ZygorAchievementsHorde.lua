@@ -757,41 +757,7 @@ goto Dalaran,40.4,33.8
 step
 'Congratulations!  You've earned the Ring of the Kirin Tor achievement!
 ]])
-ZygorGuidesViewer:RegisterGuide("Zygor's Horde Achievements Guides\\General Achievements\\One Hump or Two?",[[
-description Obtain a camel mount in Uldum (with just one hump).
-	type achievements
-	faction horde
-step
-condition achieved(4888)
-'You will need 100 gold to complete this achievement
-.' You also need to be Exalted with the Ramkahen faction |tip Use the Ramkahen Reputation guide in the Cataclysm Dailies guide to become Exhalted with the Ramkahen faction.
-|confirm
-step
-goto Uldum,54.0,33.3
-.talk 48617
-..' Buy either of these 2 camel mounts
-.buy Reins of the Brown Riding Camel##63044 |n
-.buy Reins of the Tan Riding Camel##63045 |n
-.' Click the Reins of the Brown Riding Camel |use Reins of the Brown Riding Camel##63044
-.' Click the Reins of the Tan Riding Camel |use Reins of the Tan Riding Camel##63045
-.' Earn the One Hump or Two? achievement! |achieve 4888
-step
-'Congratulations!  You've earned the One Hump or Two? achievement!
-]])
 
-ZygorGuidesViewer:RegisterGuide("Zygor's Horde Achievements Guides\\General Achievements\\From Hell's Heart I Stab At Thee",[[
-description This guide will help you obtain the From Hell's Heart I Stab At Thee Achievement
-	type achievements
-	faction horde
-step
-condition achieved(4975)
-goto Shimmering Expanse,70.6,55.0
-.' The _Whale Shark_ swims in a circle around Nespirah. Some searching may be required.
-.' When fighting the whale shark, it is important to know that you cannot use melee attacks, as he will kill you rather quickly. The best strategy is to use ranged attacks to kite him around and just slowly drain his health to 0.
-.from Whale Shark##40728 |achieve 4975
-step
-'Congratulations!  You've earned the From Hell's Heart I Stab At Thee achievement!
-]])
 
 ZygorGuidesViewer:RegisterGuide("Zygor's Horde Achievements Guides\\General Achievements\\Bloody Rare",[[
 description Kill all of the Rare enemies in Outlands
@@ -1390,56 +1356,6 @@ label learn
 |achieve 2097
 step
 .' Congratulations, you have earned the _Get to the Choppa!_ achievement.
-]])
-ZygorGuidesViewer:RegisterGuide("Zygor's Horde Achievements Guides\\General Achievements\\Surveying the Damage",[[
-description
-	type achievements
-	faction horde
-step
-condition achieved(4827)
-.' In order to earn this achievement, you will need to visit the places that Deathwing had the most effect on during Cataclysm.
-|confirm
-step
-goto Durotar/0,38.8,38.5
-.' Southfury Watershed in Durotar /7
-step
-goto Ashenvale/0,48.2,53.5
-.' Thunder Peak in Ashenvale /6
-step
-goto Darkshore/0,38.6,45.3
-.' The Ruins of Auberdine in Darkshore /4
-step
-goto Southern Barrens/0,45.5,70.3
-.' The Battlescar in Southern Barrens /1
-step
-goto Desolace/0,57.5,54.3
-.' Cenarion Wildlands in Desolace /8
-step
-goto Thousand Needles/0,74.4,82.1
-.' The Shimmering Deep in Thousand Needles /9
-step
-goto Tanaris/0,37.7,78.9
-.' The Valley of the Watchers in Tanaris /5
-step
-goto Northern Stranglethorn,50.4,66.5
-.' The Sundering in Stranglethorn |achieve 4827/2
-step
-goto Westfall/0,38.5,42.3
-.' The Raging Chasm in Westfall |achieve 4827/11
-step
-goto Badlands/0,43.4,42.5
-.' The Scar of the Worldbreaker in Badlands /3
-step
-goto Loch Modan/0,42.0,11.3
-.' The Stonewrought Dam in Loch Modan /12
-step
-goto Hillsbrad Foothills/0,51.3,71.4
-.' Ruins of Southshore in Hillsbrad Foothills /13
-step
-goto Ruins of Gilneas/0,60.2,10.5
-.' The Greymane Wall in Silverpine /10
-step
-.' Congratulations, you have earned the _Surveying the Damage_ achievement.
 ]])
 ZygorGuidesViewer:RegisterGuide("Zygor's Horde Achievements Guides\\General Achievements\\Leeeeeeeeeeeeeroy!",[[
 description This guide will show you how to earn the Jenkins Title.
@@ -2656,12 +2572,12 @@ step
 step
 'The 8 Dailies are as follows: |tip It will take several days to earn this achievement, so try to be patient.
 .' Complete the "Chicken Party!" daily |achieve 961/1
-.' Complete the "Tools of War" daily |achieve 961/2
-.' Complete "The Heartblood's Strength" daily |achieve 961/3
-.' Complete the "Rejek: First Blood" daily |achieve 961/4
-.' Complete the "Kartak's Rampage" daily |achieve 961/5
-.' Complete the "Secret Strength of the Frenzyheart" daily |achieve 961/6
-.' Complete the "Strength of the Tempest" daily |achieve 961/7
+.' Complete the "Tools of War" daily |achieve 961/3
+.' Complete "The Heartblood's Strength" daily |achieve 961/5
+.' Complete the "Rejek: First Blood" daily |achieve 961/7
+.' Complete the "Kartak's Rampage" daily |achieve 961/2
+.' Complete the "Secret Strength of the Frenzyheart" daily |achieve 961/4
+.' Complete the "Strength of the Tempest" daily |achieve 961/6
 .' Complete "A Hero's Headgear" daily |achieve 961/8
 .' Earn the Honorary Frenzyheart achievement! |achieve 961
 |confirm |next "begin"
@@ -3733,7 +3649,7 @@ description Complete each of Old Man Barlo's 5 fishing daily quests.
 step
 condition achieved(905)
 .' In order the earn this achievement, you will need to have completed these 5 daily quests:
-.' Crcolisks in the City |achieve 905/1
+.' Crocolisks in the City |achieve 905/1
 .' Bait Bandits |achieve 905/2
 .' Felblood Fillet |achieve 905/3
 .' The One That Got Away |achieve 905/4
@@ -3784,7 +3700,7 @@ goto Terokkar Forest,38.7,12.8
 .turnin 11667 |or
 .turnin 11668 |or
 step
-.' Crcolisks in the City |achieve 905/1
+.' Crocolisks in the City |achieve 905/1
 .' Bait Bandits |achieve 905/2
 .' Felblood Fillet |achieve 905/3
 .' The One That Got Away |achieve 905/4
@@ -3854,7 +3770,7 @@ step
 .' Fangtooth Herring School |achieve 1517/4
 .' Glassfin Minnow School |achieve 1517/6
 .' Moonglow Cuttlefish School |achieve 1517/8
-.' Neettlefish School |achieve 1517/10
+.' Nettlefish School |achieve 1517/10
 .' Click here to proceed. |confirm
 step
 map Borean Tundra
@@ -3867,7 +3783,7 @@ path	43.4,78.5	40.3,77.0
 step
 goto Borean Tundra,51.2,42.4
 .' You will be able to find Musselback Sculpin Schools around Lake Kum'uya.
-.' Fish from a Musselback Scuplin School |achieve 1517/9
+.' Fish from a Musselback Sculpin School |achieve 1517/9
 step
 goto Borean Tundra,82.7,59.5
 .' Around the Glacier, you will find Schools of Moonglow Cuttlefish and Deep Sea Monsterbelly.
@@ -4020,7 +3936,7 @@ step
 .' Here is your current progression on The Coin Master.
 .' A Penny For Your Thoughts. |achieve 2096/1
 .' Silver in the City. |achieve 2096/2
-.' There's a Gold In That There Fountain. |achieve 2096/3
+.' There's Gold In That There Fountain. |achieve 2096/3
 .' Click here to proceed. |confirm
 step
 label	hub
@@ -4059,7 +3975,7 @@ goto Dalaran,52.6,66.5
 .' Fish up: Ansirem's Copper Coin |achieve 2094/2
 .' Fish up: Danath's Copper Coin |achieve 2094/4
 .' Fish up: Eitrigg's Copper Coin |achieve 2094/6
-.' Fish up: Falstad Wildhammer's Copper Coin |achieve 2094/7
+.' Fish up: Falstad Wildhammer's Copper Coin |achieve 2094/8
 .' Fish up: Inigo's Copper Coin |achieve 2094/10
 .' Fish up: Kryll's Copper Coin |achieve 2094/12
 .' Fish up: Molok's Copper Coin |achieve 2094/14
@@ -4079,14 +3995,14 @@ goto Dalaran,52.6,66.5
 .' Fish up: Fandral Staghelm's Silver Coin |achieve 2095/5
 .' Fish up: High Tinker Mekkatorque's Silver Coin |achieve 2095/6
 .' Fish up: Khadgar's Silver Coin |achieve 2095/7
-.' Fish up: King Anasterian Sunstrider's Silver Coin |achieve 2095/7
-.' Fish up: King Terenas Menethil's Silver Coin |achieve 2095/8
-.' Fish up: King Varian Wrynn's Silver Coin |achieve 2095/9
-.' Fish up: Maiev Shadowsong's Silver Coin |achieve 2095/10
-.' Fish up: Medivh's Silver Coin |achieve 2095/11
-.' Fish up: Muradin Bronzebeard's Silver Coin |achieve 2095/12
-.' Fish up: Prince Magni Bronzebeard's Silver Coin |achieve 2095/13
-.' Fish up: A Peasant's Silver Coin |achieve 2095/14
+.' Fish up: King Anasterian Sunstrider's Silver Coin |achieve 2095/8
+.' Fish up: King Terenas Menethil's Silver Coin |achieve 2095/9
+.' Fish up: King Varian Wrynn's Silver Coin |achieve 2095/10
+.' Fish up: Maiev Shadowsong's Silver Coin |achieve 2095/11
+.' Fish up: Medivh's Silver Coin |achieve 2095/12
+.' Fish up: Muradin Bronzebeard's Silver Coin |achieve 2095/13
+.' Fish up: Prince Magni Bronzebeard's Silver Coin |achieve 2095/14
+.' Fish up: A Peasant's Silver Coin |achieve 2095/15
 .'_
 .' Click here to return to the Achievement List |confirm |next hub
 step

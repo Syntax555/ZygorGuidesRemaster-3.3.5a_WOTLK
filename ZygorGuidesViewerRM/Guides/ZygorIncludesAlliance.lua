@@ -10575,17 +10575,17 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		goto Stormwind City,60.5,75.3
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Stormwind, The Trade District |achieve 966/19
+		.' Visit the Candy Bucket in Stormwind, The Trade District |achieve 966/9
 	step
 		goto Elwynn Forest,43.7,65.9
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Elwynn Forest, Goldshire |achieve 966/10
+		.' Visit the Candy Bucket in Elwynn Forest, Goldshire |achieve 966/3
 	step
 		goto Redridge Mountains,26.5,41.5
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Redridge Mountains, Lakeshire |achieve 966/17
+		.' Visit the Candy Bucket in Redridge Mountains, Lakeshire |achieve 966/8
 	step
 		goto Searing Gorge,39.5,66.1
 		.click Candy Bucket##6404
@@ -10595,7 +10595,7 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		goto Loch Modan,35.5,48.5
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Loch Modan, Thelsamar |achieve 966/15
+		.' Visit the Candy Bucket in Loch Modan, Thelsamar |achieve 966/7
 	step
 		goto Loch Modan,83.0,63.5
 		.click Candy Bucket##6404
@@ -10605,17 +10605,17 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		goto Ironforge,18.3,51.0
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Ironforge, The Commons |achieve 966/13
+		.' Visit the Candy Bucket in Ironforge, The Commons |achieve 966/6
 	step
 		goto Dun Morogh,54.5,50.8
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Dun Morogh, Kharanos |achieve 966/7
+		.' Visit the Candy Bucket in Dun Morogh, Kharanos |achieve 966/1
 	step
 		goto Wetlands,10.8,61.0
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Wetlands, Menethil Harbor |achieve 966/23
+		.' Visit the Candy Bucket in Wetlands, Menethil Harbor |achieve 966/11
 	step
 		goto Wetlands,26.1,26.0
 		.click Candy Bucket##6404
@@ -10636,7 +10636,7 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		.' Go upstairs in the inn
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Hinterlands, Aerie Peak |achieve 966/11
+		.' Visit the Candy Bucket in Hinterlands, Aerie Peak |achieve 966/5
 	step
 		goto The Hinterlands,66.2,44.4
 		.click Candy Bucket##6404
@@ -10646,7 +10646,7 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		goto Eastern Plaguelands,75.6,52.3
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Eastern Plaguelands, Light's Hope Chapel |achieve 966/9
+		.' Visit the Candy Bucket in Eastern Plaguelands, Light's Hope Chapel |achieve 966/12
 	step
 		goto Western Plaguelands,43.4,84.4
 		.click Candy Bucket##6404
@@ -10676,13 +10676,13 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		goto Westfall,52.9,53.7
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Westfall, Sentinel Hill |achieve 966/25
+		.' Visit the Candy Bucket in Westfall, Sentinel Hill |achieve 966/10
 		.' If you do not find the Candy Bucket here then it will be located at [56.8,47.3]
 	step
 		goto Duskwood,73.8,44.3
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Duskwood, Darkshire |achieve 966/8
+		.' Visit the Candy Bucket in Duskwood, Darkshire |achieve 966/2
 	step
 		goto Blasted Lands,60.7,14.1
 		.click Candy Bucket##6404
@@ -10708,7 +10708,7 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		goto Northern Barrens,67.3,74.7
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Barrens, Ratchet |achieve 963/15
+		.' Visit the Candy Bucket in Barrens, Ratchet |achieve 963/12
 	step
 		goto Southern Barrens,39.0,11.0
 		.click Candy Bucket##6404
@@ -10738,12 +10738,12 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		goto 41.9,74.1
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Dustwallow Marsh, Mudsprocket |achieve 963/8
+		.' Visit the Candy Bucket in Dustwallow Marsh, Mudsprocket |achieve 963/13
 	step
 		goto Tanaris,52.5,27.1
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Tanaris, Gadgetzan |achieve 963/25
+		.' Visit the Candy Bucket in Tanaris, Gadgetzan |achieve 963/15
 	step
 		goto Tanaris,55.7,61.0
 		.click Candy Bucket##6404
@@ -10758,7 +10758,7 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		goto Silithus,55.5,36.8
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Silithus, Cenarion Hold |achieve 963/16
+		.' Visit the Candy Bucket in Silithus, Cenarion Hold |achieve 963/14
 	step
 		goto Feralas,46.3,45.2
 		.click Candy Bucket##6404
@@ -10778,7 +10778,7 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		goto Desolace,66.3,6.6
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Desolace, Nijel's Point |achieve 963/7
+		.' Visit the Candy Bucket in Desolace, Nijel's Point |achieve 963/6
 	step
 		goto Stonetalon Mountains,71.02,79.08
 		.click Candy Bucket##6404
@@ -10818,7 +10818,7 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		goto Winterspring,59.8,51.2
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Winterspring, Everlook |achieve 963/28
+		.' Visit the Candy Bucket in Winterspring, Everlook |achieve 963/16
 	step
 		goto Darkshore,50.8,18.9
 		.click Candy Bucket##6404
@@ -10828,7 +10828,7 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		goto The Exodar,59.3,18.5
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Exodar, Seat of the Naaru |achieve 963/10
+		.' Visit the Candy Bucket in Exodar, Seat of the Naaru |achieve 963/8
 	step
 		goto Azuremyst Isle,48.5,49.0
 		.click Candy Bucket##6404
@@ -10848,17 +10848,17 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		goto Teldrassil,55.4,52.3
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Teldrassil, Dolanaar |achieve 963/26
+		.' Visit the Candy Bucket in Teldrassil, Dolanaar |achieve 963/11
 	step
 		goto Hellfire Peninsula,54.3,63.7
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Hellfire Peninsula, Honor Hold |achieve 969/4
+		.' Visit the Candy Bucket in Hellfire Peninsula, Honor Hold |achieve 969/3
 	step
 		goto 23.4,36.4
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Hellfire Peninsula, Temple of Telhamat |achieve 969/5
+		.' Visit the Candy Bucket in Hellfire Peninsula, Temple of Telhamat |achieve 969/4
 	step
 		goto Shattrath City,56.3,81.9
 		.click Candy Bucket##6404
@@ -10875,12 +10875,12 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		goto Terokkar Forest,56.6,53.2
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Terokkar Forest, Allerian Stronghold |achieve 969/12
+		.' Visit the Candy Bucket in Terokkar Forest, Allerian Stronghold |achieve 969/7
 	step
 		goto Shadowmoon Valley,37.0,58.3
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Shadowmoon Valley, Wildhammer Stronghold |achieve 969/10
+		.' Visit the Candy Bucket in Shadowmoon Valley, Wildhammer Stronghold |achieve 969/6
 	step
 		goto 56.4,59.8
 		.click Candy Bucket##6404
@@ -10897,47 +10897,47 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		goto Nagrand,54.2,75.9
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Nagrand, Telaar |achieve 969/6
+		.' Visit the Candy Bucket in Nagrand, Telaar |achieve 969/5
 	step
 		goto Zangarmarsh,78.5,62.9
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Zangarmarsh, Cenarion Refuge |achieve 969/13
+		.' Visit the Candy Bucket in Zangarmarsh, Cenarion Refuge |achieve 969/14
 	step
 		goto 67.2,49.0
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Zangarmarsh, Telredor |achieve 969/15
+		.' Visit the Candy Bucket in Zangarmarsh, Telredor |achieve 969/9
 	step
 		goto 41.9,26.2
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Zangarmarsh, Orebor Harborage |achieve 969/14
+		.' Visit the Candy Bucket in Zangarmarsh, Orebor Harborage |achieve 969/8
 	step
 		goto Blade's Edge Mountains,35.8,63.7
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Blade's Edge Mountains, Sylvanaar |achieve 969/2
+		.' Visit the Candy Bucket in Blade's Edge Mountains, Sylvanaar |achieve 969/1
 	step
 		goto 61.0,68.1
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Blade's Edge Mountains, Toshley's Station |achieve 969/3
+		.' Visit the Candy Bucket in Blade's Edge Mountains, Toshley's Station |achieve 969/2
 	step
 		goto 62.9,38.3
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Blade's Edge Mountains, Evergrove |achieve 969/1
+		.' Visit the Candy Bucket in Blade's Edge Mountains, Evergrove |achieve 969/10
 	step
 		goto Netherstorm,32.0,64.4
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Netherstorm, Area 52 |achieve 969/7
+		.' Visit the Candy Bucket in Netherstorm, Area 52 |achieve 969/11
 	step
 		goto 43.3,36.1
 		.click Candy Bucket##6404
 		..' Complete the Candy Bucket quest |tip If you cannot complete this quest because of a "Duplicate item found" message, open the Handful of Treats item in your bags and take out the contents. |use Handful of Treats##37586
-		.' Visit the Candy Bucket in Netherstorm, The Stormspire |achieve 969/8
+		.' Visit the Candy Bucket in Netherstorm, The Stormspire |achieve 969/12
 	step
 		goto Borean Tundra/0,58.5,67.9
 		.click Candy Bucket##6404
@@ -11134,18 +11134,16 @@ ZygorGuidesViewer:RegisterInclude("Hallows_End_Achievements_Alliance",[[
 		.' Show off your sparkling smile by using a Tooth Pick |achieve 981
 	step
 		'Use your Weighted Jack-o'-Lanterns on the following races: |use Weighted Jack-o'-Lantern##34068 |tip You receive Weighted Jack-o'-Lanterns by doing the Hallow's End daily quests.  Make sure the player doesn't already have a jack-o-lantern on their head or you won't get credit.  The best places to complete this would be Dalaran, Shattrath, Stormwind, and Orgrimmar.
-		.' Gnome |achieve 291/4
-		.' Goblin |achieve 291/5
-		.' Blood Elf |achieve 291/1
-		.' Draenei |achieve 291/2
-		.' Dwarf |achieve 291/3
-		.' Human |achieve 291/6
-		.' Night Elf |achieve 291/7
-		.' Orc |achieve 291/8
-		.' Tauren |achieve 291/9
-		.' Troll |achieve 291/10
-		.' Undead |achieve 291/11
-		.' Worgen |achieve 291/12
+		.' Gnome |achieve 291/1
+		.' Blood Elf |achieve 291/2
+		.' Draenei |achieve 291/3
+		.' Dwarf |achieve 291/4
+		.' Human |achieve 291/5
+		.' Night Elf |achieve 291/6
+		.' Orc |achieve 291/7
+		.' Tauren |achieve 291/8
+		.' Troll |achieve 291/9
+		.' Undead |achieve 291/10
 	step
 		'Have other players use Hallowed Wands on you while in a party to transform into the following:
 		.' Transform into a Bat |achieve 283/1
@@ -11653,18 +11651,16 @@ ZygorGuidesViewer:RegisterInclude("Pilgrims_Bounty_Dailies_Alliance",[[
 		.' You should have a few _Turkey Shooters_ from your daily quests, if you don't, you will need to do more daily's when possible for more.
 		.' While in Durotar, shoot Horde Rogues with your Turkey Shooter. |use Turkey Shooter##44812
 		.' Shoot a Blood Elf Rogue |achieve 3559/1
-		.' Shoot a Orc Rogue |achieve 3559/7
-		.' Shoot a Troll Rogue |achieve 3559/8
-		.' Shoot a Undead Rogue |achieve 3559/9
-		.' Shoot a Goblin Rogue |achieve 3559/4
+		.' Shoot a Orc Rogue |achieve 3559/6
+		.' Shoot a Troll Rogue |achieve 3559/7
+		.' Shoot a Undead Rogue |achieve 3559/8
 	step
 		.' You should have a few _Turkey Shooters_ from your daily quests, if you don't, you will need to do more daily's when possible for more.
 		.' While in Elwynn Forest, shoot Alliance Rogues with your Turkey Shooter. |use Turkey Shooter##44812
 		.' Shoot a Dwarf Rogue |achieve 3559/2
 		.' Shoot a Gnome Rogue |achieve 3559/3
-		.' Shoot a Human Rogue |achieve 3559/5
-		.' Shoot a Night Elf Rogue |achieve 3559/6
-		.' Shoot a Worgen Rogue |achieve 3559/10
+		.' Shoot a Human Rogue |achieve 3559/4
+		.' Shoot a Night Elf Rogue |achieve 3559/5
 	step
 		goto Sethekk Halls,49.4,95.3 |n
 		 .' Follow this stairway up and around |goto Sethekk Halls,49.4,95.3,0.5 |noway |c
@@ -11849,27 +11845,27 @@ ZygorGuidesViewer:RegisterInclude("Feast of Winter Veil Achievements",[[
 	step
 		goto 55.0,54.2
 		.' Use your Mistletoe on Brother Kristoff |use Mistletoe##21519
-		.' Use Mistletoe on Brother Kristoff in Stormwind City |achieve 1686/4
+		.' Use Mistletoe on Brother Kristoff in Stormwind City |achieve 1686/5
 		|modelnpc 1444
 	step
 		 goto 51.6,46.4
 		.' Use your Mistletoe on Brother Benjamin |use Mistletoe##21519 |tip He patrols in front of this entryway, so you may need to search for him.
-		.' Use Mistletoe on Brother Benjamin in the Stormwind City |achieve 1686/8
+		.' Use Mistletoe on Brother Benjamin in the Stormwind City |achieve 1686/9
 		|modelnpc 5484
 	step
 		goto 52.4,45.8
 		.' Use your Mistletoe on Brother Cassius |use Mistletoe##21519
-		.' Use Mistletoe on Brother Cassius in the Stormwind City |achieve 1686/7
+		.' Use Mistletoe on Brother Cassius in the Stormwind City |achieve 1686/8
 		|modelnpc 1351
 	step
 		goto 49.5,45.2
 		.' Use your Mistletoe on Brother Joshua |use Mistletoe##21519
-		.' Use Mistletoe on Brother Joshua in the Stormwind City |achieve 1686/5
+		.' Use Mistletoe on Brother Joshua in the Stormwind City |achieve 1686/6
 		|modelnpc 5489
 	step
 		goto 52.6,43.2
 		.' Use your Mistletoe on Brother Crowley |use Mistletoe##21519 |tip He is at the lower level of the cathedral, down the ramp.
-		.' Use Mistletoe on Brother Crowley in the Stormwind City |achieve 1686/6
+		.' Use Mistletoe on Brother Crowley in the Stormwind City |achieve 1686/7
 		|modelnpc 12336
 	 step
 		goto 60.4,75.3
@@ -11878,16 +11874,16 @@ ZygorGuidesViewer:RegisterInclude("Feast of Winter Veil Achievements",[[
 	step
 		goto Elwynn Forest,41.1,66.0
 		.' Use your Mistletoe on Brother Wilhelm |use Mistletoe##21519 |modelnpc 927
-		.' Use Mistletoe on Brother Wilhelm in Goldshire |achieve 1686/2
+		.' Use Mistletoe on Brother Wilhelm in Goldshire |achieve 1686/3
 	step
-		goto Northern Stranglethorn,47.3,11.1
+		goto Stranglethorn Vale,37.8,3.6
 		.' Use your Mistletoe on Brother Nimetz |use Mistletoe##21519
-		.' Use Mistletoe on Brother Nimetz in Northern Stranglethorn |achieve 1686/1
+		.' Use Mistletoe on Brother Nimetz in Stranglethorn Vale |achieve 1686/1
 		|modelnpc 739
 	step
 		goto Dustwallow Marsh,67.4,47.4
 		.' Use your Mistletoe on Brother Karman |use Mistletoe##21519
-		.' Use Mistletoe on Brother Karman in Dustwallow Marsh |achieve 1686/3
+		.' Use Mistletoe on Brother Karman in Theramore |achieve 1686/4
 	step
 		.' The following achievements require a level 70 or higher character.
 		|confirm
@@ -12843,10 +12839,10 @@ ZygorGuidesViewer:RegisterInclude("Love is in the Air Achievement",[[
 		.' Do the following exactly in order from top to bottom in the step:
 		.' Use all 6 of your Flagons of Mead to get Completely Smashed |use Flagon of Mead##2594
 		.' Use your "VICTORY" Perfume |use "VICTORY" Perfume##49856
-		.' Use your Handful of Rose Petals on Sraaz |use Handful of Rose Petals##22218 |achieve 1279/1
-		.' Kiss Sraaz |script DoEmote("KISS") |achieve 1279/2
+		.' Use your Handful of Rose Petals on Sraaz |use Handful of Rose Petals##22218 |achieve 1279/2
+		.' Kiss Sraaz |script DoEmote("KISS") |achieve 1279/1
 	step
-		'Go to the Gurubashi Arena in The Cape of Stranglethorn: |tip The Cape of Stranglethorn is the southern-most zone on the Eastern Kingdoms continent.
+		'Go to the Gurubashi Arena in Stranglethorn Vale: |tip The arena is in the middle of the zone, west of the main road.
 		.' Use your Love Fool anywhere inside the Gurubashi Arena |use Love Fool##22261
 		.' Target the Love Fool and Pity it |script DoEmote("PITY") |achieve 1704/2
 	step
@@ -12998,17 +12994,15 @@ ZygorGuidesViewer:RegisterInclude("Noblegarden Achievements",[[
 		'Find a female character of every race that are at least level 18 and do the following: |tip The best places to try and find them would be Dalaran, Shattrath, Stormwind, and Orgrimmar.
 		.' Use your Spring Flowers on them |use Spring Flowers##45073
 		.' Place bunny ears on a Blood Elf |achieve 2422/1
-		.' Place bunny ears on a Tauren |achieve 2422/9
+		.' Place bunny ears on a Tauren |achieve 2422/8
 		.' Place bunny ears on a Draenei |achieve 2422/2
-		.' Place bunny ears on a Human |achieve 2422/6
-		.' Place bunny ears on a Troll |achieve 2422/10
+		.' Place bunny ears on a Human |achieve 2422/5
+		.' Place bunny ears on a Troll |achieve 2422/9
 		.' Place bunny ears on a Dwarf |achieve 2422/3
-		.' Place bunny ears on a Night Elf |achieve 2422/7
+		.' Place bunny ears on a Night Elf |achieve 2422/6
 		.' Place bunny ears on a Gnome |achieve 2422/4
-		.' Place bunny ears on a Orc |achieve 2422/8
-		.' Place bunny ears on a Goblin |achieve 2422/5
-		.' Place bunny ears on an Undead |achieve 2422/11
-		.' Place bunny ears on a Worgen |achieve 2422/12
+		.' Place bunny ears on a Orc |achieve 2422/7
+		.' Place bunny ears on an Undead |achieve 2422/10
 	step
 		'Congratulations, you are now a Noble Gardener!
 ]])
@@ -14765,55 +14759,55 @@ ZygorGuidesViewer:RegisterInclude("A_The_Outland_Gourmet",[[
 		.' Cook Blackened Sporefish |achieve 1800/8
 	step
 		.create Blackened Basilisk##33286,Cooking,1 total
-		.' Cook Blackened Basilisk |achieve 1800/9
+		.' Cook Blackened Basilisk |achieve 1800/10
 	step
 		.create Grilled Mudfish##33293,Cooking,1 total
-		.' Cook Grilled Mudfish |achieve 1800/10
+		.' Cook Grilled Mudfish |achieve 1800/11
 	step
 		.create Poached Bluefish##33294,Cooking,1 total
-		.' Cook Poached Bluefish |achieve 1800/11
+		.' Cook Poached Bluefish |achieve 1800/12
 	step
 		.create Broiled Bloodfin##43761,Cooking,1 total
-		.' Cook Broiled Bloodfin |achieve 1800/12
+		.' Cook Broiled Bloodfin |achieve 1800/13
 	step
 		.create Golden Fish Sticks##33295,Cooking,1 total
-		.' Cook Golden Fish Sticks |achieve 1800/13
+		.' Cook Golden Fish Sticks |achieve 1800/14
 	step
 		.create Kibler's Bits##43772,Cooking,1 total
-		.' Cook Kibler's Bits |achieve 1800/14
+		.' Cook Kibler's Bits |achieve 1800/15
 	step
 		.create Roasted Clefthoof##33287,Cooking,1 total
-		.' Cook Roasted Clefthoof |achieve 1800/15
+		.' Cook Roasted Clefthoof |achieve 1800/16
 	step
 		.create Talbuk Steak##33289,Cooking,1 total
-		.' Cook Talbuk Steak |achieve 1800/16
+		.' Cook Talbuk Steak |achieve 1800/17
 	step
 		.create Warp Burger##33288,Cooking,1 total
-		.' Cook Warp Burger |achieve 1800/17
+		.' Cook Warp Burger |achieve 1800/18
 	step
 		.create Crunchy Serpent##38868,Cooking,1 total
-		.' Cook Crunchy Serpent |achieve 1800/18
+		.' Cook Crunchy Serpent |achieve 1800/19
 	step
 		.create Mok'Nathal Shortribs##38867,Cooking,1 total
-		.' Cook Mok'Nathal |achieve 1800/19
+		.' Cook Mok'Nathal Shortribs |achieve 1800/20
 	step
 		.create Fisherman's Feast##42302,Cooking,1 total
-		.' Cook Fisherman's Feast |achieve 1800/20
+		.' Cook Fisherman's Feast |achieve 1800/21
 	step
 		.create Hot Buttered Trout##42305,Cooking,1 total
-		.' Cook Hot Buttered Trout |achieve 1800/21
+		.' Cook Hot Buttered Trout |achieve 1800/22
 	step
 		.create Skullfish Soup##43707,Cooking,1 total
-		.' Cook Skullfish Soup |achieve 1800/22
+		.' Cook Skullfish Soup |achieve 1800/23
 	step
 		.create Spicy Crawdad##33296,Cooking,1 total
-		.' Cook Spicy Crawdad |achieve 1800/23
+		.' Cook Spicy Crawdad |achieve 1800/24
 	step
 		.create Spicy Hot Talbuk##43765,Cooking,1 total
-		.' Cook Spicy Hot Talbuk |achieve 1800/24
+		.' Cook Spicy Hot Talbuk |achieve 1800/25
 	step
 		.create Stewed Trout##42296,Cooking,1 total
-		.' Cook Stewed Trout |achieve 1800/25
+		.' Cook Stewed Trout |achieve 1800/26
 	step
 		.' Cook each of the Outland cooking recipes |achieve 1800
 	step
@@ -15021,133 +15015,133 @@ ZygorGuidesViewer:RegisterInclude("A_The_Northrend_Gourmet",[[
 		.' Cook Baked Manta Ray |achieve 1777/2
 	step
 		.create Blackened Dragonfin##57441,Cooking,1 total
-		.' Cook Blackened Dragonfin |achieve 1777/3
+		.' Cook Blackened Dragonfin |achieve 1777/22
 	step
 		.create Blackened Worg Steak##57438,Cooking,1 total
-		.' Cook Blackened Worg Steak |achieve 1777/4
+		.' Cook Blackened Worg Steak |achieve 1777/23
 	step
 		.create Critter Bites##57435,Cooking,1 total
-		.' Cook Critter Bites |achieve 1777/5
+		.' Cook Critter Bites |achieve 1777/24
 	step
 		.create Cuttlesteak##57439,Cooking,1 total
-		.' Cook Cuttlesteak |achieve 1777/6
+		.' Cook Cuttlesteak |achieve 1777/25
 	step
 		.create Dalaran Clam Chowder##58065,Cooking,1 total
-		.' Cook Dalaran Clam Chowder |achieve 1777/7
+		.' Cook Dalaran Clam Chowder |achieve 1777/3
 	step
 		.create Dragonfin Filet##57442,Cooking,1 total
-		.' Cook Dragonfin Filet |achieve 1777/8
+		.' Cook Dragonfin Filet |achieve 1777/26
 	step
 		.create Firecracker Salmon##45568,Cooking,1 total
-		.' Cook Firecracker Salmon |achieve 1777/9
+		.' Cook Firecracker Salmon |achieve 1777/27
 	step
 		.create Fish Feast##57423,Cooking,1 total
-		.' Cook Fish Feast |achieve 1777/10
+		.' Cook Fish Feast |achieve 1777/28
 	step
 		.create Gigantic Feast##58527,Cooking,1 total
-		.' Cook Gigantic Feast |achieve 1777/11
+		.' Cook Gigantic Feast |achieve 1777/29
 	step
 		.create Great Feast##45554,Cooking,1 total
-		.' Cook Great Feast |achieve 1777/12
+		.' Cook Great Feast |achieve 1777/20
 	step
 		.create Grilled Bonescale##45561,Cooking,1 total
-		.' Cook Grilled Bonescale |achieve 1777/13
+		.' Cook Grilled Bonescale |achieve 1777/4
 	step
 		.create Grilled Sculpin##45563,Cooking,1 total
-		.' Cook Grilled Sculpin |achieve 1777/14
+		.' Cook Grilled Sculpin |achieve 1777/5
 	step
 		.create Haunted Herring##58525,Cooking,1 total
-		.' Cook Haunted Herring |achieve 1777/15
+		.' Cook Haunted Herring |achieve 1777/6
 	step
 		.create Hearty Rhino##57436,Cooking,1 total
-		.' Cook Hearty Rhino |achieve 1778/16
+		.' Cook Hearty Rhino |achieve 1778/30
 	step
 		.create Imperial Manta Steak##45570,Cooking,1 total
-		.' Cook Imperial Manta Steak |achieve 1778/17
+		.' Cook Imperial Manta Steak |achieve 1778/31
 	step
 		.create Kungaloosh##53056,Cooking,1 total
-		.' Cook Kungaloosh |achieve 1778/18
+		.' Cook Kungaloosh |achieve 1778/21
 	step
 		.create Last Week's Mammoth##58521,Cooking,1 total
-		.' Cook Last Week's Mammoth |achieve 1778/19
+		.' Cook Last Week's Mammoth |achieve 1778/7
 	step
 		.create Mammoth Meal##45549,Cooking,1 total
-		.' Cook Mammoth Meal |achieve 1778/20
+		.' Cook Mammoth Meal |achieve 1778/8
 	step
 		.create Mega Mammoth Meal##45555,Cooking,1 total
-		.' Cook Mega Mammoth Meal |achieve 1778/21
+		.' Cook Mega Mammoth Meal |achieve 1778/32
 	step
 		.create Mighty Rhino Dogs##45559,Cooking,1 total
-		.' Cook Mighty Rhino Dogs |achieve 1778/22
+		.' Cook Mighty Rhino Dogs |achieve 1778/33
 	step
 		.create Northern Stew##57421,Cooking,1 total
-		.' Cook Northern Stew |achieve 1778/23
+		.' Cook Northern Stew |achieve 1778/9
 	step
-		.create Pickeled Fangtooth##45566,Cooking,1 total
-		.' Cook Pickeled Fangtooth |achieve 1778/24
+		.create Pickled Fangtooth##45566,Cooking,1 total
+		.' Cook Pickled Fangtooth |achieve 1778/10
 	step
 		.create Poached Nettlefish##45565,Cooking,1 total
-		.' Cook Poached Nettlefish |achieve 1778/25
+		.' Cook Poached Nettlefish |achieve 1778/11
 	step
 		.create Poached Northern Sculpin##45567,Cooking,1 total
-		.' Cook Poached Northern Sculpin |achieve 1778/26
+		.' Cook Poached Northern Sculpin |achieve 1778/34
 	step
 		.create Rhino Dogs##45553,Cooking,1 total
-		.' Cook Rhino Dogs |achieve 1778/27
+		.' Cook Rhino Dogs |achieve 1778/12
 	step
 		.create Rhinolicious Wormsteak##57434,Cooking,1 total
-		.' Cook Rhinolicious Wormsteak |achieve 1778/28
+		.' Cook Rhinolicious Wormsteak |achieve 1778/35
 	step
 		.create Roasted Worg##45552,Cooking,1 total
-		.' Cook Roasted Worg |achieve 1778/29
+		.' Cook Roasted Worg |achieve 1778/13
 	step
 		.create Sauteed Goby##45562,Cooking,1 total
-		.' Cook Sauteed Goby |achieve 1778/30
+		.' Cook Sauteed Goby |achieve 1778/14
 	step
 		.create Shoveltusk Steak##45550,Cooking,1 total
-		.' Cook Shoveltusk Steak |achieve 1779/31
+		.' Cook Shoveltusk Steak |achieve 1779/15
 	step
 		.create Small Feast##58528,Cooking,1 total
-		.' Cook Small Feast |achieve 1779/32
+		.' Cook Small Feast |achieve 1779/36
 	step
 		.create Smoked Rockfin##45560,Cooking,1 total
-		.' Cook Smoked Rockfin |achieve 1779/33
+		.' Cook Smoked Rockfin |achieve 1779/16
 	step
 		.create Smoked Salmon##45564,Cooking,1 total
-		.' Cook Smoked Salmon |achieve 1779/34
+		.' Cook Smoked Salmon |achieve 1779/17
 	step
 		.create Snapper Extreme##57437,Cooking,1 total
-		.' Cook Snapper Extreme |achieve 1779/35
+		.' Cook Snapper Extreme |achieve 1779/37
 	step
 		.create Spiced Mammoth Treats##57440,Cooking,1 total
-		.' Cook Spiced Mammoth |achieve 1779/36
+		.' Cook Spiced Mammoth Treats |achieve 1779/38
 	step
 		.create Spiced Worm Burger##45557,Cooking,1 total
-		.' Cook Spiced Worm Burger |achieve 1779/37
+		.' Cook Spiced Worm Burger |achieve 1779/39
 	step
 		.create Spicy Blue Nettlefish##45571,Cooking,1 total
-		.' Cook Spicy Blue Nettlefish |achieve 1779/38
+		.' Cook Spicy Blue Nettlefish |achieve 1779/40
 	step
 		.create Spicy Fried Herring##57433,Cooking,1 total
-		.' Cook Spicy Fried Herring |achieve 1779/39
+		.' Cook Spicy Fried Herring |achieve 1779/41
 	step
 		.create Tasty Cupcake##58512,Cooking,1 total
-		.' Cook Tasty Cupcake |achieve 1779/40
+		.' Cook Tasty Cupcake |achieve 1779/18
 	step
 		.create Tender Shoveltusk Steak##45556,Cooking,1 total
-		.' Cook Tender Shoveltusk Steak |achieve 1779/41
+		.' Cook Tender Shoveltusk Steak |achieve 1779/42
 	step
 		.create Tracker Snacks##57443,Cooking,1 total
-		.' Cook Tracker Snacks |achieve 1779/42
+		.' Cook Tracker Snacks |achieve 1779/43
 	step
 		.create Very Burnt Worg##45558,Cooking,1 total
-		.' Cook Very Burnt Worg |achieve 1779/43
+		.' Cook Very Burnt Worg |achieve 1779/44
 	step
 		.create Worg Tartare##62350,Cooking,1 total
-		.' Cook Worg Tartare |achieve 1779/44
+		.' Cook Worg Tartare |achieve 1779/45
 	step
 		.create Worm Delight##45551,Cooking,1 total
-		.' Cook Worm Delight |achieve 1779/45
+		.' Cook Worm Delight |achieve 1779/19
 		..' Cook 45 of the Northrend recipes |achieve 1779
 	step
 		'Congratulations! You've earned the Northrend Gourment achievement!
@@ -15941,7 +15935,7 @@ ZygorGuidesViewer:RegisterInclude("A_The_Lurker_Above",[[
 ZygorGuidesViewer:RegisterInclude("A_Old_Man_Barlowned",[[
 	step
 		.' In order the earn this achievement, you will need to have completed these 5 daily quests:
-		.' Crcolisks in the City |achieve 905/1
+		.' Crocolisks in the City |achieve 905/1
 		.' Bait Bandits |achieve 905/2
 		.' Felblood Fillet |achieve 905/3
 		.' The One That Got Away |achieve 905/4
@@ -16046,15 +16040,15 @@ ZygorGuidesViewer:RegisterInclude("A_Northrend_Angler_Angler",[[
 		.' Click here to proceed. |confirm
 	step
 		.' Borean Man O'War School |achieve 1517/1
-		.' Dragonfin Angelfish School |achieve 1517/2
-		.' Glacial Salmon School |achieve 1517/3
-		.' Imperial Manta Ray School |achieve 1517/4
-		.' Musselback Sculpin School |achieve 1517/5
-		.' Deep Sea Monsterbelly School |achieve 1517/6
-		.' Fangtooth Herring School |achieve 1517/7
-		.' Glassfin Minnow School |achieve 1517/8
-		.' Moonglow Cuttlefish School |achieve 1517/9
-		.' Neettlefish School |achieve 1517/10
+		.' Dragonfin Angelfish School |achieve 1517/3
+		.' Glacial Salmon School |achieve 1517/5
+		.' Imperial Manta Ray School |achieve 1517/7
+		.' Musselback Sculpin School |achieve 1517/9
+		.' Deep Sea Monsterbelly School |achieve 1517/2
+		.' Fangtooth Herring School |achieve 1517/4
+		.' Glassfin Minnow School |achieve 1517/6
+		.' Moonglow Cuttlefish School |achieve 1517/8
+		.' Nettlefish School |achieve 1517/10
 		.' Click here to proceed. |confirm
 	step
 		map Borean Tundra
@@ -16062,17 +16056,17 @@ ZygorGuidesViewer:RegisterInclude("A_Northrend_Angler_Angler",[[
 		path	54.3,75.2	49.5,79.0	45.8,80.9
 		path	43.4,78.5	40.3,77.0
 		.' Follow the coast until you find and Imperial Manta Ray and a Borean Man O' War School.  You mayb need to fish out other schools in order to force new ones to spawn.
-		.' Fish from an Imperial Manta Ray School |achieve 1517/4 |cast Fishing##7620
+		.' Fish from an Imperial Manta Ray School |achieve 1517/7 |cast Fishing##7620
 		.' Fish from a Borean Man O' War School |achieve 1517/1 |cast Fishing##7620
 	step
 		goto Borean Tundra,51.2,42.4
 		.' You will be able to find Musselback Sculpin Schools around Lake Kum'uya.
-		.' Fish from a Musselback Scuplin School |achieve 1517/5
+		.' Fish from a Musselback Sculpin School |achieve 1517/9
 	step
 		goto Borean Tundra,82.7,59.5
 		.' Around the Glacier, you will find Schools of Moonglow Cuttlefish and Deep Sea Monsterbelly.
-		.' Fish from a Deep Sea Monsterbelly School |achieve 1517/6 |cast Fishing##7620
-		.' Fish from a Moonglow Cuttlefish School |achieve 1517/9 |cast Fishing##7620
+		.' Fish from a Deep Sea Monsterbelly School |achieve 1517/2 |cast Fishing##7620
+		.' Fish from a Moonglow Cuttlefish School |achieve 1517/8 |cast Fishing##7620
 	step
 		goto Sholazar Basin,46.8,64.7
 		.' All around River's Heart, you will find schools of Nettlefish.
@@ -16080,23 +16074,23 @@ ZygorGuidesViewer:RegisterInclude("A_Northrend_Angler_Angler",[[
 	step
 		goto Dragonblight,42.3,67.8
 		.' You can find Dragonfin Angelfish School all along Lake Indu'le.
-		.' Fish from a Dragonfin Angelfish School |achieve 1517/2 |cast Fishing##7620
+		.' Fish from a Dragonfin Angelfish School |achieve 1517/3 |cast Fishing##7620
 	step
 		goto Crystalsong Forest,49.0,54.1
 		.' Along the Twilight Rivulet you will find schools of Glassfin Minnow.
-		.' Fish from a Glassfin Minnow School |achieve 1517/8 |cast Fishing##7620
+		.' Fish from a Glassfin Minnow School |achieve 1517/6 |cast Fishing##7620
 	step
 		map Grizzly Hills
 		path follow loose;loop off;ants straight // this stays until the end of the guide.
 		path	26.4,64.9	28.6,60.8	29.5,55.8
 		.' You can find Schools of Glacial Salmon along this river.
-		.' Fish from a Glacial Salmon School |achieve 1517/3 |cast Fishing##7620
+		.' Fish from a Glacial Salmon School |achieve 1517/5 |cast Fishing##7620
 	step
 		map Howling Fjord
 		path follow loose;loop off;ants straight // this stays until the end of the guide.
 		path	59.5,58.8	60.8,60.3	60.6,64.5
 		.' You can find Fangtooth Herring Schools along Daggercap Bay.
-		.' Fish from a Fangtooth Herring School |achieve 1517/7 |cast Fishing##7620
+		.' Fish from a Fangtooth Herring School |achieve 1517/4 |cast Fishing##7620
 	step
 		.' Earn the Northrend Angler Achievement. |achieve 1517 |cast Fishing##7620
 	step
@@ -16120,7 +16114,7 @@ ZygorGuidesViewer:RegisterInclude("A_The_Coin_Master",[[
 		.' Here is your current progression on The Coin Master.
 		.' A Penny For Your Thoughts. |achieve 2096/1
 		.' Silver in the City. |achieve 2096/2
-		.' There's a Gold In That There Fountain. |achieve 2096/3
+		.' There's Gold In That There Fountain. |achieve 2096/3
 		.' Click here to proceed. |confirm
 	step
 		goto Dalaran,52.6,66.5

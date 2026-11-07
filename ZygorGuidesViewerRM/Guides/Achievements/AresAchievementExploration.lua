@@ -39,10 +39,10 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Kalimdor\\Exp
 	type achievements
     next Ares' Achievement Guides\\Explore Kalimdor\\Explore Darkshore
 	step //1
-        .'Unlock Rut'theran Village|achieve 842/6|goto Teldrassil,55,91
+        .'Unlock Rut'theran Village|achieve 842/11|goto Teldrassil,55,91
         .'Begin in Darnassus|goto Darnassus|noway|c
     step //2
-        .'Unlock Darnassus|path Darnassus,25,55|achieve 842/11
+        .'Unlock Darnassus|path Darnassus,25,55|achieve 842/10
     step //3
         .'Unlock Pools of Arlithrien|path Teldrassil,40,65|achieve 842/6
     step //4
@@ -66,7 +66,7 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Kalimdor\\Exp
     step //13
         .'Go through the pink portal towards Rut'theran Village|goto Darnassus,30.8,41.4
     step //14
-        .'Unlock Rut'theran Village|achieve 842/6|goto Teldrassil,55,91
+        .'Unlock Rut'theran Village|achieve 842/11|goto Teldrassil,55,91
     step //15
         goto Teldrassil,58.4,94
         .talk Vesprystus##3838
@@ -144,7 +144,7 @@ next Ares' Achievement Guides\\Explore Kalimdor\\Explore Felwood
     step //13
         .'Unlock Fallen Sky Lake|achieve 845/13|goto Ashenvale,66,82
     step //14
-        .'Unlock Fellfire Hill|achieve 845/18|goto Ashenvale,89,77
+        .'Unlock Felfire Hill|achieve 845/18|goto Ashenvale,89,77
     step //15
         .'Unlock Warsong Lumber Camp|achieve 845/17|goto Ashenvale,90,58
     step //16
@@ -898,7 +898,7 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //7
         .'Unlock Tower of Azora |achieve 776/7|goto Elwynn Forest,64,69
     step //8
-        .'Unlock Stone Cairn Lake |achieve 776/12|goto Elwynn Forest,73,58
+        .'Unlock Stone Cairn Lake |achieve 776/12|goto Elwynn Forest,75.1,49.8
     step //9
         .'Unlock Eastvale Logging Camp |achieve 776/9|goto Elwynn Forest,83,66
     step //10
@@ -943,7 +943,7 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //12
         .'Unlock Moonbrook |achieve 802/9|goto Westfall,43,69
     step //13
-        .'Unlock The Dead Acre |achieve 802/8|goto Westfall,35.1,72.0
+        .'Unlock The Dead Acre |achieve 802/8|goto Westfall,62.4,61.4
     step //14
         .'Unlock Westfall Lighthouse |achieve 802/12|goto Westfall,30,86
     step //15
@@ -978,7 +978,7 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //9
         .'Unlock Twilight Grove |achieve 778/6|goto Duskwood,47.4,44.6
     step //10
-        .'Unlock The Darkened Bank |achieve 778/13|goto Duskwood,53.2,12.0|tip If unable to exit from Twilight Grove, return to the hill path and proceed around the mountainous area to reach this point.
+        .'Unlock The Darkened Bank |achieve 778/13|goto Duskwood,54.6,21.3|tip If unable to exit from Twilight Grove, return to the hill path and proceed around the mountainous area to reach this point.
     step //11
         .'Unlock Brightwood Grove |achieve 778/8|goto Duskwood,64.3,37.8
     step //12
@@ -1087,11 +1087,11 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //4
         .'Unlock Three Corners|achieve 780/3|goto Redridge Mountains,15,71
     step //5
-        .'Unlock Lakeridge Highway|achieve 780/4|goto Redridge Mountains,29,67
+        .'Unlock Lakeridge Highway|achieve 780/4|goto Redridge Mountains,38.2,73.4
     step //6
         .'Unlock Redridge Canyons|achieve 780/5|goto Redridge Mountains,33,23
     step //7
-        .'Unlock Alther's Millagazor|achieve 780/6|goto Redridge Mountains,53,42
+        .'Unlock Alther's Mill|achieve 780/6|goto Redridge Mountains,53,42
     step //8
         .'Unlock Stonewatch|achieve 780/7|goto Redridge Mountains,66,53
     step //9
@@ -1118,7 +1118,7 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //3
         .'Unlock Morgan's Vigil |achieve 775/2|goto Burning Steppes,84,68
     step //4
-        .'Unlock Terror Wing Path |achieve 775/3|goto Burning Steppes,93,45
+        .'Unlock Terror Wing Path |achieve 775/3|goto Burning Steppes,88.6,35.9
     step //5
         .'Unlock Blackrock Pass |achieve 775/4|goto Burning Steppes,77,68
     step //6
@@ -1145,13 +1145,13 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //1
         .'Travel Searing Gorge|goto Searing Gorge|noway|c
     step //2
-        .'Unlock  Firewatch Ridge |achieve 774/1|goto Searing Gorge,33,43
+        .'Unlock  Firewatch Ridge |achieve 774/1|goto Searing Gorge,27.9,33.7
     step //3
         .'Unlock  The Cauldron |achieve 774/2|goto Searing Gorge,49,50
     step //4
         .'Unlock  Blackchar Cave |achieve 774/3|goto Searing Gorge,22,80
     step //5
-        .'Unlock  The Sea of Cinders |achieve 774/4|goto Searing Gorge,46,72
+        .'Unlock  The Sea of Cinders |achieve 774/4|goto Searing Gorge,44.9,84.2
     step //6
         .'Unlock  Tanner Camp |achieve 774/5|goto Searing Gorge,71,70
     step //7
@@ -1170,25 +1170,33 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //1
         .'Travel to Badlands|goto Badlands|noway|c
     step //2
-        .'Unlock Lethlor Ravine |achieve 765/1|goto Badlands,68.0,48.2
+        .'Unlock Lethlor Ravine |achieve 765/1|goto Badlands,78.3,50.9
     step //3
-        .'Unlock Camp Kosh |achieve 765/8|goto Badlands,60.1,20.7
+        .'Unlock Dustwind Gulch |achieve 765/11|goto Badlands,62.6,46.0
     step //4
-        .'Unlock Uldaman |achieve 765/3|goto Badlands,38.3,11.6
+        .'Unlock Hammertoe's Digsite |achieve 765/12|goto Badlands,56.6,36.3
     step //5
-        .'Unlock Angor Fortress |achieve 765/7|goto Badlands,41.1,26.5
+        .'Unlock Camp Kosh |achieve 765/14|goto Badlands,60.1,20.7
     step //6
-        .'Unlock The Dustbowl |achieve 765/6|goto Badlands,27.4,38.0
+        .'Unlock The Maker's Terrace |achieve 765/13|goto Badlands,49.2,16.5
     step //7
-        .'Unlock New Kargath |achieve 765/10|goto Badlands,17.7,41.7
+        .'Unlock Angor Fortress |achieve 765/10|goto Badlands,41.1,26.5
     step //8
-        .'Unlock Camp Cagg |achieve 765/4|goto Badlands,17.2,63.0
+        .'Unlock Valley of Fangs |achieve 765/9|goto Badlands,46.4,56.9
     step //9
-        .'Unlock Scar of the Worldbreaker |achieve 765/5|goto Badlands,31.7,54.6
+        .'Unlock The Dustbowl |achieve 765/8|goto Badlands,30.4,51.6
     step //10
-        .'Unlock Agmond's End |achieve 765/2|goto Badlands,46.5,57.4
+        .'Unlock Kargath |achieve 765/7|goto Badlands,8.7,47.5
     step //11
-        .'Unlock Bloodwatcher Point |achieve 765/9|goto Badlands,52.3,51.2
+        .'Unlock Apocryphan's Rest |achieve 765/6|goto Badlands,15.7,61.8
+    step //12
+        .'Unlock Camp Cagg |achieve 765/5|goto Badlands,13.2,81.6
+    step //13
+        .'Unlock Mirage Flats |achieve 765/4|goto Badlands,30.7,75.2
+    step //14
+        .'Unlock Agmond's End |achieve 765/3|goto Badlands,47.2,74.1
+    step //15
+        .'Unlock Camp Boff |achieve 765/2|goto Badlands,61.4,72.6
 ]])
 ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingdoms\\Explore Loch Modan",[[
     author ErebusAres
@@ -1201,7 +1209,7 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //3
         .'Unlock Stonesplinter Valley |achieve 779/10|goto Loch Modan,32.5,78.3
     step //4
-        .'Unlock Grizzlepaw Ridge |achieve 779/8|goto Loch Modan,38.0,60.7
+        .'Unlock Grizzlepaw Ridge |achieve 779/8|goto Loch Modan,45.2,68.9
     step //5
         .'Unlock Ironband's Excavation Site |achieve 779/7|goto Loch Modan,69.4,65.3
     step //6
@@ -1209,12 +1217,14 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //7
         .'Unlock Mo'grosh Stronghold |achieve 779/3|goto Loch Modan,71.0,23.8
     step //8
-        .'Unlock Thelsamar |achieve 779/9|goto Loch Modan,35.2,47.6
+        .'Unlock The Loch |achieve 779/1|goto Loch Modan,50.1,42.3
     step //9
-        .'Unlock North Gate Pass |achieve 779/5|goto Loch Modan,20.2,17.1
+        .'Unlock Thelsamar |achieve 779/9|goto Loch Modan,35.2,47.6
     step //10
-        .'Unlock Silver Stream Mine |achieve 779/4|goto Loch Modan,34.8,21.5
+        .'Unlock North Gate Pass |achieve 779/5|goto Loch Modan,20.2,17.1
     step //11
+        .'Unlock Silver Stream Mine |achieve 779/4|goto Loch Modan,34.8,21.5
+    step //12
         .'Unlock Stonewrought Dam |achieve 779/2|goto Loch Modan,48.0,11.4
 ]])
 ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingdoms\\Explore Wetlands",[[
@@ -1224,17 +1234,17 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //1
         .'Travel to Wetlands|goto Wetlands|noway|c
     step //2
-        .'Unlock Raptor Ridge |achieve 841/16|goto Wetlands,67.9,34.9
+        .'Unlock Grim Batol |achieve 841/15|goto Wetlands,81.8,63.6
     step //3
-        .'Unlock Greenwarden's Grove |achieve 841/11|goto Wetlands,57.9,40.6
+        .'Unlock Raptor Ridge |achieve 841/14|goto Wetlands,67.9,34.9
     step //4
-        .'Unlock Mosshide Fen |achieve 841/12|goto Wetlands,61.9,56.6
+        .'Unlock Direforge Hill |achieve 841/13|goto Wetlands,60.6,32.6
     step //5
-        .'Unlock Slabchisel's Survey |achieve 841/15|goto Wetlands,58.4,71.0
+        .'Unlock The Green Belt |achieve 841/11|goto Wetlands,53.6,36.7
     step //6
-        .'Unlock Dun Algaz |achieve 841/14|goto Wetlands,50.0,76.4
+        .'Unlock Mosshide Fen |achieve 841/12|goto Wetlands,61.9,56.6
     step //7
-        .'Unlock Thelgen Rock |achieve 841/10|goto Wetlands,52.2,61.4
+        .'Unlock Dun Algaz |achieve 841/10|goto Wetlands,56.4,68.9
     step //8
         .'Unlock Angerfang Encampment |achieve 841/9|goto Wetlands,48.5,48.0
     step //9
@@ -1261,7 +1271,7 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //1
         .'Travel to Arathi Highlands|goto Arathi Highlands|noway|c
     step //2
-        .'Unlock Thandol Span |achieve 761/8|goto Arathi Highlands,41.3,91.0
+        .'Unlock Thandol Span |achieve 761/8|goto Arathi Highlands,45.9,83.1
     step //3
         .'Unlock Boulderfist Hall |achieve 761/9|goto Arathi Highlands,49.1,78.9
     step //4
@@ -1285,11 +1295,13 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //13
         .'Unlock Stromgarde Keep |achieve 761/5|goto Arathi Highlands,16.5,64.1
     step //14
-        .'Unlock Boulder'gor |achieve 761/3|goto Arathi Highlands,27.5,44.2
+        .'Unlock Boulder'gor |achieve 761/3|goto Arathi Highlands,37.7,41.5
     step //15
         .'Unlock Northfold Manor |achieve 761/2|goto Arathi Highlands,27.0,27.1
     step //16
-        .'Unlock Galen's Fall |achieve 761/4|goto Arathi Highlands,13.0,36.4
+        .'Unlock Circle of West Binding |achieve 761/1|goto Arathi Highlands,22.2,25.4
+    step //17
+        .'Unlock Thoradin's Wall |achieve 761/4|goto Arathi Highlands,17.7,37.8
 ]])
 ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingdoms\\Explore The Hinterlands",[[
     author ErebusAres
@@ -1304,22 +1316,26 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //4
         .'Unlock Quel'Danil Lodge |achieve 773/4|goto The Hinterlands,33.3,45.6
     step //5
-        .'Unlock Shadra'Alor |achieve 773/5|goto The Hinterlands,34.6,72.0
+        .'Unlock Hiri'watha |achieve 773/3|goto The Hinterlands,28.2,61.8
     step //6
-        .'Unlock Valorwind Lake |achieve 773/6|goto The Hinterlands,40.5,59.3
+        .'Unlock Shadra'Alor |achieve 773/5|goto The Hinterlands,34.6,72.0
     step //7
-        .'Unlock The Altar of Zul |achieve 773/9|goto The Hinterlands,48.4,66.9
+        .'Unlock Valorwind Lake |achieve 773/6|goto The Hinterlands,40.5,59.3
     step //8
-        .'Unlock The Creeping Ruin |achieve 773/8|goto The Hinterlands,49.0,52.1
+        .'Unlock The Altar of Zul |achieve 773/9|goto The Hinterlands,48.4,66.9
     step //9
-        .'Unlock Jintha'Alor |achieve 773/13|goto The Hinterlands,63.1,74.7
+        .'Unlock The Creeping Ruin |achieve 773/8|goto The Hinterlands,49.0,52.1
     step //10
-        .'Unlock The Overlook Cliffs |achieve 773/14|goto The Hinterlands,72.7,66.1
+        .'Unlock Jintha'Alor |achieve 773/13|goto The Hinterlands,63.1,74.7
     step //11
-        .'Unlock Shaol'watha |achieve 773/12|goto The Hinterlands,73.2,54.2
+        .'Unlock The Overlook Cliffs |achieve 773/14|goto The Hinterlands,72.7,66.1
     step //12
-        .'Unlock Skulk Rock |achieve 773/11|goto The Hinterlands,57.6,42.6
+        .'Unlock Shaol'watha |achieve 773/12|goto The Hinterlands,73.2,54.2
     step //13
+        .'Unlock Skulk Rock |achieve 773/11|goto The Hinterlands,57.6,42.6
+    step //14
+        .'Unlock Agol'watha |achieve 773/7|goto The Hinterlands,49.7,37.1
+    step //15
         .'Unlock Seradane |achieve 773/10|goto The Hinterlands,62.7,24.1
 ]])
 ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingdoms\\Explore Western Plaguelands",[[
@@ -1333,23 +1349,27 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //3
         .'Unlock Felstone Field |achieve 770/6|goto Western Plaguelands,36.5,54.6
     step //4
-        .'Unlock Dalson's Farm |achieve 770/7|goto Western Plaguelands,45.1,51.2
+        .'Unlock Dalson's Tears |achieve 770/7|goto Western Plaguelands,46.4,52.8
     step //5
-        .'Unlock Redpine Dell |achieve 770/11|goto Western Plaguelands,46.0,45.5
+        .'Unlock Northridge Lumber Camp |achieve 770/9|goto Western Plaguelands,47.4,36.3
     step //6
         .'Unlock Hearthglen |achieve 770/10|goto Western Plaguelands,44.9,17.0
     step //7
-        .'Unlock The Weeping Cave |achieve 770/13|goto Western Plaguelands,64.4,40.1
+        .'Unlock The Weeping Cave |achieve 770/12|goto Western Plaguelands,64.4,40.1
     step //8
-        .'Unlock Thondroril River |achieve 770/14|goto Western Plaguelands,69.6,50.7
+        .'Unlock Thondroril River |achieve 770/13|goto Western Plaguelands,67.6,38.5
     step //9
-        .'Unlock Gahrron's Withering |achieve 770/12|goto Western Plaguelands,63.9,58.2
+        .'Unlock Gahrron's Withering |achieve 770/11|goto Western Plaguelands,63.9,58.2
     step //10
         .'Unlock The Writhing Haunt |achieve 770/8|goto Western Plaguelands,54.9,66.2
     step //11
-        .'Unlock Sorrow Hill |achieve 770/3|goto Western Plaguelands,54.6,85.5
+        .'Unlock Ruins of Andorhal |achieve 770/4|goto Western Plaguelands,43.7,69.2
     step //12
+        .'Unlock Sorrow Hill |achieve 770/3|goto Western Plaguelands,54.6,85.5
+    step //13
         .'Unlock Caer Darrow |achieve 770/2|goto Western Plaguelands,68.3,81.1
+    step //14
+        .'Unlock Darrowmere Lake |achieve 770/1|goto Western Plaguelands,68.4,73.7
 ]])
 ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingdoms\\Explore Eastern Plaguelands",[[
     author ErebusAres
@@ -1362,40 +1382,46 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //3
         .'Unlock The Undercroft |achieve 771/3|goto Eastern Plaguelands,24.0,78.8
     step //4
-        .'Unlock Terrordale |achieve 771/20|goto Eastern Plaguelands,12.5,26.3
+        .'Unlock The Marris Stead |achieve 771/2|goto Eastern Plaguelands,23.3,67.6
     step //5
-        .'Unlock Stratholme |achieve 771/22|goto Eastern Plaguelands,26.8,9.8
+        .'Unlock Thondroril River |achieve 771/1|goto Eastern Plaguelands,7.9,64.6
     step //6
-        .'Unlock Plaguewood |achieve 771/21|goto Eastern Plaguelands,33.6,24.4
+        .'Unlock Terrordale |achieve 771/20|goto Eastern Plaguelands,12.5,26.3
     step //7
-        .'Unlock The Fungal Vale |achieve 771/5|goto Eastern Plaguelands,36.1,44.8
+        .'Unlock Stratholme |achieve 771/22|goto Eastern Plaguelands,26.8,9.8
     step //8
-        .'Unlock Crown Guard Tower |achieve 771/4|goto Eastern Plaguelands,35.7,68.5
+        .'Unlock Plaguewood |achieve 771/21|goto Eastern Plaguelands,33.6,24.4
     step //9
-        .'Unlock Lake Mereldar |achieve 771/9|goto Eastern Plaguelands,57.4,74.1
+        .'Unlock The Fungal Vale |achieve 771/5|goto Eastern Plaguelands,36.1,44.8
     step //10
-        .'Unlock Corin's Crossing |achieve 771/8|goto Eastern Plaguelands,55.6,62.9
+        .'Unlock Crown Guard Tower |achieve 771/4|goto Eastern Plaguelands,35.7,68.5
     step //11
-        .'Unlock Blackwood Lake |achieve 771/15|goto Eastern Plaguelands,46.3,43.5
+        .'Unlock Lake Mereldar |achieve 771/9|goto Eastern Plaguelands,57.4,74.1
     step //12
-        .'Unlock Quel'Lithien Lodge |achieve 771/19|goto Eastern Plaguelands,48.1,13.1
+        .'Unlock Corin's Crossing |achieve 771/8|goto Eastern Plaguelands,55.6,62.9
     step //13
-        .'Unlock Northpass Tower |achieve 771/18|goto Eastern Plaguelands,50.5,20.5
+        .'Unlock The Infectis Scar |achieve 771/12|goto Eastern Plaguelands,48.9,60.4
     step //14
-        .'Unlock Eastwall Tower |achieve 771/14|goto Eastern Plaguelands,62.4,41.7
+        .'Unlock Blackwood Lake |achieve 771/15|goto Eastern Plaguelands,46.3,43.5
     step //15
-        .'Unlock Pestilent Scar |achieve 771/7|goto Eastern Plaguelands,68.7,56.5
+        .'Unlock Quel'Lithien Lodge |achieve 771/19|goto Eastern Plaguelands,48.1,13.1
     step //16
-        .'Unlock Tyr's Hand |achieve 771/10|goto Eastern Plaguelands,75.6,75.2
+        .'Unlock Northpass Tower |achieve 771/18|goto Eastern Plaguelands,52.9,28.6
     step //17
-        .'Unlock Ruins of the Scarlet Enclave |achieve 771/23|goto Eastern Plaguelands,87.1,78.5
+        .'Unlock Eastwall Tower |achieve 771/14|goto Eastern Plaguelands,62.4,41.7
     step //18
-        .'Unlock Light's Hope Chapel |achieve 771/11|goto Eastern Plaguelands,76.8,53.9
+        .'Unlock Pestilent Scar |achieve 771/7|goto Eastern Plaguelands,68.7,56.5
     step //19
-        .'Unlock The Noxious Glade |achieve 771/13|goto Eastern Plaguelands,78.1,35.8
+        .'Unlock Tyr's Hand |achieve 771/10|goto Eastern Plaguelands,75.6,75.2
     step //20
-        .'Unlock Northdale |achieve 771/16|goto Eastern Plaguelands,66.1,25.0
+        .'Unlock Ruins of the Scarlet Enclave |achieve 771/23|goto Eastern Plaguelands,85.8,66.3
     step //21
+        .'Unlock Light's Hope Chapel |achieve 771/11|goto Eastern Plaguelands,76.8,53.9
+    step //22
+        .'Unlock The Noxious Glade |achieve 771/13|goto Eastern Plaguelands,78.1,35.8
+    step //23
+        .'Unlock Northdale |achieve 771/16|goto Eastern Plaguelands,66.1,25.0
+    step //24
         .'Unlock Zul'Mashar |achieve 771/17|goto Eastern Plaguelands,66.4,10.3
 ]])
 ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingdoms\\Explore Swamp of Sorrows",[[
@@ -1405,29 +1431,27 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //1
         .'Travel to Swamp of Sorrows|goto Swamp of Sorrows|noway|c
     step //2
-        .'Unlock Stagalbog |achieve 782/7|goto Swamp of Sorrows,67.8,74.9
+        .'Unlock Stagalbog |achieve 782/8|goto Swamp of Sorrows,67.8,74.9
     step //3
-        .'Unlock Sorrowmurk |achieve 782/8|goto Swamp of Sorrows,84.2,38.9
+        .'Unlock Sorrowmurk |achieve 782/9|goto Swamp of Sorrows,84.2,38.9
     step //4
-        .'Unlock Misty Reed Strand |achieve 782/10|goto Swamp of Sorrows,77.3,13.7
+        .'Unlock Misty Reed Strand |achieve 782/11|goto Swamp of Sorrows,88.3,52.8
     step //5
-        .'Unlock Bogpaddle |achieve 782/9|goto Swamp of Sorrows,72.3,12.8
+        .'Unlock Pool of Tears |achieve 782/7|goto Swamp of Sorrows,71.1,52.8
     step //6
-        .'Unlock Marshtide Watch |achieve 782/12|goto Swamp of Sorrows,68.4,35.8
+        .'Unlock Fallow Sanctuary |achieve 782/10|goto Swamp of Sorrows,65.1,22.5
     step //7
-        .'Unlock Pool of Tears |achieve 782/6|goto Swamp of Sorrows,62.6,50.0
+        .'Unlock The Shifting Mire |achieve 782/5|goto Swamp of Sorrows,43.9,34.8
     step //8
-        .'Unlock The Shifting Mire |achieve 782/4|goto Swamp of Sorrows,48.8,42.1
+        .'Unlock Stonard |achieve 782/6|goto Swamp of Sorrows,47.1,54.2
     step //9
-        .'Unlock Stonard |achieve 782/5|goto Swamp of Sorrows,47.1,54.2
+        .'Unlock Itharius's Cave |achieve 782/1|goto Swamp of Sorrows,15.0,62.9
     step //10
-        .'Unlock Purespring Cavern |achieve 782/11|goto Swamp of Sorrows,18.6,68.1
+        .'Unlock Splinterspear Junction |achieve 782/4|goto Swamp of Sorrows,22.3,49.4
     step //11
-        .'Unlock Splinterspear Junction |achieve 782/3|goto Swamp of Sorrows,22.3,49.4
+        .'Unlock Misty Valley |achieve 782/2|goto Swamp of Sorrows,14.7,35.8
     step //12
-        .'Unlock Misty Valley |achieve 782/1|goto Swamp of Sorrows,14.7,35.8
-    step //13
-        .'Unlock The Harborage |achieve 782/2|goto Swamp of Sorrows,28.8,32.1
+        .'Unlock The Harborage |achieve 782/3|goto Swamp of Sorrows,28.8,32.1
 ]])
 ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingdoms\\Explore Blasted Lands",[[
     author ErebusAres
@@ -1440,25 +1464,19 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingd
     step //3
         .'Unlock Rise of the Defiler |achieve 766/9|goto Blasted Lands,45.1,26.7
     step //4
-        .'Unlock Dreadmaul Post |achieve 766/7|goto Blasted Lands,47.1,40.1
+        .'Unlock Altar of Storms |achieve 766/6|goto Blasted Lands,39.7,31.8
     step //5
-        .'Unlock The Dark Portal |achieve 766/5|goto Blasted Lands,54.4,52.9
+        .'Unlock Dreadmaul Post |achieve 766/7|goto Blasted Lands,47.1,40.1
     step //6
-        .'Unlock The Tainted Scar |achieve 766/8|goto Blasted Lands,32.3,45.7
+        .'Unlock The Dark Portal |achieve 766/5|goto Blasted Lands,54.4,52.9
     step //7
-        .'Unlock The Tainted Forest |achieve 766/14|goto Blasted Lands,34.2,72.3
+        .'Unlock The Tainted Scar |achieve 766/8|goto Blasted Lands,37.9,62.5
     step //8
-        .'Unlock Surwich |achieve 766/12|goto Blasted Lands,44.5,86.1
-    step //9
-        .'Unlock Sunveil Excursion |achieve 766/11|goto Blasted Lands,50.7,70.9
-    step //10
-        .'Unlock The Red Reaches |achieve 766/13|goto Blasted Lands,65.8,78.0
-    step //11
-        .'Unlock Shattershore |achieve 766/10|goto Blasted Lands,69.1,33.5
-    step //12
         .'Unlock Serpent's Coil |achieve 766/4|goto Blasted Lands,60.3,28.4
-    step //13
-        .'Unlock Nethergare Keep |achieve 766/3|goto Blasted Lands,64.3,15.8
+    step //9
+        .'Unlock Nethergarde Keep |achieve 766/3|goto Blasted Lands,64.3,15.8
+    step //10
+        .'Unlock Garrison Armory |achieve 766/2|goto Blasted Lands,55.9,13.8
 ]])
 ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Eastern Kingdoms\\Explore Deadwind Pass",[[
     author ErebusAres
@@ -1499,30 +1517,34 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Outland\\Expl
     step //4
         .'Unlock Forge Camp: Mageddon |achieve 862/18|goto Hellfire Peninsula,58.9,31.2
     step //5
-        .'Unlock The Legion Front |achieve 862/10|goto Hellfire Peninsula,70.0,50.4
+        .'Unlock Thrallmar |achieve 862/11|goto Hellfire Peninsula,55.3,38.8
     step //6
-        .'Unlock Void Ridge |achieve 862/16|goto Hellfire Peninsula,79.1,72.9
+        .'Unlock The Legion Front |achieve 862/10|goto Hellfire Peninsula,70.0,50.4
     step //7
-        .'Unlock Zeth'Gor |achieve 862/13|goto Hellfire Peninsula,70.1,73.6
+        .'Unlock Void Ridge |achieve 862/16|goto Hellfire Peninsula,79.1,72.9
     step //8
-        .'Unlock Expedition Armory |achieve 862/2|goto Hellfire Peninsula,54.3,84.3
+        .'Unlock Zeth'Gor |achieve 862/13|goto Hellfire Peninsula,70.1,73.6
     step //9
-        .'Unlock The Warp Fields |achieve 862/17|goto Hellfire Peninsula,45.3,82.5
+        .'Unlock Expedition Armory |achieve 862/2|goto Hellfire Peninsula,54.3,84.3
     step //10
-        .'Unlock Honor Hold |achieve 862/5|goto Hellfire Peninsula,54.8,64.5
+        .'Unlock The Warp Fields |achieve 862/17|goto Hellfire Peninsula,45.3,82.5
     step //11
-        .'Unlock Hellfire Citadel |achieve 862/4|goto Hellfire Peninsula,47.2,52.9
+        .'Unlock Honor Hold |achieve 862/5|goto Hellfire Peninsula,54.8,64.5
     step //12
-        .'Unlock Pools of Aggonar |achieve 862/7|goto Hellfire Peninsula,41.2,32.6
+        .'Unlock Hellfire Citadel |achieve 862/4|goto Hellfire Peninsula,47.2,52.9
     step //13
-        .'Unlock Mag'har Post |achieve 862/6|goto Hellfire Peninsula,31.3,26.9
+        .'Unlock Pools of Aggonar |achieve 862/7|goto Hellfire Peninsula,41.2,32.6
     step //14
-        .'Unlock Temple of Telhamat |achieve 862/9|goto Hellfire Peninsula,23.5,40.0
+        .'Unlock Mag'har Post |achieve 862/6|goto Hellfire Peninsula,31.3,26.9
     step //15
-        .'Unlock Den of Haal'esh |achieve 862/14|goto Hellfire Peninsula,27.5,77.0
+        .'Unlock Temple of Telhamat |achieve 862/9|goto Hellfire Peninsula,23.5,40.0
     step //16
-        .'Unlock Fallen Sky Ridge |achieve 862/15|goto Hellfire Peninsula,14.3,41.0
+        .'Unlock Falcon Watch |achieve 862/3|goto Hellfire Peninsula,26.9,61.4
     step //17
+        .'Unlock Den of Haal'esh |achieve 862/14|goto Hellfire Peninsula,27.5,77.0
+    step //18
+        .'Unlock Fallen Sky Ridge |achieve 862/15|goto Hellfire Peninsula,14.3,41.0
+    step //19
         .'Unlock Ruins of Sha'naar |achieve 862/8|goto Hellfire Peninsula,13.3,59.4
 ]])
 ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Outland\\Explore Terokkar Forest",[[
@@ -1667,7 +1689,7 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Outland\\Expl
     step //5
         .'Unlock The Dead Mire |achieve 863/8|goto Zangarmarsh,82.5,37.5
     step //6
-        .'Unlock Teredor |achieve 863/7|goto Zangarmarsh,68.5,49.2
+        .'Unlock Telredor |achieve 863/7|goto Zangarmarsh,68.5,49.2
     step //7
         .'Unlock Bloodscale Grounds |achieve 863/14|goto Zangarmarsh,62.7,41.2
     step //8
@@ -1687,10 +1709,12 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Outland\\Expl
     step //15
         .'Unlock Marshlight Lake |achieve 863/5|goto Zangarmarsh,21.7,39.6
     step //16
-        .'Unlock Ango'rosh Stronghold |achieve 863/13|goto Zangarmarsh,18.6,8.0
+        .'Unlock Ango'rosh Grounds |achieve 863/2|goto Zangarmarsh,18.0,23.2
     step //17
-        .'Unlock Hewn Bog |achieve 863/4|goto Zangarmarsh,33.6,35.3
+        .'Unlock Ango'rosh Stronghold |achieve 863/13|goto Zangarmarsh,18.6,8.0
     step //18
+        .'Unlock Hewn Bog |achieve 863/4|goto Zangarmarsh,33.6,35.3
+    step //19
         .'Unlock Orebor Harborage |achieve 863/15|goto Zangarmarsh,44.9,25.2
 ]])
 ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Outland\\Explore Blade's Edge Mountains",[[
@@ -1702,7 +1726,7 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Outland\\Expl
     step //2
         .'Unlock Forge Camp: Terror |achieve 865/10|goto Blade's Edge Mountains,29.1,81.0
     step //3
-        .'Unlock Vortex Summit |achieve 865/26|goto Blade's Edge Mountains,30.5,59.5
+        .'Unlock Vortex Pinnacle |achieve 865/26|goto Blade's Edge Mountains,30.4,59.5
     step //4
         .'Unlock Forge Camp: Wrath |achieve 865/11|goto Blade's Edge Mountains,33.5,41.1
     step //5
@@ -1772,7 +1796,7 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Outland\\Expl
     step //8
         .'Unlock Sunfury Hold |achieve 843/15|goto Netherstorm,56.0,77.8
     step //9
-        .'Unlock Maforge Duro |achieve 843/4|goto Netherstorm,59.6,68.2
+        .'Unlock Manaforge Duro |achieve 843/4|goto Netherstorm,59.6,68.2
     step //10
         .'Unlock Tempest Keep |achieve 843/8|goto Netherstorm,75.8,62.5
     step //11
@@ -1796,7 +1820,7 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Outland\\Expl
     step //20
         .'Unlock Eco-Dome Midrealm |achieve 843/22|goto Netherstorm,45.3,53.7
     step //21
-        .'Unlock ruins of Enkaat |achieve 843/14|goto Netherstorm,32.9,54.9
+        .'Unlock Ruins of Enkaat |achieve 843/14|goto Netherstorm,32.9,54.9
     step //22
         .'Unlock Gyro-Plank Bridge |achieve 843/17|goto Netherstorm,23.2,55.9
     step //23
@@ -1829,7 +1853,7 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Northrend\\Ex
     step //3
         .'Unlock Warsong Hold |achieve 1264/10|goto Borean Tundra,43.4,53.2
     step //4
-        .'Unlock Riplash Stand |achieve 1264/3|goto Borean Tundra,47.4,81.1
+        .'Unlock Riplash Strand |achieve 1264/3|goto Borean Tundra,47.4,81.1
     step //5
         .'Unlock Garrosh's Landing |achieve 1264/5|goto Borean Tundra,27.9,51.6
     step //6
@@ -1837,7 +1861,7 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Northrend\\Ex
     step //7
         .'Unlock Amber Ledge |achieve 1264/9|goto Borean Tundra,46.1,34.8
     step //8
-        .'Unlock Steeljaw's Carvan |achieve 1264/2|goto Borean Tundra,50.2,24.3
+        .'Unlock Steeljaw's Caravan |achieve 1264/2|goto Borean Tundra,50.2,24.3
     step //9
         .'Unlock Bor'gorok Outpost |achieve 1264/8|goto Borean Tundra,50.2,10.3
     step //10
@@ -1926,41 +1950,41 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Northrend\\Ex
     step //1
         .'Travel to Dragonblight|goto Dragonblight|noway|c
     step //2
-        .'Unlock Angrathar the Wrath Gate |achieve 1265/10|goto Dragonblight,36.0,15.0
+        .'Unlock Angrathar the Wrath Gate |achieve 1265/11|goto Dragonblight,36.0,15.0
     step //3
-        .'Unlock Obsidian Dragonshrine |achieve 1265/3|goto Dragonblight,38.4,31.9
+        .'Unlock Obsidian Dragonshrine |achieve 1265/4|goto Dragonblight,38.4,31.9
     step //4
-        .'Unlock Icemist Village |achieve 1265/7|goto Dragonblight,25.1,43.2
+        .'Unlock Icemist Village |achieve 1265/8|goto Dragonblight,25.1,43.2
     step //5
-        .'Unlock Westwind Refugee Camp |achieve 1265/13|goto Dragonblight,13.8,46.2
+        .'Unlock Westwind Refugee Camp |achieve 1265/14|goto Dragonblight,13.8,46.2
     step //6
-        .'Unlock Agmar's Hammer |achieve 1265/11|goto Dragonblight,36.9,47.8
+        .'Unlock Agmar's Hammer |achieve 1265/12|goto Dragonblight,36.9,47.8
     step //7
         .'Unlock Lake Indu'le |achieve 1265/2|goto Dragonblight,39.7,67.0
     step //8
-        .'Unlock Ruby Dragonshrine |achieve 1265/18|goto Dragonblight,47.3,48.7
+        .'Unlock Ruby Dragonshrine |achieve 1265/3|goto Dragonblight,47.3,48.7
     step //9
         .'Unlock Galakrond's Rest |achieve 1265/1|goto Dragonblight,54.9,32.7
     step //10
-        .'Unlock Wyrmrest Temple |achieve 1265/12|goto Dragonblight,59.7,49.8
+        .'Unlock Wyrmrest Temple |achieve 1265/13|goto Dragonblight,59.7,49.8
     step //11
-        .'Unlock Emerald Dragonshrine |achieve 1265/8|goto Dragonblight,63.5,72.7
+        .'Unlock Emerald Dragonshrine |achieve 1265/9|goto Dragonblight,63.5,72.7
     step //12
-        .'Unlock New Hearthglen |achieve 1265/4|goto Dragonblight,71.0,75.2
+        .'Unlock New Hearthglen |achieve 1265/5|goto Dragonblight,71.0,75.2
     step //13
-        .'Unlock Venomspite |achieve 1265/14|goto Dragonblight,77.1,60.0
+        .'Unlock Venomspite |achieve 1265/15|goto Dragonblight,77.1,60.0
     step //14
-        .'Unlock The Forgotten Shore |achieve 1265/15|goto Dragonblight,82.5,70.7
+        .'Unlock The Forgotten Shore |achieve 1265/16|goto Dragonblight,82.5,70.7
     step //15
-        .'Unlock Naxxramas |achieve 1265/5|goto Dragonblight,88.9,44.0
+        .'Unlock Naxxramas |achieve 1265/6|goto Dragonblight,88.9,44.0
     step //16
-        .'Unlock Light's Trust |achieve 1265/6|goto Dragonblight,83.6,25.6
+        .'Unlock Light's Trust |achieve 1265/7|goto Dragonblight,83.6,25.6
     step //17
-        .'Unlock Scarlet Point |achieve 1265/17|goto Dragonblight,72.7,25.6
+        .'Unlock Scarlet Point |achieve 1265/18|goto Dragonblight,72.7,25.6
     step //18
-        .'Unlock The Crystal Vice |achieve 1265/16|goto Dragonblight,61.8,19.5
+        .'Unlock The Crystal Vice |achieve 1265/17|goto Dragonblight,61.8,19.5
     step //19
-        .'Unlock Coldwind Heights |achieve 1265/9|goto Dragonblight,50.0,17.5
+        .'Unlock Coldwind Heights |achieve 1265/10|goto Dragonblight,50.0,17.5
 ]])
 ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Northrend\\Explore Crystalsong Forest",[[
     author ErebusAres
@@ -2049,11 +2073,11 @@ ZygorGuidesViewer:RegisterGuide("Ares' Achievement Guides\\Explore Northrend\\Ex
     step //10
         .'Unlock Altar of Har'koa |achieve 1267/8|goto Zul'Drak,64.4,68.9
     step //11
-        .'Unlock Kolrama |achieve 1267/14|goto Zul'Drak,62.0,77.6
+        .'Unlock Kolramas |achieve 1267/14|goto Zul'Drak,62.0,77.6
     step //12
         .'Unlock Ampitheater of Anguish |achieve 1267/3|goto Zul'Drak,48.2,56.4
     step //13
-        .'Unlock Drak'Sorta Fields |achieve 1267/2|goto Zul'Drak,41.7,76.8
+        .'Unlock Drak'Sotra Fields |achieve 1267/2|goto Zul'Drak,41.7,76.8
     step //14
         .'Unlock Light's Breach |achieve 1267/13|goto Zul'Drak,32.0,76.4
     step //15

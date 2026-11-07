@@ -414,31 +414,31 @@ turnin Brew of the Month Club##12420 |goto 18.77,53.29
 step
 collect Binary Brew##37496 |or
 |tip This brew will be in your mailbox for the month of September.
-'|complete achieved(1183,5) |or
+'|complete achieved(1183,9) |or
 step
 use the Binary Brew##37496
-Drink September's Brew |achieve 1183/5
+Drink September's Brew |achieve 1183/9
 step
 collect Autumnal Acorn Ale##37497 |or
 |tip This brew will be in your mailbox for the month of October.
-'|complete achieved(1183,4) |or
+'|complete achieved(1183,11) |or
 step
 use the Autumnal Acorn Ale##37497
-Drink October's Brew |achieve 1183/4
+Drink October's Brew |achieve 1183/11
 step
 collect Bartlett's Bitter Brew##37498 |or
 |tip This brew will be in your mailbox for the month of November.
-'|complete achieved(1183,3) |or
+'|complete achieved(1183,10) |or
 step
 use Bartlett's Bitter Brew##37498
-Drink November's Brew |achieve 1183/3
+Drink November's Brew |achieve 1183/10
 step
 collect Lord of Frost's Private Label##37499 |or
 |tip This brew will be in your mailbox for the month of December.
-'|complete achieved(1183,2) |or
+'|complete achieved(1183,5) |or
 step
 use Lord of Frost's Private Label##37499
-Drink December's Brew |achieve 1183/2
+Drink December's Brew |achieve 1183/5
 step
 collect Wild Winter Pilsner##37488 |or
 |tip This brew will be in your mailbox for the month of January.
@@ -449,45 +449,45 @@ Drink January's Brew |achieve 1183/1
 step
 collect Izzard's Ever Flavor##37489 |or
 |tip This brew will be in your mailbox for the month of February.
-'|complete achieved(1183,8) |or
+'|complete achieved(1183,6) |or
 step
 use the Izzard's Ever Flavor##37489
-Drink February's Brew |achieve 1183/8
+Drink February's Brew |achieve 1183/6
 step
 collect Aromatic Honey Brew##37490 |or
 |tip This brew will be in your mailbox for the month of March.
-'|complete achieved(1183,11) |or
+'|complete achieved(1183,12) |or
 step
 use the Aromatic Honey Brew##37490
-Drink March's Brew |achieve 1183/11
+Drink March's Brew |achieve 1183/12
 step
 collect Metok's Bubble Bock##37491 |or
 |tip This brew will be in your mailbox for the month of April.
-'|complete achieved(1183,12) |or
+'|complete achieved(1183,4) |or
 step
 use Metok's Bubble Bock##37491
-Drink April's Brew |achieve 1183/12
+Drink April's Brew |achieve 1183/4
 step
 collect Springtime Stout##37492 |or
 |tip This brew will be in your mailbox for the month of May.
-'|complete achieved(1183,9) |or
+'|complete achieved(1183,3) |or
 step
 use the Springtime Stout##37492
-Drink May's Brew |achieve 1183/9
+Drink May's Brew |achieve 1183/3
 step
 collect Blackrock Lager##37493 |or
 |tip This brew will be in your mailbox for the month of June.
-'|complete achieved(1183,6) |or
+'|complete achieved(1183,8) |or
 step
 use the Blackrock Lager##37493
-Drink June's Brew |achieve 1183/6
+Drink June's Brew |achieve 1183/8
 step
 collect Stranglethorn Brew##37494 |or
 |tip This brew will be in your mailbox for the month of July.
-'|complete achieved(1183,10) |or
+'|complete achieved(1183,2) |or
 step
 use the Stranglethorn Brew##37494
-Drink July's Brew |achieve 1183/10
+Drink July's Brew |achieve 1183/2
 step
 collect Draenic Pale Ale##37495 |or
 |tip This brew will be in your mailbox for the month of August.
@@ -710,31 +710,31 @@ buy Mudder's Milk##33036 |goto 48.35,38.44 |achieve 1184
 buy Gordok Grog##33034 |goto 48.35,38.44 |achieve 1184
 step
 use the Thunderbrew Stout##33033
-Drink Some Thunderbrew Stout |achieve 1184/2
+Drink Some Thunderbrew Stout |achieve 1184/9
 step
 use the Thunderbrew Ale##33032
-Drink Some Thunderbrew Ale |achieve 1184/4
+Drink Some Thunderbrew Ale |achieve 1184/8
 step
 use the Thunder 45##33031
-Drink Some Thunder 45 |achieve 1184/9
+Drink Some Thunder 45 |achieve 1184/7
 step
 use the Barleybrew Dark##33029
-Drink Some Barleybrew Dark |achieve 1184/1
+Drink Some Barleybrew Dark |achieve 1184/2
 step
 use the Barleybrew Light##33028
-Drink Some Barleybrew Light |achieve 1184/8
+Drink Some Barleybrew Light |achieve 1184/3
 step
 use the Barleybrew Clear##33030
-Drink Some Barleybrew Clear |achieve 1184/3
+Drink Some Barleybrew Clear |achieve 1184/1
 step
 use the Ogre Mead##33035
-Drink Some Ogre Mead |achieve 1184/5
+Drink Some Ogre Mead |achieve 1184/6
 step
 use the Mudder's Milk##33036
-Drink Some Mudder's Milk |achieve 1184/6
+Drink Some Mudder's Milk |achieve 1184/5
 step
 use the Gordok Grog##33034
-Drink Some Gordok Grog |achieve 1184/7
+Drink Some Gordok Grog |achieve 1184/4
 step
 Earn the "Strange Brew" Achievement |achieve 1184
 step
@@ -764,28 +764,28 @@ talk Arlen Lochlan##23522
 buy The Essential Brewfest Pretzel##33043 |goto 48.45,39.96 |achieve 1185
 step
 use The Essential Brewfest Pretzel##33043
-Eat The Essential Brewfest Pretzel |achieve 1185/2
+Eat The Essential Brewfest Pretzel |achieve 1185/7
 step
 use the Spiced Onion Cheese##34065
 Eat Some Spiced Onion Cheese |achieve 1185/4
 step
 use the Dried Sausage##34063
-Eat Some Dried Sausage |achieve 1185/7
+Eat Some Dried Sausage |achieve 1185/1
 step
 use the Succulent Sausage##34064
-Eat Some Succulent Sausage |achieve 1185/8
+Eat Some Succulent Sausage |achieve 1185/6
 step
 use the Savory Sausage##33023
-Eat Some Savory Sausage |achieve 1185/5
+Eat Some Savory Sausage |achieve 1185/3
 step
 use the Pickled Sausage##33024
-Eat Some Pickled Sausage |achieve 1185/6
+Eat Some Pickled Sausage |achieve 1185/2
 step
 use the Spicy Smoked Sausage##33025
-Eat Some Spicy Smoked Sausage |achieve 1185/3
+Eat Some Spicy Smoked Sausage |achieve 1185/5
 step
 use the The Golden Link##33026
-Eat The Golden Link |achieve 1185/1
+Eat The Golden Link |achieve 1185/8
 step
 Earn "The Brewfest Diet" Achievement |achieve 1185
 step
