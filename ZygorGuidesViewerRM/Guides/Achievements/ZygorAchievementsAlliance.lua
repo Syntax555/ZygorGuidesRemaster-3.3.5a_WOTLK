@@ -1437,218 +1437,21 @@ step
 step
 #include "Midsummer Fire Festival Achievements"
 ]])
-ZygorGuidesViewer:RegisterGuide("Zygor's Alliance Achievements Guides\\Quest Achievements\\5 Dungeon Quests Completed",[[
-description Complete 5 dungeon quests.
-	type achievements
-	faction alliance
-step
-condition achieved(4956)
-goto The Deadmines,38.3,77.5
-.' Enter the swirling portal
-.' Click here to proceed. |confirm
-step
-goto The Deadmines,30.2,28.6
-.talk 46612
-..accept 27756
-step
-goto 30.0,46.7 |n
-.' Follow the path to this spot. |goto The Deadmines,30.0,46.7,0.5|noway|c
-step
-goto The Deadmines,34.7,61.9
-..kill Glubtok |q 27756/1
-..turnin 27756
-step
-goto 43.8,78.8 |n
-.' Open the heavy door here |goto The Deadmines,43.8,78.8|noway|c
-step
-goto 43.7,82.7
-..accept 27758 |tip It will come up in a Quest Discovered! box
-step
-goto 49.7,90.2
-..kill Helix Gearbreaker |q 27758/1
-..turnin 27758
-step
-goto 65.3,87.5 |n
-.' Follow the path through the Deadmines. |goto The Deadmines,65.3,87.5|noway|c
-step
-goto The Deadmines,61.0,71.8
-..accept 27781 |tip It will come up in a Quest Discovered! box
-step
-goto The Deadmines,8.7,88.3
-.' Follow ramp down and kill the Defias Reapers at the bottom.
-..kill Foe Reaper 5000 |q 27781/1
-..turnin 27781
-step
-goto The Deadmines,12.6,68.9 |n
-.' Follow the path down to the cannon.
-.' Click the cannon to open the door.
-.' Click here to proceed. |confirm
-step
-goto The Deadmines,35.6,48.5
-..accept 27785
-step
-.' Follow the path across to the ship bridge.
-.' Click to proceed. |confirm
-step
-.' Follow the path up to the boat and follow it to the right.
-.' Go up to the top of the ship
-.' Click to proceed. |confirm
-step
-.kill Admiral Ripsnarl |q 27785/1
-..turnin 27785
-..accept 27790
-step
-goto The Deadmines,60.5,45.2
-..kill "Captain" Cookie |q 27790/1
-step
-.' Wait for Lieutenant Horatio Laine to come up to the deck.
-.talk 46612
-..turnin 27790
-step
-.' Earn the 5 Dungeon Quests Completed! Achievement. |achieve 4956
-step
-.' Congratulations, you have earn the 5 Dungeon Quests Completed! Achievement!
-]])
 ZygorGuidesViewer:RegisterGuide("Zygor's Alliance Achievements Guides\\Quest Achievements\\Hemet Nesingwary: The Collected Quests",[[
 description Complete the Green Hills of Stranglethorn, Hills Like White Elekk and Snows of Northrend achievements.
 	type achievements
 	faction alliance
 step
 condition achieved(941)
-.' Redirecting to The Green Hills of Stranglethorn |next "TheGreenHills" |only if not completedq(208)
+.' Redirecting to The Green Hills of Stranglethorn |next "TheGreenHills" |only if not (completedq(208) and completedq(338))
 .' Redirecting to Hills Like White Elekks |next "WhiteElekks" |only if not completedq(9852)
 .' Redirecting to The Snows of Northrend |next "Snows" |only if not completedq(12614)
 .' Redirecting to end of guide |next "end" |only if default
 step
+label "TheGreenHills"
 title +The Green Hills of Stranglethorn
-goto Northern Stranglethorn,44.3,22.1
-.talk 716
-..accept 583
-step
-goto 44.0,23.3
-.talk 715
-..turnin 583
-..accept 194
-step
-goto 43.7,22.3
-.talk 718
-..accept 190
-step
-goto 44.2,22.1
-.talk 716
-..accept 26269
-step
-goto 44.5,22.7
-.talk 717
-..accept 185
-step
-goto 45.2,20.8
-.from River Crocolisk##1150+
-.get Green Hills of Stranglethorn - Page 14 |q 26269/1
-step
-goto 44.2,22.1
-.talk 716
-..turnin 26269
-step
-goto 42.3,24.2
-.kill 10 Young Stranglethorn Tiger |q 185/1
-.' You can find more Young Stranglethorn Tigers to kill around 38.7,20.3
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 185
-..accept 186
-step
-goto 52.0,23.8
-.kill 10 Young Panther |q 190/1
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 190
-..accept 191
-step
-goto 61.3,27.0
-.kill 10 Stranglethorn Tiger |q 186/1
-.' You can find more Stranglethorn Tigers around 56.5,28.7
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 186
-..accept 187
-step
-goto 38.1,30.1
-.kill 5 Elder Stranglethorn Tiger |q 187/1
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 187
-..accept 188
-step
-goto 38.5,32.5
-.from Sin'Dall##729
-.get 1 Paw of Sin'Dall |q 188/1
-step
-goto 33.8,28.2
-.kill 10 Panther |q 191/1
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 191
-..accept 192
-step
-goto 31.7,28.0
-.kill 10 Stranglethorn Raptor |q 194/1
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 194
-..accept 195
-step
-goto 44.5,22.7
-.talk 717
-..turnin 188
-step
-goto 45.8,43.1
-.kill 10 Lashtail Raptor |q 195/1
-.' You can find more Lashtail Raptors around 39.3,43.9
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 195
-..accept 196
-step
-goto 54.3,47.2
-.kill 10 Jungle Stalker |q 196/1
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 196
-..accept 197
-step
-goto 61.9,49.0
-.kill 5 Shadowmaw Panther |q 192/1 |tip They are stealthed, so keep an eye out for them.
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 192
-..accept 193
-step
-goto 66.0,43.4
-.from Bhag'thera##728
-.get Fang of Bhag'thera |q 193/1
-.' Bhag'thera can also spawn
-.' At [61.7,50.6]
-.' At [64.4,36.6]
-step
-goto 62.5,61.3
-.from Tethis##730
-.get Talon of Tethis |q 197/1
-step
-goto 48.4,41.9 |n
-.' Follow this road |goto 48.4,41.9,0.5 |noway |c
-step
-goto 44.0,23.3
-.talk 715
-..turnin 197
-step
-goto 43.7,22.3
-.talk 718
-..turnin 193
-step
-goto 44.2,23.0
-.talk 715
-..accept 208
-step
-goto 47.8,59.0
-.from King Bangalash##731 |tip He's a white tiger that walks around on this big hill.
-.get Head of Bangalash |q 208/1
-step
-goto 44.0,23.3
-.talk 715
-..turnin 208
-'Earn The Green Hills of Stranglethorn achievement! |achieve 940
+.' Hunt with Hemet Nesingwary's expedition in Stranglethorn Vale. Click here to continue. |confirm
+leechsteps "Zygor's Alliance Achievements Guides\\Quest Achievements\\The Green Hills of Stranglethorn" 2-35
 step
 .' Redirecting to Hills Like White Elekks |next "WhiteElekks" |only if not completedq(9852)
 .' Redirecting to The Snows of Northrend |next "Snows" |only if not completedq(12614)
@@ -1978,6 +1781,7 @@ goto Sholazar Basin,42.3,28.8
 ..turnin 12614
 .' Earn The Snows of Northrend achievement! |achieve 938
 step
+label "end"
 .' Earn the Hemet Nesingwary: The Collected Quests achievement! |achieve 941
 step
 'Congratulations! You've earned the Hemet Nesingwary: The Collected Quests achievement!
@@ -1989,133 +1793,164 @@ description Complete the Green Hills of Stranglethorn questline.
 step
 condition achieved(940)
 title +The Green Hills of Stranglethorn
-goto Northern Stranglethorn,44.3,22.1
-.talk 716
-..accept 583
+.' Hunt with Hemet Nesingwary's expedition at Nesingwary's Camp and collect the pages of The Green Hills of Stranglethorn.
+.' The quests are for levels 30 to 43. Click here to continue. |confirm
 step
-goto 44.0,23.3
-.talk 715
-..turnin 583
-..accept 194
+goto Stranglethorn Vale,35.7,10.5
+.talk Barnil Stonepot##716
+..accept Welcome to the Jungle##583
 step
-goto 43.7,22.3
-.talk 718
-..accept 190
+goto Stranglethorn Vale,35.7,10.8
+.talk Hemet Nesingwary Jr.##715
+..turnin Welcome to the Jungle##583
+..accept Raptor Mastery##194
 step
-goto 44.2,22.1
-.talk 716
-..accept 26269
+goto Stranglethorn Vale,35.6,10.6
+.talk Ajeck Rouack##717
+..accept Tiger Mastery##185
 step
-goto 44.5,22.7
-.talk 717
-..accept 185
+goto Stranglethorn Vale,35.5,10.6
+.talk Sir S. J. Erlgadin##718
+..accept Panther Mastery##190
 step
-goto 45.2,20.8
-.from River Crocolisk##1150+
-.get Green Hills of Stranglethorn - Page 14 |q 26269/1
+goto Stranglethorn Vale,35.7,10.5
+.talk Barnil Stonepot##716
+..accept The Green Hills of Stranglethorn##338
+..accept Chapter I##339
+..accept Chapter II##340
+..accept Chapter III##341
+..accept Chapter IV##342
 step
-goto 44.2,22.1
-.talk 716
-..turnin 26269
+goto Stranglethorn Vale,35.1,12.1
+.kill 10 Young Stranglethorn Tiger##681 |q 185/1
 step
-goto 42.3,24.2
-.kill 10 Young Stranglethorn Tiger |q 185/1
-.' You can find more Young Stranglethorn Tigers to kill around 38.7,20.3
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 185
-..accept 186
+goto Stranglethorn Vale,41.4,12.8
+.kill 10 Young Panther##683 |q 190/1
 step
-goto 52.0,23.8
-.kill 10 Young Panther |q 190/1
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 190
-..accept 191
+goto Stranglethorn Vale,25.7,15.8
+.kill 10 Stranglethorn Raptor##685 |q 194/1
 step
-goto 61.3,27.0
-.kill 10 Stranglethorn Tiger |q 186/1
-.' You can find more Stranglethorn Tigers around 56.5,28.7
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 186
-..accept 187
+goto Stranglethorn Vale,35.6,10.6
+.talk Ajeck Rouack##717
+..turnin Tiger Mastery##185
+..accept Tiger Mastery##186
 step
-goto 38.1,30.1
-.kill 5 Elder Stranglethorn Tiger |q 187/1
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 187
-..accept 188
+goto Stranglethorn Vale,35.5,10.6
+.talk Sir S. J. Erlgadin##718
+..turnin Panther Mastery##190
+..accept Panther Mastery##191
 step
-goto 38.5,32.5
-.from Sin'Dall##729
-.get 1 Paw of Sin'Dall |q 188/1
+goto Stranglethorn Vale,35.7,10.8
+.talk Hemet Nesingwary Jr.##715
+..turnin Raptor Mastery##194
+..accept Raptor Mastery##195
 step
-goto 33.8,28.2
-.kill 10 Panther |q 191/1
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 191
-..accept 192
+goto Stranglethorn Vale,46.6,14.4
+.kill 10 Stranglethorn Tiger##682 |q 186/1
 step
-goto 31.7,28.0
-.kill 10 Stranglethorn Raptor |q 194/1
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 194
-..accept 195
+goto Stranglethorn Vale,28.4,12.3
+.kill 10 Panther##736 |q 191/1
 step
-goto 44.5,22.7
-.talk 717
-..turnin 188
+goto Stranglethorn Vale,33.4,24.6
+.kill 10 Lashtail Raptor##686 |q 195/1
 step
-goto 45.8,43.1
-.kill 10 Lashtail Raptor |q 195/1
-.' You can find more Lashtail Raptors around 39.3,43.9
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 195
-..accept 196
+goto Stranglethorn Vale,35.6,10.6
+.talk Ajeck Rouack##717
+..turnin Tiger Mastery##186
+..accept Tiger Mastery##187
 step
-goto 54.3,47.2
-.kill 10 Jungle Stalker |q 196/1
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 196
-..accept 197
+goto Stranglethorn Vale,35.5,10.6
+.talk Sir S. J. Erlgadin##718
+..turnin Panther Mastery##191
+..accept Panther Mastery##192
 step
-goto 61.9,49.0
-.kill 5 Shadowmaw Panther |q 192/1 |tip They are stealthed, so keep an eye out for them.
-.' Click the Quest Complete box that displays on the right side of the screen under your minimap
-..turnin 192
-..accept 193
+goto Stranglethorn Vale,35.7,10.8
+.talk Hemet Nesingwary Jr.##715
+..turnin Raptor Mastery##195
+..accept Raptor Mastery##196
 step
-goto 66.0,43.4
-.from Bhag'thera##728
+goto Stranglethorn Vale,33.5,18.3
+.kill 10 Elder Stranglethorn Tiger##1085 |q 187/1
+step
+goto Stranglethorn Vale,46.5,26.9
+.kill 10 Shadowmaw Panther##684 |q 192/1
+step
+goto Stranglethorn Vale,28.9,44.2
+.kill 10 Jungle Stalker##687 |q 196/1
+step
+goto Stranglethorn Vale,35.6,10.6
+.talk Ajeck Rouack##717
+..turnin Tiger Mastery##187
+..accept Tiger Mastery##188
+step
+goto Stranglethorn Vale,35.5,10.6
+.talk Sir S. J. Erlgadin##718
+..turnin Panther Mastery##192
+..accept Panther Mastery##193
+step
+goto Stranglethorn Vale,35.7,10.8
+.talk Hemet Nesingwary Jr.##715
+..turnin Raptor Mastery##196
+..accept Raptor Mastery##197
+step
+goto Stranglethorn Vale,32.2,17.4
+.from Sin'Dall##729 |tip He walks around the top of this hill.
+.get Paw of Sin'Dall |q 188/1
+step
+goto Stranglethorn Vale,49.6,24.0
+.from Bhag'thera##728 |tip She can be in several places around this area.
 .get Fang of Bhag'thera |q 193/1
-.' Bhag'thera can also spawn
-.' At [61.7,50.6]
-.' At [64.4,36.6]
 step
-goto 62.5,61.3
-.from Tethis##730
+goto Stranglethorn Vale,28.4,42.5
+.from Tethis##730 |tip He swims along the coast around this area.
 .get Talon of Tethis |q 197/1
 step
-goto 48.4,41.9 |n
-.' Follow this road |goto 48.4,41.9,0.5 |noway |c
+goto Stranglethorn Vale,35.6,10.6
+.talk Ajeck Rouack##717
+..turnin Tiger Mastery##188
 step
-goto 44.0,23.3
-.talk 715
-..turnin 197
+goto Stranglethorn Vale,35.5,10.6
+.talk Sir S. J. Erlgadin##718
+..turnin Panther Mastery##193
 step
-goto 43.7,22.3
-.talk 718
-..turnin 193
+goto Stranglethorn Vale,35.7,10.8
+.talk Hemet Nesingwary Jr.##715
+..turnin Raptor Mastery##197
+..accept Big Game Hunter##208
 step
-goto 44.2,23.0
-.talk 715
-..accept 208
-step
-goto 47.8,59.0
+goto Stranglethorn Vale,38.2,35.6
 .from King Bangalash##731 |tip He's a white tiger that walks around on this big hill.
 .get Head of Bangalash |q 208/1
 step
-goto 44.0,23.3
-.talk 715
-..turnin 208
+goto Stranglethorn Vale,35.7,10.8
+.talk Hemet Nesingwary Jr.##715
+..turnin Big Game Hunter##208
+step
+.' Enemies throughout Stranglethorn Vale drop the pages. You can also buy them from other players.
+.get Green Hills of Stranglethorn - Page 1 |q 339/1
+.get Green Hills of Stranglethorn - Page 4 |q 339/2
+.get Green Hills of Stranglethorn - Page 6 |q 339/3
+.get Green Hills of Stranglethorn - Page 8 |q 339/4
+.get Green Hills of Stranglethorn - Page 10 |q 340/1
+.get Green Hills of Stranglethorn - Page 11 |q 340/2
+.get Green Hills of Stranglethorn - Page 14 |q 340/3
+.get Green Hills of Stranglethorn - Page 16 |q 340/4
+.get Green Hills of Stranglethorn - Page 18 |q 341/1
+.get Green Hills of Stranglethorn - Page 20 |q 341/2
+.get Green Hills of Stranglethorn - Page 21 |q 341/3
+.get Green Hills of Stranglethorn - Page 24 |q 341/4
+.get Green Hills of Stranglethorn - Page 25 |q 342/1
+.get Green Hills of Stranglethorn - Page 26 |q 342/2
+.get Green Hills of Stranglethorn - Page 27 |q 342/3
+step
+goto Stranglethorn Vale,35.7,10.5
+.talk Barnil Stonepot##716
+..turnin Chapter I##339
+..turnin Chapter II##340
+..turnin Chapter III##341
+..turnin Chapter IV##342
+..turnin The Green Hills of Stranglethorn##338
+step
 'Earn The Green Hills of Stranglethorn achievement! |achieve 940
 step
 'Congratulations! You've earned the _The Green Hills of Stranglethorn_ achievement!
@@ -2609,231 +2444,6 @@ step
 goto 48.5,56.4
 .talk 30009
 ..turnin 12948
-]])
-ZygorGuidesViewer:RegisterGuide("Zygor's Alliance Achievements Guides\\Quest Achievements\\The First Rule of Ring of Blood is You Don't Talk About Ring of Blood",[[
-description Complete the Ring of Blood, Amphitheater of Anguish and Crucible of Carnage.
-	type achievements
-	faction alliance
-step
-condition achieved(4958)
-goto Nagrand,42.8,20.7
-.talk 18471
-..accept 9962
-step
-goto 43.6,20.4
-.from Brokentoe##18398
-.' Defeat Brokentoe |q 9962/1
-step
-goto 42.8,20.7
-.talk 22893
-..turnin 9962
-step
-goto 42.8,20.7
-.talk 18471
-..accept 9967
-step
-goto 43.6,20.4
-.from Murkblood Twin##18399+
-.' Defeat The Blue Brothers |q 9967/1
-step
-goto 42.8,20.7
-.talk 22893
-..turnin 9967
-step
-goto 42.8,20.7
-.talk 18471
-..accept 9970
-step
-goto 43.6,20.4
-.from Rokdar the Sundered Lord##18400
-.' Defeat Rokdar the Sundered Lord |q 9970/1
-step
-goto 42.8,20.7
-.talk 22893
-..turnin 9970
-step
-goto 42.8,20.7
-.talk 18471
-..accept 9972
-step
-goto 43.6,20.4
-.from Skra'gath##18401
-.' Defeat Skra'gath |q 9972/1
-step
-goto 42.8,20.7
-.talk 22893
-..turnin 9972
-step
-goto 42.8,20.7
-.talk 18471
-..accept 9973
-step
-goto 43.6,20.4
-.from Warmaul Champion##18402
-.' Defeat the Warmaul Champion |q 9973/1
-step
-goto 42.8,20.7
-.talk 22893
-..turnin 9973
-step
-goto 42.8,20.7
-.talk 18471
-..accept 9977
-step
-goto 43.6,20.4
-.from Mogor##18069
-.' Defeat Mogor, Hero of the Warmaul |q 9973/1
-step
-goto 42.8,20.7
-.talk 22893
-..turnin 9977
-.' Earn the Of Blood and Anguish achievement! |achieve 1576
-step
-goto Zul'Drak,48.4,56.4
-.talk 30007
-..accept 12954
-step
-goto 47.9,56.9
-.from Yggdras##30014
-.' Defeat Yggdras |q 12954/1
-step
-goto 48.5,56.4
-.talk 30009
-..turnin 12954
-step
-goto 48.4,56.4
-.talk 30007
-..accept 12933
-step
-goto 47.9,56.9
-.from Stinkbeard##30017
-.' Defeat Stinkbeard |q 12933/1
-step
-goto 48.5,56.4
-.talk 30009
-..turnin 12933
-step
-goto 48.4,56.4
-.talk 30007
-..accept 12934
-step
-goto 47.9,56.9
-.' You will have to fight one of these 4 mobs:
-.from Az'Barin, Prince of the Gust##30026
-.from Duke Singen##30019
-.from Erathius, King of Dirt##30025
-.from Gargoral the Water Lord##30024
-.' Defeat an Elemental Lord |q 12934/1
-step
-goto 48.5,56.4
-.talk 30009
-..turnin 12934
-step
-goto 48.4,56.4
-.talk 30007
-..accept 12935
-step
-goto 47.9,56.9
-.from Orinoko Tuskbreaker##30020
-.' Defeat Orinoko Tuskbreaker |q 12935/1
-step
-goto 48.5,56.4
-.talk 30009
-..turnin 12935
-step
-goto 48.4,56.4
-.talk 30007
-..accept 12936
-step
-goto 47.9,56.9
-.from Korrak the Bloodrager##30023
-.' Defeat Korrak the Bloodrager |q 12936/1
-step
-goto 48.5,56.4
-.talk 30009
-..turnin 12936
-step
-goto 48.4,56.4
-.talk 30007
-..accept 12948
-step
-goto 47.9,56.9
-.from Enormos##30021
-.from Vladof the Butcher##30022
-.' Defeat Vladof the Butcher |q 12948/1
-step
-goto 48.5,56.4
-.talk 30009
-..turnin 12948
-step
-'You will need a group for these quests, or you can complete them alone at level 90
-|confirm
-step
-goto Twilight Highlands,50.7,58.3
-.talk 46935
-..' You will only be able to accept one of these quests
-..accept 27863 |or
-..accept 27861 |or
-..accept 27862 |or
-step
-goto 51.4,57.8
-.from Hurp'derp##46944
-.' Defeat Hurp'derp |q 27863/1 |only if havequest(27863) or completedq(27863)
-.' Defeat Hurp'derp |q 27861/1 |only if havequest(27861) or completedq(27861)
-.' Defeat Hurp'derp |q 27862/1 |only if havequest(27862) or completedq(27862)
-step
-'Click the Complete Quest box that appears under your minimap
-..turnin 27863 |only if havequest(27863) or completedq(27863)
-..turnin 27861 |only if havequest(27861) or completedq(27861)
-..turnin 27862 |only if havequest(27862) or completedq(27862)
-step
-goto 50.7,58.3
-.talk 46935
-..accept 27864
-step
-goto 51.4,57.8
-.from Sully Kneecapper##46946
-.' Defeat Sully Kneecapper |q 27865/1
-step
-'Click the Complete Quest box that appears under your minimap
-..turnin 27864
-step
-goto 50.7,58.3
-.talk 46935
-..accept 27866
-step
-goto 51.4,57.8
-.from Cadaver Collage##46947
-.' Defeat Cadaver Collage |q 27866/1
-step
-'Click the Complete Quest box that appears under your minimap
-..turnin 27866
-step
-goto 50.7,58.3
-.talk 46935
-..accept 27867
-step
-goto 51.4,57.8
-.from Lord Geoffery Tulvan##46948
-.' Defeat Lord Geoffery Tulvan |q 27867/1
-step
-'Click the Complete Quest box that appears under your minimap
-..turnin 27867
-step
-goto 50.7,58.3
-.talk 46935
-..accept 27868
-step
-goto 51.4,57.8
-.from Emberscar the Devourer##46949
-.' Defeat Emberscar the Devourer |q 27868/1
-step
-'Click the Complete Quest box that appears under your minimap
-..turnin 27868
-.' Earn the Round Three. Fight! achievement! |achieve 4960
-.' Earn the The First Rule of Ring of Blood is You Don't Talk About Ring of Blood achievement! |achieve 4958
-step
-'Congratulations!  You've earned the The First Rule of Ring of Blood is You Don't Talk About Ring of Blood achievement!
 ]])
 ZygorGuidesViewer:RegisterGuide("Zygor's Alliance Achievements Guides\\Quest Achievements\\A Simple Re-Quest",[[
 description Complete a daily quest every day for five consecutive days.
@@ -3684,59 +3294,13 @@ description Brew up some of Captain Rumsey's Lager.
 	faction alliance
 step
 condition achieved(1801)
-'Use the Shattrath or Dalaran Cooking Dailies, or the Fishing Dailies of this guide to get this recipe
+'Use the Shattrath or Dalaran Cooking Dailies of this guide to get this recipe
 |confirm
 step
 'Routing to the proper section |next "create" |only if knowspell(45695)
 'Routing to the proper section |next "dailies" |only if default
 step
 label "dailies"
-goto Stormwind City,55.0,69.7
-.talk 5494
-..' You will only be able to complete 1 of the following quests per day
-..accept 26488 |or
-..accept 26420 |or
-..accept 26414 |or
-..accept 26442 |or
-..accept 26536 |or
-step
-goto 75.4,84.0
-.' Fish in the moat in this spot
-.collect Royal Monkfish##58856 |n
-.' Click the Royal Monkfish in your bags |use Royal Monkfish##58856
-.get Precious Locket |q 26488/1 |tip You may not always get the item inside the first Royal Monkfish, so you'll need to fish more of them.
-step
-goto 58.6,11.5
-.' Click a Worm Mound |tip They look like tiny gray spots on the ground, almost invisible.  Look for sparkles above the ground to find them easier.
-.collect 1 Overgrown Earthworm##58788 |q 26420
-.' Use your Overgrown Earthworm |use Overgrown Earthworm##58788
-.' Fish in the lake in this spot
-.get Crystal Bass |q 26420/1
-step
-goto 48.6,39.1
-.' Fish in the lake in this spot
-.get 8 Hardened Walleye |q 26414/1
-step
-goto 24.1,49.7
-.' Click Stormwind Lobster Traps |tip They look like gray metal cages on the ground underwater around this area under the Stormwind Harbor docks.
-.get 6 Rock Lobster |q 26442/1
-step
-goto Elwynn Forest,28.2,59.3 |n
-.' Follow the path up |goto Elwynn Forest,28.2,59.3,0.5 |noway |c |q 26536
-step
-goto 25.7,59.3
-.' Fish in the lake in this spot
-.get 4 Violet Perch |q 26536/1
-step
-goto Stormwind City,55.0,69.7
-.talk 5494
-..' You will only be able to complete 1 of the following quests per day
-..turnin 26488
-..turnin 26420
-..turnin 26414
-..turnin 26442
-..turnin 26536
-step
 goto Shattrath City,61.8,15.6
 .talk 24393
 .' You will only be able to accept one of these daily quests per day
