@@ -13286,7 +13286,7 @@ ZygorGuidesViewer:RegisterGuide("Zygor's Horde Dailies Guides\\Events\\Children'
 		'Use your Wolvar Orphan Whistle to summon your Wolvar Orphan |use Wolvar Orphan Whistle##46396
 		.talk Wolvar Orphan##33532
 		..turnin The Mighty Hemet Nesingwary##13957	
-		..accept A Trip To The Wonderworks##13938
+		..accept A Visit To The Wonderworks##13938
 	step //13
 		goto Sholazar Basin,25.3,58.5
 		.talk The Spirit of Gnomeregan##28037
@@ -13302,7 +13302,7 @@ ZygorGuidesViewer:RegisterGuide("Zygor's Horde Dailies Guides\\Events\\Children'
 	step //16
 		'Use your Wolvar Orphan Whistle to summon your Wolvar Orphan |use Wolvar Orphan Whistle##46396
 		.talk Wolvar Orphan##33532
-		..turnin A Trip To The Wonderworks##13938
+		..turnin A Visit To The Wonderworks##13938
 		..accept Back To The Orphanage##13960
 	step //17
 		goto Dalaran,49.4,63.2

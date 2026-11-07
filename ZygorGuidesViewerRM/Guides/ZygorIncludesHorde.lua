@@ -471,591 +471,14 @@ ZygorGuidesViewer:RegisterInclude("H_Darkmoon_Faire_Quests",[[
 		|only if skill("Blacksmithing")>74
 ]])
 
-ZygorGuidesViewer:RegisterInclude("H_Darkmoon_Faire_Achievements",[[
-	step
-	label	"main"
-		'To earn Achievements for the Darkmoon Faire, you will need to complete Dailies, Quests and other things. 
-		.' Click here to do the Dailies Achievments |confirm always |next "dailies" |or
-		.' or
-		.' Click here to do the Profession Quests Achievements |confirm always |next "professions" |or
-		.' or
-		.' Click here for the Non-Questing Achievements |confirm always |next "no_quest" |or
-	step
-	label	"dailies"
-		'You have earned the Achievement Bullseye! |achieve 6021 |only if achieved(6021)
-		.' You still need to earn the Achievement Bullseye! |achieve 6021 |only if not achieved(6021)
-		.' You have earned the Achievement Quick Shot! |achieve 6022 |only if achieved(6022)
-		.' You still need to earn the Achievement Quick Shot! |achieve 6022 |only if not achieved(6022)
-		.' You have earned the Achievement Step Right Up! |achieve 6020 |only if achieved(6020)
-		.' You still need to earn the Achievement Step Right Up! |achieve 6020 |only if not achieved(6020)
-		|confirm always
-	step
-		goto Darkmoon Island,54.3,53.1
-		.talk Zina Sharpworth##55266
-		.buy Sack o' Tokens##78909 |n
-		.' Open your Sack o' Tokens in your bags |use Sack o' Tokens##78909
-		.collect 20 Darkmoon Faire Game Tokens##71083
-	step
-		goto Darkmoon Island,53.3,54.4
-		.talk Mola##54601
-		..accept It's Hammer Time##29463
-	step
-		goto Darkmoon Island,53.3,54.4
-		.talk Mola##54601
-		.' Tell her:
-		.' <Ready to whack!> |havebuff Interface\Icons\inv_hammer_32
-	step
-		.' Use the _Whack!_ on your bar and whack the Gnolls in the Barrels
-		.' The Gnolls  will pop up in the Barrels, but be careful not to hit the _Doll_ or you will get stunned.
-		.' Whack 30 Gnolls |q 29463/1
-	step
-		goto Darkmoon Island,53.3,54.4
-		.talk Mola##54601
-		..turnin It's Hammer Time##29463
-	step
-		goto Darkmoon Island,52.5,56.2
-		.talk Maxima Blastenheimer##15303
-		..accept The Humanoid Cannonball##29436
-		|next "quest"
-	step
-	label	"target"
-		goto Darkmoon Island,57.1,89.6
-		.talk Teleportologist Fozlebub##57850
-		.' Tell him:
-		.' <Teleport me to the cannon.> |goto 52.7,56.0,1 |noway |c
-	step
-	label	"quest"
-		goto Darkmoon Island,52.5,56.2
-		.talk Maxima Blastenheimer##15303
-		.' Tell her:
-		.' <Launch me!>
-		'Wait for the Cannon to Launch you |havebuff Interface\Icons\Spell_Magic_FeatherFall
-	step
-		goto Darkmoon Island,56.4,93.3
-		.' You will be launched throught the air. 
-		.' You the __ to drop in the water in the target. You will gain more points for getting closer to the middle.
-		.' Earn 5 Target Points |q 29436/1
-		.' Score a Bullseye by landing in the middle of the target
-		.' Earn the Achievement Bullseye! |achieve 6021
-		.' Click here to try again |confirm |next "target"
-	step
-		goto Darkmoon Island,57.1,89.6
-		.talk Teleportologist Fozlebub##57850
-		.' Tell him:
-		.' <Teleport me to the cannon.> |goto 52.7,56.0,1 |noway |c
-	step
-		goto Darkmoon Island,52.5,56.2
-		.talk Maxima Blastenheimer##15303
-		..turnin The Humanoid Cannonball##29436
-	step
-		goto 49.3,60.8
-		.talk Rinling##14841
-		..accept He Shoots, He Scores!##29438
-	step
-		goto 49.3,60.8
-		.talk Rinling##14841	
-		.' Tell him:
-		.' <Let's shoot!> |havebuff Interface\Icons\INV_Weapon_Rifle_05
-	step
-		'Shoot at the 3 targets. 
-		.' When you see a green marker appear over a target, make sure that you are aimed at it and _shoot_ |tip To aim, simply move the camera to face your current target.
-		.' Shoot 25 Targets |q 29438/1
-		.' Shoot your gunt and hit a target very fast
-		.' Earn the Achievement Quick Shot! |achieve 6022
-	step
-		goto 49.3,60.8
-		.talk Rinling##14841
-		..turnin He Shoots, He Scores!##29438
-	step
-		goto Darkmoon Island,50.7,65.1
-		.talk Finlay Coolshot##54605
-		..accept Tonk Commander##29434
-	step
-		goto Darkmoon Island,50.7,65.1
-		.talk Finlay Coolshot##54605
-		.' Tell him:
-		.' <Ready to Play.> |invehicle |c
-	step
-		'Use your _Cannon_ ability to shoot _Tonk Targets_.
-		.from Tonk Target##33081+
-		.' Destroy 30 Tonk Targets |q 29434/1
-	step
-		goto Darkmoon Island,50.7,65.1
-		.talk Finlay Coolshot##54605
-		..turnin Tonk Commander##29434
-	step
-		goto 51.6,77.8
-		.talk Jessica Rogers##54485
-		..accept Target: Turtle##29455
-	step
-		goto 51.6,77.8
-		.talk Jessica Rogers##54485
-		.' Tell her: 
-		.' <Ready to play!> |havebuff Interface\Icons\INV_Jewelry_Ring_03
-	step
-		'Use your _Ring Toss_ ability to throw rings on the turtle.  |tip When aiming, move the marker over the middle of the turtle.
-		.' Land 3 Rings on Dubenko |q 29455/1
-		.' Earn the Achievement Step Right Up! |achieve 6020
-		'|modelnpc 54490
-	step
-		goto 51.6,77.8
-		.talk Jessica Rogers##54485
-		..turnin Target: Turtle##29455
-		|next "main"
-	step
-	label	"professions"
-		'You have earned the Achievement Faire Favors |achieve 6032 |only if achieved(6032)
-		.' You still need to earn the Achievement Faire Favors |achieve 6032 |only if not achieved(6032)
-		.' You have earned the Achievement Darkmoon Dungeoneer |achieve 6027 |only if achieved(6027)
-		.' You still need to earn the Achievement Darkmoon Dungeoneer |achieve 6027 |only if not achieved(6027)
-		.' You have earned the Achievement Darkmoon Defender |achieve 6028 |only if achieved(6028)
-		.' You still need to earn the Achievement Darkmoon Defender |achieve 6028 |only if not achieved(6028)
-		.' You have earned the Achievement Darkmoon Despoiler |achieve 6029 |only if achieved(6029)
-		.' You still need to earn the Achievement Darkmoon Despoiler |achieve 6029 |only if not achieved(6029)   
-		|confirm always
-	step
-		goto Darkmoon Island,55.4,54.8
-		.talk Selina Dourman##10445
-		..accept Banners, Banners Everywhere!##29520
-		|only if skill("Tailoring")>74
-	step
-		goto Darkmoon Island,51.9,60.9
-		.talk Professor Thaddeus Paleo##14847
-		..accept Fun for the Little Ones##29507
-		|only if skill("Archaeology")>74
-	step
-		goto Darkmoon Island,49.3,60.8
-		.talk Rinling##14841
-		..accept Talkin' Tonks##29511
-		|only if skill("Engineering")>74
-	step
-		goto Darkmoon Island,49.3,60.7
-		.talk Rinling##14841
-		..accept Rearm, Reuse, Recycle##29518
-		|only if skill("Mining")>74
-	step
-		goto 49.3,60.9
-		.talk Rinling##14841
-		..accept Eyes on the Prizes##29517
-		|only if skill("Leatherworking")>74
-	step
-		goto Darkmoon Island,52.9,68.0
-		.talk Stamp Thunderhorn##14845
-		..accept Putting the Crunch in the Frog##29509
-		|only if skill("Cooking")>74
-	step
-		goto Darkmoon Island,52.9,68.0
-		.talk Stamp Thunderhorn##14845		
-		..accept Spoilin' for Salty Sea Dogs##29513
-		|only if skill("Fishing")>74
-	step
-		goto Darkmoon Island,55.0,70.8
-		.talk Chronos##14833
-		..accept Putting the Carnies Back Together Again##29512
-		|only if skill("First Aid")>74
-	step
-		goto Darkmoon Island,55.0,70.8
-		.talk Chronos##14833
-		..accept Tan My Hide##29519
-		|only if skill("Skinning")>74
-	step
-		goto Darkmoon Island,55.0,70.8
-		.talk Chronos##14833
-		..accept Herbs for Healing##29514
-		|only if skill("Herbalism")>74
-	step
-		goto 50.5,69.6
-		.talk Sylannia##14844
-		..accept A Fizzy Fusion##29506
-		|only if skill("Alchemy")>74
-	step
-		goto 55.0,70.8
-		.talk Chronos##14833
-		..accept Keeping the Faire Sparkling##29516
-		|only if skill("Jewelcrafting")>74
-	step
-		goto Darkmoon Island,53.2,75.8
-		.talk Sayge##14822
-		..accept Putting Trash to Good Use##29510
-		|only if skill("Enchanting")>74
-	step
-		goto Darkmoon Island,51.1,82.0
-		.talk Yebb Neblegear##14829
-		..accept Baby Needs Two Pair of Shoes##29508
-		|only if skill("Blacksmithing")>74
-	step
-		goto 52.5,88.7
-		.buy Fishing Pole##6256
-		|only if skill("Fishing")>74
-	step
-		goto Darkmoon Island,51.7,91.6
-		.' Equip your Fishing Pole |equipped Fishing Pole##6256 |use Fishing Pole##6256 |q 29513
-		.' Use your Fishing ability to catch _Sea Herrings_ |cast Fishing##7620
-		.' Catch 5 Great Sea Herring |q 29513/1
-		|only if skill("Fishing")>74
-	step
-		goto Darkmoon Island,47.9,74.5
-		.' Use your Darkmoon Bandage on Injured Carnies |use Darkmoon Bandage##71978
-		.' Heal 4 Injured Carnies |q 29512/1
-		'|modelnpc 54518
-		|only if skill("First Aid")>74
-	step
-		'All around the Island
-		.click Discarded Weapon##10777+
-		.collect 6 Discarded Weapon##72018 |n
-		.' Disenchant the Discarded Weapons |use Discarded Weapon##72018
-		.' Collect 6 Soothsayer's Dust |q 29510/1
-		|only if skill("Enchanting")>74
-	step
-		'All around the Island
-		.click Tonk Scrap##6314
-		.' Collect 6 pieces of Tonk Scrap |q 29518/1
-		|only if skill("Mining")>74
-		'|model 7975
-	step
-		'All around the Island
-		.click Bits of Glass##238
-		.collect 5 Bits of Glass##72052 |n
-		.' Click the Bits of Glass in your bags |use Bit of Glass##72052
-		.' Make 5 Sparkling Gemstones |q 29516/1
-		|only if skill("Jewelcrafting")>74
-	step
-		.' All around the Island
-		.' Use your Battered Wrench to repair Damaged Tonk's |use Battered Wrench##72110
-		.' Repair 5 Damaged Tonk's |q 29511/1
-		'|modelnpc 54504
-		|only if skill("Engineering")>74
-	step
-		.' All around the Island
-		.click Darkblossom##209284
-		.' Gather 6 Darkblossom |q 29514/1
-		|only if skill("Herbalism")>74
-	step
-		.' All around the Island
-		.click Staked Skins##10750
-		.' Scrape 4 Staked Skins |q 29519/1
-	step
-		goto 50.5,69.6
-		.talk Sylannia##14844
-		.buy 5 Fizzy Faire Drink##19299 |q 29506
-		|only if skill("Alchemy")>74
-	step
-		goto Darkmoon Island,50.5,90.8
-		.click Portal to Mulgore##4397
-		.' Teleport to Mulgore |goto Mulgore |noway |c
-		|only if skill("Cooking")>74 or skill("Alchemy")>74 or skill("Archaeology")>74
-	step
-		'Open your world map, find dig sites in Kalimdor and go to them |tip They look like small shovel icons on your world map that spawn in random places.  Once you get to the zone where the dig site is located, you will see the dig site on your map as a red highlighted area.
-		.' You can find _Fossil Fragments_ in these locations: 
-		.' Desolace
-		.' Dustwallow Marsh
-		.' Stonetalon Mountains
-		.' Southern Barrens
-		.' Tanaris
-		.' Un'Goro Crater
-		.' Use your Survey ability inside the dig site area and follow the Telesope until you find a fragment |cast Survey##80451
-		.earn 15 Fossil Fragments##393 |q 29507
-		|only if skill("Archaeology")>74
-	step
-		goto Darkmoon Island,50.5,90.8
-		.click Portal to Mulgore##4397
-		.' Teleport to Mulgore |goto Mulgore |noway |c
-		|only if skill("Alchemy")>74
-	step
-		goto Mulgore,46.8,60.4
-		.talk Innkeeper Kauth##6747
-		.buy 5 Moonberry Juice##1645 |q 29506
-		|only if skill("Alchemy")>74
-	step
-		goto Thunder Bluff,40.6,62.6
-		.talk Shadi Mistrunner##8363
-		.buy 5 Simple Flour##30817 |q 29509
-		|only if skill("Cooking")>74
-	step
-		goto Thunder Bluff,43.8,44.6
-		.talk Mahu##3005
-		.buy 1 Coarse Thread##2320
-		.buy 1 Blue Dye##6260
-		.buy 1 Red Dye##2604
-		|only if skill("Tailoring")>74
-	step
-		goto Mulgore,36.8,35.8
-		.click Portal to Darkmoon Island
-		.' Telport to Darkmoon Island |goto Darkmoon Island |noway |c
-		|only if skill("Cooking")>74 or skill("Alchemy")>74 or skill("Archaeology")>74 or skill("Tailoring")>74
-	step
-		goto Darkmoon Island,56.0,52.9 |n
-		.' Follow the Path to the Darkmoon Faire |goto Darkmoon Island,56.0,52.9,1 |noway |c
-		|only if skill("Cooking")>74 or skill("Alchemy")>74 or skill("Archaeology")>74
-	step
-		goto Darkmoon Island,50.4,69.5
-		.' Use the Cocktail Shaker in your bags to make Moonberry Fizz |use Cocktail Shaker##72043
-		.' Create 5 Sevings of Moonberry Fizz |q 29506/1
-		|only if skill("Alchemy")>74
-	step
-		goto Darkmoon Island,50.0,66.2
-		.' Use the Darkmoon Banner Kit in your bags to plant a banner here. |use Darkmoon Banner Kit##72048
-		.' Plant a Darkmoon Banner |q 29520/1
-		|only if skill("Tailoring")>74
-	step
-		goto Darkmoon Island,52.7,68.1
-		.' Click the Plump Frogs in your bags |use Plump Frogs##72056
-		.collect 5 Breaded Frog##72057 |n
-		.' Throw the Breaded Frogs in the cauldron |use Breaded Frog##72057
-		.' Fry 5 Crunchy Frogs |q 29509/1
-		|only if skill("Cooking")>74
-	step
-		goto 55.3,71.7
-		.' Use the Iron Stock in your bags to make Horseshoes |use Iron Stock##71964
-		.collect 4 Horseshoes##71967 |q 29508
-		|only if skill("Blacksmithing")>74
-	step
-		goto Darkmoon Island,51.9,60.9
-		.talk Professor Thaddeus Paleo##14847
-		..turnin Fun for the Little Ones##29507
-		|only if skill("Archaeology")>74
-	step
-		goto Darkmoon Island,52.9,68.0
-		.talk Stamp Thunderhorn##14845
-		..turnin Putting the Crunch in the Frog##29509
-		|only if skill("Cooking")>74
-	step
-		goto Darkmoon Island,52.9,68.0
-		.talk Stamp Thunderhorn##14845		
-		..turnin Spoilin' for Salty Sea Dogs##29513
-		|only if skill("Fishing")>74
-	step
-		goto Darkmoon Island,55.0,70.8
-		.talk Chronos##14833
-		..turnin Putting the Carnies Back Together Again##29512
-		|only if skill("First Aid")>74
-	step
-		goto Darkmoon Island,55.0,70.8
-		.talk Chronos##14833
-		..turnin Tan My Hide##29519
-		|only if skill("Skinning")>74
-	step
-		goto 55.0,70.8
-		.talk Chronos##14833
-		..turnin Keeping the Faire Sparkling##29516
-		|only if skill("Jewelcrafting")>74
-	step
-		goto Darkmoon Island,49.3,60.8
-		.talk Rinling##14841
-		..turnin Talkin' Tonks##29511
-		|only if skill("Engineering")>74
-	step
-		goto Darkmoon Island,55.0,70.8
-		.talk Chronos##14833
-		..turnin Herbs for Healing##29514
-		|only if skill("Herbalism")>74
-	step
-		goto 50.5,69.6
-		.talk Sylannia##14844
-		..turnin A Fizzy Fusion##29506
-		|only if skill("Alchemy")>74
-	step
-		goto Darkmoon Island,55.4,54.8
-		.talk Selina Dourman##10445
-		..turnin Banners, Banners Everywhere!##29520
-		|only if skill("Tailoring")>74
-	step
-		goto Darkmoon Island,49.3,60.7
-		.talk Rinling##14841
-		..turnin Rearm, Reuse, Recycle##29518
-		|only if skill("Mining")>74
-	step
-		goto Darkmoon Island,53.2,75.8
-		.talk Sayge##14822
-		..turnin Putting Trash to Good Use##29510
-		|only if skill("Enchanting")>74
-	step
-		goto Darkmoon Island,51.3,81.8
-		.' Use the Horshoes in your bag on Baby|use Horseshoe##71967
-		.' Put New Horshoes On Baby |q 29508/1
-		|only if skill("Blacksmithing")>74
-		'|modelnpc 54510
-	step
-		goto Darkmoon Island,51.1,82.0
-		.talk Yebb Neblegear##14829
-		..turnin Baby Needs Two Pair of Shoes##29508
-		|only if skill("Blacksmithing")>74
-	step
-		goto Darkmoon Island,47.9,67.1
-		.talk Kerri Hicks##14832
-		..accept Test Your Strength##29433
-	step
-		goto Darkmoon Island,55.6,55.0
-		.talk Selina Dourman##10445
-		.' Tell her:
-		.' <Darkmoon Adventurer's Guide?>
-		.collect Darkmoon Adventurer's Guide##71634 |q 29433
-	step
-		'These next 3 items have to be _obtained from Battlegrounds_
-		.' When you kill an opponent, _loot_ their body for a chance to get _each item_.
-		.collect Adventurer's Journal##71953 |n
-		.accept The Captured Journal##29458 |use Adventurer's Journal##71953
-		.collect Banner of the Fallen##71951 |n
-		.accept A Captured Banner##29456 |use Banner of the Fallen##71951
-		.collect Captured Insignia##71952 |n
-		.accept The Enemy's Insignia##29457 |use Captured Insignia##71952
-	step
-		'These next 5 items have to be _obtained from Dungeons_ listed below
-		.collect Mysterious Grimoire##71637 |n |tip You can get this in Heroic Scholomance from Darkmaster Gandling
-		..accept An Inriguing Grimoire##29445 |use Mysterious Grimoire##71637
-		.collect Monstrous Egg##71636 |n |tip You can get this in Stormstout Brewery from Hoptallus
-		..accept An Exotic Egg##29444 |use Monstrous Egg##71636
-		.collect A Treatise on Strategy##7175 |n |tip You can get this in Stormstout Brewery from Hoptallus
-		..accept The Master Strategist##29451 |use A Treatise on Strategy##7175
-		.collect Ornate Weapon##71638 |n |tip You can get this in Heroic Scarlet Monastery from Brother Korloff
-		..accept A Wondrous Weapon##29446 |use Ornate Weapon##71638
-		.collect Imbued Crystal##71635 |n |tip You can get this in Heroic Scarlet Monastery from High Inquisitor Whitemane
-		..accept A Curious Crystal##29443 |use Imbued Crystal##71635
-	step
-		'The next item can only be obtained from any 10 man Cataclysm Raid Boss
-		.collect Soothsayer's Runes##71716 |n
-		..accept Tools of Divination##29464 |use Soothsayer's Runes##71716
-	step
-		.' Kill any Creature Player or NPC that gives _experience or honor_ to gain Grisly Trophies |tip You need to leave Darkmoon Island to find anything to kill.
-		.' Collect 250 Grisly Trophy's |q 29433/1
-	step
-		goto Darkmoon Island,47.9,67.1
-		.talk Kerri Hicks##14832
-		..turnin Test Your Strength##29433
-	step
-		goto Darkmoon Island,51.9,60.9
-		.talk Professor Thaddeus Paleo##14847
-		..turnin The Captured Journal##29458
-		..turnin A Captured Banner##29456
-		..turnin The Enemy's Insignia##29457
-		..turnin The Master Strategist##29451
-		..turnin A Wondrous Weapon##29446
-		..turnin A Curious Crystal##29443
-		..turnin Tools of Divination##29464
-	step
-		goto Darkmoon Island,51.0,81.2
-		.talk Yebb Neblegear##14829
-		..turnin An Exotic Egg##29444
-	step
-		goto Darkmoon Island,53.6,76.0
-		.talk Sayge##14822
-		..turnin An Intriguing Grimoire##29445
-		.' Earn the Achievement Darkmoon Dungeoneer |achieve 6027
-		.' Earn the Achievement Darkmoon Defender |achieve 6028
-		.' Earn the Achievement Darkmoon Despoiler |achieve 6029
-		|next "main"
-	step
-	label	"no_quest"
-		'You have earned the Achievement Darkmoon Duelist! |achieve 6023 |only if achieved(6023)
-		.' You still need to earn the Achievement Darkmoon Duelist! |achieve 6023 |only if not achieved(6023)
-		'You have earned the Achievement Fairegoer's Feast! |achieve 6026 |only if achieved(6026)
-		.' You still need to earn the Achievement Fairegoer's Feast! |achieve 6026 |only if not achieved(6026)
-		'You have earned the Achievement Taking the Show on the Road! |achieve 6031 |only if achieved(6031)
-		.' You still need to earn the Taking the Show on the Road! |achieve 6031 |only if not achieved(6031)
-		'You have earned the Achievement I Was Promised a Pony! |achieve 6025 |only if achieved(6025)
-		.' You still need to earn the I Was Promised a Pony! |achieve 6025 |only if not achieved(6025)    
-		|confirm always
-	step
-		goto Darkmoon Island,50.5,69.5
-		.talk Sylannia##14844
-		.buy Cheap Beer##19222 |n
-		.' Drink Cheap Beer |achieve 6026/12 |use Cheap Beer##19222
-		.buy Darkmoon Special Reserve##19221 |n
-		.' Drink Darkmoon Special Reserve |achieve 6026/13 |use Special Reserve##19221
-		.buy Fizzy Faire Drink##19299 |n
-		.' Drink Fizzy Faire Drink |achieve 6026/14 |use Fizzy Faire Drink##19299
-		.buy Bottled Winterspring Water##19300 |n
-		.' Drink Bottled Winterspring Water |achieve 6026/11 |use Bottled Winterspring Water##19300
-		.buy Iced Berry Slush##33234 |n
-		.' Drink Iced Berry Slush |achieve 6026/17 |use Iced Berry Slush##33234
-		.buy Fizzy Faire Drink "Classic"##33236 |n
-		.' Drink Fizzy Faire Drink "Classic" |achieve 6026/15 |use Fizzy Faire Drink "Classic"##33236
-		.buy Fresh-Squeezed Limeade##44941 |n
-		.' Drink Fresh-Squeezed Limeade |achieve 6026/16 |use Fresh-Squeezed Limeade##44941
-		.buy Sasparilla Sinker##74822 |n
-		.' Drink Sasparilla Sinker |achieve 6026/18 |use Sasparilla Sinker##74822
-	step
-		goto Darkmoon Island,52.8,68.0
-		.talk Stamp Thunderhorn##14845
-		.buy Darkmoon Dog##19223 |n
-		.' Eat Darkmoon Dog |achieve 6026/3 |use Darkmoon Dog##19223
-		.buy Spiced Beef Jerky##19304 |n
-		.' Eat Spiced Beef Jerky |achieve 6026/10 |use Spiced Beef Jerky##19304
-		.buy Pickled Kodo Foot##19305 |n
-		.' Eat Pickled Kodo Foot |achieve 6026/7 |use Pickled Kodo Foot##19305
-		.buy Red Hot Wings##19224 |n
-		.' Eat Red Hot Wings |achieve 6026/8 |use Red Hot Wings##19224
-		.buy Crunchy Frog##19306 |n
-		.' Eat Crunchy Frog |achieve 6026/2 |use Crunchy Frog##19306
-		.buy Deep Fried Candybar##19225 |n
-		.' Eat Deep Fried Candybar |achieve 6026/4 |use Deep Fried Candybar##19225
-		.buy Funnel Cake##33246 |n
-		.' Eat Funnel Cake |achieve 6026/6 |use Funnel Cake##33246 
-		.buy Forest Strider Drumstick##33254 |n
-		.' Eat Forest Strider Drumstick |achieve 6026/5 |use Forest Strider Drumstick##33254
-		.buy Corn-Breaded Sausage##44940 |n
-		.' Eat Corn-Breaded Sausage |achieve 6026/1 |use Corn-Breaded Sausage##44940
-		.buy Salty Sea Dog##73260 |n
-		.' Eat Salty Sea Dog |achieve 6026/9 |use Salty Sea Dog##73260
-		.' Earn the Achievement Fairegoer's Feast |achieve 6026
-	step
-		goto Darkmoon Island,56.8,81.4
-		.clicknpc Darkmoon Pony##55715
-		.' Earn the Achievement I Was Promised a Pony |achieve 6025
-	step
-		goto Darkmoon Island,48.4,71.9
-		.talk Boomie Sparks##55278
-		.buy 6 Darkmoon Firework##74142 |future |achieve 6031
-	step
-		goto Darkmoon Island,50.5,90.8
-		.click Portal to Mulgore##4397
-		.' Teleport to Mulgore |goto Mulgore |noway |c
-	step
-		goto Thunder Bluff,32.2,67.0
-		.' Use your Darkmoon Firework |achieve 6031/5 |use Darkmoon Firework##74142
-	step
-		goto Orgrimmar,49.2,59.3
-		.' Use your Darkmoon Firework |achieve 6031/2 |use Darkmoon Firework##74142
-	step
-		goto Undercity,66.3,2.2
-		.' Use your Darkmoon Firework |achieve 6031/6 |use Darkmoon Firework##74142
-	step
-		goto Silvermoon City,50.7,16.4
-		.' Use your Darkmoon Firework |achieve 6031/4 |use Darkmoon Firework##74142	
-	step
-		goto Tirisfal Glades,59.1,59.0 |n
-		.' Ride the Zeplin to Howling Fjord |goto Howling Fjord |noway |c
-	step
-		goto Dalaran,72.5,45.5
-		.' Use your Darkmoon Firework |achieve 6031/1 |use Darkmoon Firework##74142
-	step
-		goto Dalaran,55.4,25.5
-		.click Dalaran Portal to Orgrimmar##04395
-		.' Teleport to Orgrimmar |goto Orgrimmar/2 |noway |c
-	step
-		goto Shattrath City,63.8,41.7
-		.' Use your Darkmoon Firework |achieve 6031/3 |use Darkmoon Firework##74142
-		.' Earn the Achievement Taking the Show on the Road! |achieve 6031
-	step
-		goto Darkmoon Island,56.0,52.9 |n
-		.' Follow the Path to the Darkmoon Faire |goto Darkmoon Island,56.0,52.9,1 |noway |c
-	step
-		goto Darkmoon Island,46.8,78.8
-		.' Click Darkmoon Deathmatch Gate and enter the Deathmatch Arena
-		.' Once inside, you will need to fight anyone inside, if you win, you will earn an achievement.
-		.' Earn the Achievement Darkmoon Duelist! |achieve 6023
-		.' Deafeat 12 combatants in the Deathmatch Arena
-		.' Earn the Achievement Darkmoon Dominator |achieve 6024
-]])
-
 -- Lunar Festival --
 ZygorGuidesViewer:RegisterInclude("H_Lunar_Festival_Quests",[[
 	step
-		goto Orgrimmar,49.9,81.2
+		goto Orgrimmar,51.0,70.5
 		.talk Lunar Festival Herald##15891
 		..accept The Lunar Festival##8873
 	step
-		goto 52.4,58.5
+		goto 41.6,32.0
 		.talk Lunar Festival Harbinger##15895
 		..turnin The Lunar Festival##8873
 		..accept Lunar Fireworks##8867
@@ -1071,7 +494,7 @@ ZygorGuidesViewer:RegisterInclude("H_Lunar_Festival_Quests",[[
 		.' Fire 8 Lunar Fireworks|q 8867/1
 		.' Fire 2 Lunar Fireworks Clusters|q 8867/2
 	step
-		goto 52.4,58.5
+		goto 41.6,32.0
 		.talk Lunar Festival Harbinger##15895
 		..turnin Lunar Fireworks##8867
 		..accept Valadar Starsong##8883
@@ -1105,7 +528,7 @@ ZygorGuidesViewer:RegisterInclude("H_Lunar_Festival_Elders",[[
 		goto 64.8,38.7 |n
 		.' Enter this cave |goto 64.8,38.7,0.5 |noway |c
 	step
-		goto 63.5,36.1
+		goto 66.0,47.8
 		.talk Elder Meadowrun##15602
 		..accept Meadowrun the Elder##8722 |instant
 	step
@@ -1139,7 +562,7 @@ ZygorGuidesViewer:RegisterInclude("H_Lunar_Festival_Elders",[[
 		.talk Elder Bronzebeard##15871
 		..accept Bronzebeard the Elder##8866 |instant |tip If you die trying to leave Ironforge, just resurrect at the spirit healer you get sent to.
 	step
-		goto Dun Morogh,53.9,49.9
+		goto Dun Morogh,46.8,51.6
 		.talk Elder Goldwell##15569
 		..accept Goldwell the Elder##8653 |instant
 	step
@@ -1179,11 +602,11 @@ ZygorGuidesViewer:RegisterInclude("H_Lunar_Festival_Elders",[[
 		.talk Elder Morndeep##15549
 		..accept Morndeep the Elder##8619
 	step
-		goto Burning Steppes/0,52.4,24.0
+		goto Burning Steppes/0,64.5,24.1
 		.talk Elder Dawnstrider##15585
 		..accept Dawnstrider the Elder##8683 |instant
 	step
-		goto 70.1,45.4
+		goto 82.2,46.5
 		.talk Elder Rumblerock##15557
 		..accept Rumblerock the Elder##8636 |instant
 	step
@@ -1191,7 +614,7 @@ ZygorGuidesViewer:RegisterInclude("H_Lunar_Festival_Elders",[[
 		.talk Elder Stormbrow##15565
 		..accept Stormbrow the Elder##8649 |instant
 	step
-		goto 34.6,50.4
+		goto 12.8,35.5
 		.talk Elder Hammershout##15562
 		..accept Hammershout the Elder##8646 |instant |tip If you die trying to leave Stormwind City, just resurrect at the spirit healer you get sent to.
 	step
@@ -1210,28 +633,28 @@ ZygorGuidesViewer:RegisterInclude("H_Lunar_Festival_Elders",[[
 		goto 50.0,14.5
 		.' Leave the instance. |goto Swamp of Sorrows|noway|c
 	step
-		goto Blasted Lands,54.3,49.5
+		goto Blasted Lands,57.9,54.9
 		.talk Elder Bellowrage##15563
 		..accept Bellowrage the Elder##8647 |instant
 	step
-		goto Northern Stranglethorn,71.0,34.3
+		goto Stranglethorn Vale,53.2,18.3
 		.talk Elder Starglade##15596
 		..accept Starglade the Elder##8716 |instant
 	step
-		goto The Cape of Stranglethorn,40.0,72.5
+		goto Stranglethorn Vale,26.5,76.6
 		.talk Elder Winterhoof##15576
 		..accept Winterhoof the Elder##8674 |instant
 // KALIMDOR
 	step
-		goto Northern Barrens,68.4,70.0
+		goto The Barrens,62.7,36.8
 		.talk Elder Windtotem##15582
 		..accept Windtotem the Elder##8680 |instant
 	step
-		goto 48.5,59.3
+		goto The Barrens,51.4,30.7
 		.talk Elder Moonwarden##15597
 		..accept Moonwarden the Elder##8717 |instant
 	step
-		goto Southern Barrens,41.5,47.5
+		goto The Barrens,45.1,57.9
 		.talk Elder High Mountain##15588
 		..accept High Mountain the Elder##8686 |instant
 	step
@@ -1270,11 +693,11 @@ ZygorGuidesViewer:RegisterInclude("H_Lunar_Festival_Elders",[[
 		.talk Elder Mistwalker##15587
 		..accept Mistwalker the Elder##8685 |instant
 	step
-		goto Silithus,53.0,35.5
+		goto Silithus,49.0,37.7
 		.talk Elder Bladesing##15599
 		..accept Bladesing the Elder##8719 |instant
 	step
-		goto 30.8,13.3
+		goto 23.1,11.8
 		.talk Elder Primestone##15570
 		..accept Primestone the Elder##8654 |instant
 	step
@@ -1306,19 +729,19 @@ ZygorGuidesViewer:RegisterInclude("H_Lunar_Festival_Elders",[[
 		.talk Elder Runetotem##15572
 		..accept Runetotem the Elder##8670 |instant
 	step
-		goto Orgrimmar,52.3,60.0
+		goto Orgrimmar,41.1,33.8
 		.talk Elder Darkhorn##15579
 		..accept Darkhorn the Elder##8677 |instant
 	step
-		goto Azshara,64.7,79.3
+		goto Azshara,72.5,85.1
 		.talk Elder Skygleam##15600
 		..accept Skygleam the Elder##8720 |instant
 	step
-		goto Winterspring,60.0,49.9
+		goto Winterspring,61.5,37.8
 		.talk Elder Stonespire##15574
 		..accept Stonespire the Elder##8672 |instant
 	step
-		goto 53.2,56.6
+		goto 55.6,43.7
 		.talk Elder Brightspear##15606
 		..accept Brightspear the Elder##8726 |instant
 	step
@@ -1330,15 +753,15 @@ ZygorGuidesViewer:RegisterInclude("H_Lunar_Festival_Elders",[[
 		.talk Elder Nightwind##15603
 		..accept Nightwind the Elder##8723 |instant
 	step
-		goto Darkshore,49.5,18.9
+		goto Darkshore,36.8,46.8
 		.talk Elder Starweave##15601
 		..accept Starweave the Elder##8721 |instant
 	step
-		goto Teldrassil,56.9,53.1
+		goto Teldrassil,57.3,60.8
 		.talk Elder Bladeleaf##15595
 		..accept Bladeleaf the Elder##8715 |instant
 	step
-		goto Darnassus,38.8,32.3
+		goto Darnassus,33.5,14.3
 		.talk Elder Bladeswift##15598
 		..accept Bladeswift the Elder##8718 |instant
 	step
@@ -1424,43 +847,7 @@ ZygorGuidesViewer:RegisterInclude("H_Lunar_Festival_Elders",[[
 		..accept Muraco the Elder##13032 |instant
 
 	step
-		goto Mount Hyjal,62.5,22.8
-		.talk Elder Evershade##55227
-		..accept Evershade the Elder##29740 |instant
-	step
-		goto 26.7,62.0
-		.talk Elder Windsong##55224
-		..accept Windsong the Elder##29739 |instant
-	step
-		goto Deepholm,49.7,54.9
-		.talk Elder Stonebrand##55217
-		..accept Stonebrand the Elder##29735 |instant
-	step
-		goto 27.7,69.2
-		.talk Elder Deepforge##55216
-		..accept Deepforge the Elder##29734 |instant
-	step
 		#include "home_ValleyofHonor"
-	step
-		goto Shimmering Expanse,57.3,86.2
-		.talk Elder Moonlance##55228
-		..accept Moonlance the Elder##29738 |instant
-	step
-		goto Twilight Highlands,50.9,70.5
-		.talk Elder Firebeard##55219
-		..accept Firebeard the Elder##29737 |instant
-	step
-		goto Twilight Highlands,51.9,33.1
-		.talk Elder Darkfeather##55218
-		..accept Darkfeather the Elder##29736 |instant
-	step
-		goto Uldum,31.6,63.0
-		.talk Elder Sekhemi##55210
-		..accept Sekhemi the Elder##29741 |instant
-	step
-		goto 65.5,18.7
-		.talk Elder Menkhaf##55211
-		..accept Menkhaf the Elder##29742 |instant
 	step
 		goto The Nexus/1,55.5,64.9
 		.talk Elder Igasho##30536
@@ -1531,7 +918,7 @@ ZygorGuidesViewer:RegisterInclude("H_Lunar_Festival_Elders",[[
 
 ZygorGuidesViewer:RegisterInclude("H_Lunar_Festival_Achievements",[[
 	step
-		goto Orgrimmar,52.4,58.5
+		goto Orgrimmar,41.6,32.0
 		.talk Lunar Festival Harbinger##15895
 		.' <I'd like a new invitation to the Lunar Festival.>
 		.collect Lunar Festival Invitation##21711
@@ -1802,7 +1189,7 @@ ZygorGuidesViewer:RegisterInclude("H_Love_Is_In_The_Air_Achievements",[[
 		'You will need _Love Tokens_ in order to purchase items from vendors in this guide section. |tip You can get Love Tokens by completing the dailies in the Love is in the Air Dailies section. 
 		|confirm always
 	step
-		goto Orgrimmar,53.1,77.0
+		goto Orgrimmar,53.8,66.2
 		.talk Lovely Merchant##37674
 		.buy Bag of Heart Candies##21813 |n
 		.' Get the 8 different types of Heart Candy:
@@ -1825,13 +1212,13 @@ ZygorGuidesViewer:RegisterInclude("H_Love_Is_In_The_Air_Achievements",[[
 		.' You're the best! |achieve 1701/7 |use 1 Heart Candy##21820
 		.' I LOVE YOU |achieve 1701/8 |use 1 Heart Candy##21817
 	step
-		goto 53.1,77.0
+		goto 53.8,66.2
 		.talk Lovely Merchant##37674
 		.buy 10 Silver Shafted Arrow##22200 |n
 		.' Use your Silver Shafted Arrows on 10 players inside Orgrimmar |use Silver Shafted Arrow##22200
 		.' Shoot 10 Players with the Silver Shafted Arrow |achieve 1188
 	step
-		goto 53.1,77.0
+		goto 53.8,66.2
 		.talk Lovely Merchant##37674
 		.buy 1 Box of Chocolates##49909 |n
 		.' Use your Box of Chocolates and get all the chocolate contained inside of it |use Box of Chocolates##49909
@@ -1841,20 +1228,20 @@ ZygorGuidesViewer:RegisterInclude("H_Love_Is_In_The_Air_Achievements",[[
 		.' Buttermilk Delight |achieve 1702/1 |use Buttermilk Delight##22236 |tip Save the remaining Buttermilk Delights for a later achievement.
 		.' Dark Desire |achieve 1702/2 |use Dark Desire##22237
 	step
-		goto 53.1,77.0
+		goto 53.8,66.2
 		.talk Lovely Merchant##37674
 		.buy 10 Love Rocket##34258 |n
 		.' Spam use your Love Rockets |use Love Rocket##34258
 		.' Shoot off 10 Love Rockets in 20 seconds or less |achieve 1696
 	step
-		goto 53.1,77.0
+		goto 53.8,66.2
 		.talk Lovely Merchant##37674
 		.buy 15 Handful of Rose Petals##22218 |achieve 1699
 		.buy 1 Romantic Picnic Basket##34480 |achieve 1291
 		.buy 1 "VICTORY" Perfume##49856 |achieve 1280
 		.buy 5 Love Fool##22261 |achieve 1704
 	step
-		goto 54.8,78.0
+		goto 54.6,67.7
 		.talk Barkeep Morag##5611
 		.buy 6 Cup of Frog Venom Brew##44573 |achieve 1280
 	step
@@ -2337,7 +1724,7 @@ ZygorGuidesViewer:RegisterInclude("H_Children's_Week_Wolvar_Quests",[[
 		'Use your Wolvar Orphan Whistle to summon your Wolvar Orphan |use Wolvar Orphan Whistle##46396
 		.talk Wolvar Orphan##33532
 		..turnin The Mighty Hemet Nesingwary##13957	
-		..accept A Trip To The Wonderworks##13938
+		..accept A Visit To The Wonderworks##13938
 	step
 		goto Dalaran,44.9,45.6
 		.talk Jepetto Joybuzz##29478
@@ -2349,7 +1736,7 @@ ZygorGuidesViewer:RegisterInclude("H_Children's_Week_Wolvar_Quests",[[
 	step
 		'Use your Wolvar Orphan Whistle to summon your Wolvar Orphan |use Wolvar Orphan Whistle##46396
 		.talk Wolvar Orphan##33532
-		..turnin A Trip To The Wonderworks##13938
+		..turnin A Visit To The Wonderworks##13938
 		..accept Back To The Orphanage##13960
 	step
 		goto Dalaran,49.4,63.2
@@ -2358,14 +1745,14 @@ ZygorGuidesViewer:RegisterInclude("H_Children's_Week_Wolvar_Quests",[[
 ]])
 ZygorGuidesViewer:RegisterInclude("H_Children's_Week_Achievements",[[
 	step
-		goto Orgrimmar,58.1,57.4
+		goto Orgrimmar,70.7,25.2
 		.talk Orphan Matron Battlewail##14451
 		..' Ask her for another Orphan Whistle |collect 1 Orcish Orphan Whistle##18597
 	step
 		'Complete any 5 daily quests of your choice: |tip Make sure your orphan is standing next to you when turning in the daily quests, or you won't get credit for this achievement.
 		.' Get the Daily Chores Achievement |achieve 1789
 	step
-		goto Orgrimmar,53.2,79.2
+		goto Orgrimmar,50.6,65.6
 		.talk Alowicious Czervik##14480
 		..buy 1 Tigule and Foror's Strawberry Ice Cream##7228 |achieve 1788
 	step
@@ -5336,7 +4723,7 @@ ZygorGuidesViewer:RegisterInclude("H_The_Northrend_Gourmet",[[
 		.talk Grimbooze Thunderbrew##29157
 		..turnin The Taste Test##12645
 	step
-		goto Dalaran/2,44.2,25.6
+		goto Dalaran/2,45.6,32.8
 		.talk Washed-Up Mage##32516
 		..accept Fletcher's Lost and Found##13571 |instant
 	step
@@ -5430,7 +4817,7 @@ ZygorGuidesViewer:RegisterInclude("H_The_Northrend_Gourmet",[[
 		.talk Suja##46708
 		.buy 2 Simple Flour##30817
 	step
-		goto Orgrimmar,50.8,74.6
+		goto Orgrimmar,37.4,52.3
 		.talk Shan'ti##3342
 		.buy 2 Tundra Berries##35949
 		.buy 1 Savory Snowplum##35948
@@ -5777,11 +5164,11 @@ ZygorGuidesViewer:RegisterInclude("H_The_Outland_Gourmet",[[
 		.collect 1 Spotted Feltail##27425
 		.collect 1 Zangarian Sporefish##27429
 	step
-		goto Orgrimmar,50.8,74.6
+		goto Orgrimmar,37.4,52.3
 		.talk Shan'ti##3342
 		.buy 5 Goldenbark Apple##4539
 	step
-		goto Orgrimmar,53.6,78.8
+		goto Orgrimmar,54.1,68.4
 		.talk Innkeeper Gryshka##6929
 		.buy 4 Ice Cold Milk##1179
 	step
@@ -6079,7 +5466,7 @@ ZygorGuidesViewer:RegisterInclude("H_Our_Daily_Bread",[[
 	step
 		'The entrance to the Dalaran sewers starts here |goto Dalaran,60.2,47.7,0.3 |c |q 13114
 	step
-		goto Dalaran,35.5,57.6
+		goto Dalaran,40.5,55.6
 		.talk Ajay Green##29532
 		..turnin Sewer Stew##13114
 		.' Completed Daily "Sewer Stew" |achieve 1783/3
@@ -6336,7 +5723,7 @@ ZygorGuidesViewer:RegisterInclude("H_Dalaran_Cooking_Dailies",[[
 	step
 		'The entrance to the Dalaran sewers starts here|goto Dalaran,60.2,47.7,0.3|c|q 13114
 	step
-		goto Dalaran,35.5,57.6
+		goto Dalaran,40.5,55.6
 		.talk Ajay Green##29532
 		..turnin Sewer Stew##13114
 ]])
@@ -6613,7 +6000,7 @@ ZygorGuidesViewer:RegisterInclude("H_the_cake_is_not_a_lie",[[
 		.' Click here to go back to the beginning of the dailies for today if you haven't received the cake pattern. |confirm |next "dailies"
 	step
 	label "create"
-		goto Orgrimmar,54.9,78.2
+		goto Orgrimmar,54.6,67.7
 		.talk Barkeep Morag##5611
 		.buy 4 Ice Cold Milk##1179
 	step
@@ -6672,13 +6059,13 @@ ZygorGuidesViewer:RegisterInclude("H_The_Scavenger",[[
 		.' Look for Waterlogged Wreckage around this area |tip You may have to fish from other pools to get this to show up |cast Fishing##7620
 		.' Fish from Waterlogged Wreckage |achieve 1257/4
 	step
-		goto Northern Stranglethorn,55.0,64.0
+		goto Stranglethorn Vale,42.9,37.3
 		.' Look for Schooner Wreckage around this area |tip You may need to fish from other pools to get this to show up |cast Fishing##7620
 		.' Fish from Schooner Wreckage |achieve 1257/3
 	step
-		'Go to The Cape of Stranglethorn |goto The Cape of Stranglethorn |noway |c
+		'Go to southern Stranglethorn Vale |goto Stranglethorn Vale 32.7,62.6 |noway |c
 	step
-		goto 30.9,81.5
+		goto 20.8,82.1
 		.' Look for Bloodsail Wreckage around this area |tip You may need to fish from other pools to get this to show up |cast Fishing##7620
 		.' Fish from Bloodsail Wreckage |achieve 1257/2
 	step
@@ -6688,12 +6075,12 @@ ZygorGuidesViewer:RegisterInclude("H_The_Scavenger",[[
 ]])
 ZygorGuidesViewer:RegisterInclude("H_The_Fishing_Diplomat",[[
 	step
-		goto Orgrimmar,24.8,62.8
-		.' Use your fishing skill in the pond |cast Fishing##7620
+		goto Orgrimmar,70.0,29.8
+		.' Use your fishing skill in the pond next to Lumak, the fishing trainer |cast Fishing##7620
 		.' Fish in Orgrimmar |achieve 150/1
 	step
-		goto Stormwind City,69.0,92.2
-		.' Use your fishing skill in the moat in front of Stormwind City |cast Fishing##7620
+		goto Stormwind City,55.0,69.7
+		.' Use your fishing skill in the canal next to Arnold Leland, the fishing trainer |cast Fishing##7620
 		.' Fish in Stormwind City |achieve 150/2
 	step
 		.' Earn The Fishing Diplomat. |achieve 150
@@ -6857,7 +6244,7 @@ ZygorGuidesViewer:RegisterInclude("H_Outland_Angler",[[
 ]])
 ZygorGuidesViewer:RegisterInclude("H_Fish_Don't_Leave_Footprints",[[
 	step
-		goto Northern Stranglethorn,31.0,37.7
+		goto Stranglethorn Vale,27.4,20.5
 		.' Use your fishing skill fish from Schooner Wreckage along The Savage Coast.  You may need to fish out the other schools of fish to get them to spawn. |cast Fishing##7620
 		.collect Weather-Beaten Journal##34109
 		.' Use the Weather-Beaten Journal. |use Weather-Beaten Jounral##34109
@@ -6896,27 +6283,27 @@ ZygorGuidesViewer:RegisterInclude("H_Master_Angler_of_Azeroth",[[
 		.' You can start this quest every _Sunday_ from _2pm to 4pm SERVER TIME_. 
 		|confirm
 	step
-		goto Orgrimmar,66.6,41.6
+		goto Orgrimmar,70.0,29.8
 		.talk Shankys##3333
 		.buy 1 Fishing Pole##6256
 		.buy 10 Shiny Bauble##6529
 		.' Or
 		|confirm
 	step
-		goto The Cape of Stranglethorn,41.7,73.0
+		goto Stranglethorn Vale,27.5,76.9
 		.talk Riggle Bassbait##15077
 		..accept Master Angler##8193
 	step
-		goto The Cape of Stranglethorn,39.1,57.9
+		goto Stranglethorn Vale,25.9,67.5
 		.' Make sure you have you're fishing pole equipped and fish in these area's for Tasty Fish |use Fishing Pole##6256
 		.' Attach your Shiny Bauble to your fishing pole to increase your fishing skill slightly |use Shiny Bauble##6529
 		.get 40 Speckled Tastyfish##19807 |q 8193
-		.' You can find more schools of fish here: [37.9,55.6]
-		.' Here [36.3,53.8]
-		.' Here [36.1,50.9]
-		.' And here [36.2,47.7]
+		.' You can find more schools of fish here: [25.2,66.1]
+		.' Here [24.2,65.0]
+		.' Here [24.1,63.2]
+		.' And here [24.1,61.2]
 	step
-		goto The Cape of Stranglethorn,41.7,73.0
+		goto Stranglethorn Vale,27.5,76.9
 		.talk Riggle Bassbait##15077
 		..turnin Master Angler##8193
 		.' Be the first to turn in this quest to earn achievement
@@ -6929,7 +6316,7 @@ ZygorGuidesViewer:RegisterInclude("H_Master_Angler_of_Northrend",[[
 		.' contest has started, make sure you are next to a school of fish, and start fishing!
 		|confirm
 	step
-		goto Orgrimmar,66.6,41.6
+		goto Orgrimmar,70.0,29.8
 		.talk Shankys##3333
 		.buy 1 Fishing Pole##6256
 		.buy 10 Shiny Bauble##6529

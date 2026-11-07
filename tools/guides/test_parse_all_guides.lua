@@ -1,5 +1,5 @@
--- Every guide the TOC loads parses with the production parser for both factions,
--- with its includes and leeched guides resolved.
+-- Every guide the TOC loads parses with the production parser for both factions, with its
+-- includes and leeched guides resolved and no Cataclysm-only zone or quest in its steps.
 -- Usage: lua tools/guides/test_parse_all_guides.lua <addon directory>
 local root = arg[1] or "ZygorGuidesViewerRM"
 
@@ -106,11 +106,32 @@ local function register(ZGV, faction, files)
 	end
 end
 
+-- Zones that only Cataclysm maps have, and the quest IDs that start after the last 3.3.5a quest
+-- (26034) and below the server's custom quests (60000 and above).
+local CATACLYSM_ZONES = { ["Northern Stranglethorn"] = true, ["The Cape of Stranglethorn"] = true, ["Northern Barrens"] = true,
+	["Southern Barrens"] = true, ["Mount Hyjal"] = true, Deepholm = true, Uldum = true, ["Twilight Highlands"] = true,
+	["Vashj'ir"] = true, ["Kelp'thar Forest"] = true, ["Shimmering Expanse"] = true, ["Abyssal Depths"] = true,
+	["Darkmoon Island"] = true, ["Molten Front"] = true, ["Tol Barad"] = true, ["Tol Barad Peninsula"] = true,
+	["Ruins of Gilneas"] = true, Gilneas = true, Kezan = true, ["The Lost Isles"] = true }
+
+local function laterContent(title, parsed, found)
+	for _, step in ipairs(parsed.steps or {}) do
+		for _, goal in ipairs(step.goals or {}) do
+			local map = type(goal.map) == "string" and goal.map:gsub("/%d+$", "") or nil
+			if map and CATACLYSM_ZONES[map] then found[#found + 1] = title .. ": Cataclysm zone " .. map end
+			if goal.questid and goal.questid > 26034 and goal.questid < 60000 then
+				found[#found + 1] = title .. ": quest " .. goal.questid .. " is not on 3.3.5a"
+			end
+		end
+	end
+end
+
 local function failures(ZGV)
 	local found = {}
 	for _, guide in ipairs(ZGV.registeredguides) do
 		local ok, parsed, err = pcall(ZGV.ParseEntry, ZGV, guide.rawdata)
-		if not ok or not parsed then found[#found + 1] = guide.title .. ": " .. tostring(ok and err or parsed) end
+		if not ok or not parsed then found[#found + 1] = guide.title .. ": " .. tostring(ok and err or parsed)
+		else laterContent(guide.title, parsed, found) end
 		-- The parser reads an include name only in quotes; anything else stays a text line.
 		local bare = ("\n" .. guide.rawdata):match("\n%s*(#include%s+[^\"'%s][^\n]*)")
 		if bare then found[#found + 1] = guide.title .. ": unquoted " .. bare end
@@ -137,8 +158,10 @@ for _, faction in ipairs({ "Alliance", "Horde" }) do
 	assert(not ZGV:ParseEntry(include.rawdata), faction .. ": a missing include was not reported")
 	include.rawdata = saved:gsub('#include "([^"]+)"', "#include %1", 1)
 	assert(#failures(ZGV) == 1, faction .. ": an unquoted include was not reported")
+	include.rawdata = saved .. "\nstep\ngoto Northern Barrens,49.9,54.4\n.talk Flame Warden##51573\n..accept Honor the Flame##28926\n"
+	assert(#failures(ZGV) == 2, faction .. ": a Cataclysm zone and quest were not reported")
 	include.rawdata = saved
 	assert(not pcall(ZGV.ParseEntry, ZGV, "Run into the portal |goto Netherstorm/0 70.66,69.84\nstep\nClick Here to Continue |confirm\n"),
 		faction .. ": a goal before the first step was accepted")
-	print(("PASS: %d %s guides parse"):format(count, faction))
+	print(("PASS: %d %s guides parse without Cataclysm zones or quests"):format(count, faction))
 end

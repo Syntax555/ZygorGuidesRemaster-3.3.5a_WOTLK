@@ -66,7 +66,7 @@ author support@zygorguides.com
 	faction horde
 step
 condition achieved(2716)
-goto Orgrimmar,63.8,32.7
+goto Orgrimmar,66.0,18.5
 .talk 3352
 .' Learn Dual Talent Specialization |achieve 2716
 only Hunter
@@ -75,7 +75,7 @@ goto Orgrimmar,45.9,66.9 |n
 .' Enter the cave |goto Orgrimmar,45.9,66.9,0.5 |noway |c
 only Rogue,Mage,Warlock
 step
-goto Orgrimmar,44.4,61.6
+goto Orgrimmar,43.9,54.6
 .talk 3328
 .' Learn Dual Talent Specialization |achieve 2716
 only Rogue
@@ -90,7 +90,7 @@ goto Orgrimmar,44.8,51.5
 .' Learn Dual Talent Specialization |achieve 2716
 only Druid
 step
-goto Orgrimmar,49.3,71.1
+goto Orgrimmar,32.4,35.7
 .talk 23128
 .' Learn Dual Talent Specialization |achieve 2716
 only Paladin
@@ -105,7 +105,7 @@ goto Orgrimmar,44.6,52.0
 .' Learn Dual Talent Specialization |achieve 2716
 only Shaman
 step
-goto Orgrimmar,48.4,55.9
+goto Orgrimmar,47.5,46.7
 .talk 5815
 .' Learn Dual Talent Specialization |achieve 2716
 only Warlock
@@ -311,12 +311,12 @@ goto Stratholme/1,25.1,70.3
 .' Click on The Lich King Triumphant |tip It looks like a brown book on the corner of this table.
 .' Read The Lich King Triumphant |achieve 1244/31
 step
-goto Hillsbrad Foothills,56.7,47.5
+goto Hillsbrad Foothills,48.4,58.6
 .' Click on Arathor and the Troll Wars |tip It looks like a green book laying on the ground.
 .' Read Arathor and the Troll Wars |achieve 1244/3
 .' This can also be found at [58.5,47.9]
 step
-goto Arathi Highlands,69.2,33.1
+goto Arathi Highlands,74.1,32.4
 .' Click on Rise of the Blood Elves |tip It looks like a red book on the corner of this table.
 .' Read Rise of the Blood Elves |achieve 1244/17
 step
@@ -337,7 +337,7 @@ goto 47.8,54.9
 .' Click on Rise of the Horde |tip It looks like a brown book sitting on a bench all the way upstairs in this building.
 .' Read Rise of the Horde |achieve 1244/18
 step
-goto Stormwind City,85.3,23.4
+goto Stormwind City,35.4,63.3
 .' Click on The World Tree and the Emerald Dream |tip It looks like a green book at the edge of this table.
 .' Read The World Tree and the Emerald Dream |achieve 1244/39
 .' Click on The War of the Ancients |tip It looks like a green book at the edge of this table.
@@ -347,53 +347,53 @@ goto Duskwood,74,45 |tip The book is upstairs.
 .' Click on Kil'Jaeden and the Shadow Pact |tip It looks like a black book on this small table.
 .' Read Kil'Jaeden and the Shadow Pact |achieve 1244/13
 step
-goto Blasted Lands,60.1,13.6
+goto Blasted Lands,64.3,15.4
 .' The only place to get this book is inside of Alliance cities at the moment.
 .' Click on Aftermath of the Second War |tip It looks like a blue book at the edge of this table.
 .' Read Aftermath of the Second War |achieve 1244/2
 step
-goto The Cape of Stranglethorn,41.0,74.4
+goto Stranglethorn Vale,27.1,77.7
 .' Click on Sunwell - The Fall of Quel'Thalas |tip It looks like a green book sitting on a small wooden table inside the inn.
 .' Read Sunwell - The Fall of Quel'Thalas |achieve 1244/20
 step
-goto The Cape of Stranglethorn,40.7,7..8 |tip It will be on the edge of a table.
+goto Stranglethorn Vale,26.9,77.4 |tip It will be on the edge of a table.
 .' Click on Beyond the Dark Portal |tip It looks like a green book laying on the corner of this table.
 .' Read Beyond the Dark Portal |achieve 1244/5
 step
-goto 41.9,73.5
+goto 27.7,77.2
 .' Click The Scourge of Lordaeron
 .' Read The Scourge of Lordaeron |achieve 1244/34
 step
-goto 42.1,73.8
+goto 27.8,77.4
 .' Click on Empires' Fall |tip It looks like a blue book sitting on a bookshelf downstairs in this building.
 .' Read Empires' Fall |achieve 1244/8
 step
-goto 42.1,73.8
+goto 27.8,77.4
 .' Click on The Twin Empires |tip It looks like a green book sitting on a bookshelf downstairs in this building.
 .' Read The Twin Empires |achieve 1244/37
 step
-goto 42.2,73.6
+goto 27.8,77.2
 .' Go upstairs through the building to the north
 .' Click on The Sentinels and the Long Vigil |tip It looks like a brown book sitting on a small wooden table next to a bed upstairs in this building.
 .' Read The Sentinels and the Long Vigil |achieve 1244/35
 step
-goto Northern Barrens,66.9,74.7
+goto The Barrens,61.8,39.4
 .' Click on Mount Hyjal and Illidan's Gift |tip It looks like a green book sitting on the corner of a wooden table inside this building.
 .' Read Mount Hyjal and Illidan's Gift |achieve 1244/15
 step
-goto Northern Barrens,67.0,75.0
+goto The Barrens,61.9,39.6
 .' Click on Sargeras and the Betrayal |tip It looks like a black book on a square table.
 .' Read Sargeras and the Betrayal |achieve 1244/19
 step
-goto Northern Barrens,68.0,73.5
+goto The Barrens,62.4,38.7
 .' Click on Archimonde's Return and the Flight to Kalimdor |tip It looks like a brown book laying on the ground.
 .' Read Archimonde's Return and the Flight to Kalimdor |achieve 1244/4
 step
-goto Southern Barrens,65.5,46.7
+goto The Barrens,61.9,55.1
 .' Click on Lethargy of the Orcs |tip It looks like a reddish book sitting on a chair at the bottom of this tower.
 .' Read Lethargy of the Orcs |achieve 1244/14
 step
-goto Southern Barrens,50.1,86.6
+goto The Barrens,49.1,84.1
 .' Click on War of the Three Hammers |tip It looks like a brown book on a wooden table in this small side room.
 .' Read War of the Three Hammers |achieve 1244/41
 step
@@ -483,7 +483,7 @@ description Drink 25 different types of beverages.
 	faction horde
 step
 condition achieved(1833)
-goto Orgrimmar,53.6,78.8
+goto Orgrimmar,54.1,68.4
 .talk 6929
 .buy 1 Refreshing Spring Water##159
 .buy 1 Ice Cold Milk##1179
@@ -552,7 +552,7 @@ description Sample 50 different kinds of Azeroth's delectable dishes.
 	faction horde
 step
 condition achieved(1832)
-goto Orgrimmar,53.6,78.8
+goto Orgrimmar,54.1,68.4
 .talk 6929
 .buy 1 Tough Jerky##117
 .buy 1 Haunch of Meat##2287
@@ -565,7 +565,7 @@ goto Orgrimmar,53.6,78.8
 .buy 1 Mead Basted Caribou##35953
 .buy 1 Roasted Beef##58268
 step
-goto Orgrimmar,53.6,78.8
+goto Orgrimmar,54.1,68.4
 .talk 6929
 .buy 1 Massive Turkey Leg##58269
 .buy 1 Tough Hunk of Bread##4540
@@ -663,7 +663,7 @@ step
 goto Orgrimmar,45.9,66.9 |n
 .' Follow the path down |goto Orgrimmar,45.9,66.9,0.5 |noway |c
 step
-goto Orgrimmar,49.7,61.8
+goto Orgrimmar,49.0,54.2
 .talk 3329
 .buy 1 Forest Mushroom Cap##4604
 .buy 1 Red-Speckeled Mushroom##4605
@@ -3507,11 +3507,11 @@ goto Feralas,63.1,51.5
 .' Look for Waterlogged Wreckage around this area |tip You may have to fish from other pools to get this to show up |cast Fishing##7620
 .' Fish from Waterlogged Wreckage |achieve 1257/4
 step
-goto Northern Stranglethorn,55.0,64.0
+goto Stranglethorn Vale,42.9,37.3
 .' Look for Schooner Wreckage around this area |tip You may need to fish from other pools to get this to show up |cast Fishing##7620
 .' Fish from Schooner Wreckage |achieve 1257/3
 step
-goto The Cape of Stranglethorn,30.9,81.5
+goto Stranglethorn Vale,20.8,82.1
 .' Look for Bloodsail Wreckage around this area |tip You may need to fish from other pools to get this to show up |cast Fishing##7620
 .' Fish from Bloodsail Wreckage |achieve 1257/2
 step
@@ -3525,12 +3525,12 @@ description Fish something up in Orgrimmar and Stormwind.
 	faction horde
 step
 condition achieved(150)
-goto Orgrimmar,24.8,62.8
-.' Use your fishing skill in the pond |cast Fishing##7620
+goto Orgrimmar,70.0,29.8
+.' Use your fishing skill in the pond next to Lumak, the fishing trainer |cast Fishing##7620
 .' Fish in Orgrimmar |achieve 150/1
 step
-goto Stormwind City,69.0,92.2
-.' Use your fishing skill in the moat in front of Stormwind City |cast Fishing##7620
+goto Stormwind City,55.0,69.7
+.' Use your fishing skill in the canal next to Arnold Leland, the fishing trainer |cast Fishing##7620
 .' Fish in Stormwind City |achieve 150/2
 step
 .' Earn The Fishing Diplomat. |achieve 150
@@ -3543,7 +3543,7 @@ description Fish your way to Mr. Pinchy's Magical Crawdad Box.
 	faction horde
 step
 condition achieved(726)
-goto Northern Stranglethorn,31.0,37.7
+goto Stranglethorn Vale,27.4,20.5
 .' Use your fishing skill fish from Schooner Wreckage along The Savage Coast.  You may need to fish out the other schools of fish to get them to spawn. |cast Fishing##7620
 .collect Weather-Beaten Journal##34109
 .learn Find Fish##43308 |use Weather-Beaten Journal##34109
@@ -3568,15 +3568,14 @@ description Fish up 1000 items.
 step
 condition achieved(1561)
 achieveid 1560,1559,1558,1557,1556
-goto Orgrimmar,66.6,41.6
+goto Orgrimmar,70.0,29.8
 .talk 3333
 .buy 1 Fishing Pole##6256
 .buy 10 Shiny Bauble##6529
 step
 .' Equip your Fishing Pole |use Fishing Pole##6256
 .' Use the Shiny Bauble to temporarily increase your Fishing skill, to make it easier to catch fish |use Shiny Bauble##6529 |tip If your Shiny Bauble Fishing skill boost expires, you can buy more Shiny Baubles to help you fish.
-.' Stand on the end of this wooden dock
-.' Use your Fishing skill to fish in the water all around the wooden dock |cast Fishing##7620
+.' Use your Fishing skill in the pond next to Lumak, the fishing trainer |cast Fishing##7620
 .' Catch 1000 Fish. |achieve 1561/1
 step
 'Congratulations! You've earned the 1000 Fish achievement!
@@ -3923,7 +3922,7 @@ description Learn the ability to find fish.
 	faction horde
 step
 condition achieved(1243)
-goto Northern Stranglethorn,31.0,37.7
+goto Stranglethorn Vale,27.4,20.5
 .' Use your fishing skill fish from Schooner Wreckage along The Savage Coast.  You may need to fish out the other schools of fish to get them to spawn. |cast Fishing##7620
 .collect Weather-Beaten Journal##34109
 .' Use the Weather-Beaten Journal. |use Weather-Beaten Jounral##34109
@@ -4056,7 +4055,7 @@ step
 .' Congratulations, you have earned the I Smell A Giant Rat achievement.
 ]])
 ZygorGuidesViewer:RegisterGuide("Zygor's Horde Achievements Guides\\Profession Achievements\\Fishing\\Turtles All the Way Down",[[
-description Fish up a Sea Turtle mount from any fishing pool in Deepholm, Mount Hyjal, Twilight Highlands, Uldum, or Northrend.
+description Fish up a Sea Turtle mount from any fishing pool in Northrend.
 	type achievements
 	faction horde
 step
@@ -4085,8 +4084,7 @@ condition achieved(1516)
 step
 .' Equip your Fishing Pole |use Fishing Pole##6256
 .' Use the Shiny Bauble to temporarily increase your Fishing skill, to make it easier to catch fish |use Shiny Bauble##6529 |tip If your Shiny Bauble Fishing skill boost expires, you can buy more Shiny Baubles to help you fish.
-.' Stand on the end of this wooden dock
-.' Use your Fishing skill to fish in the water all around the wooden dock |cast Fishing##7620
+.' Use your Fishing skill in the pond next to Lumak, the fishing trainer |cast Fishing##7620
 .' Catch 1000 Fish. |achieve 1561/1
 .' Catch a 32 Pound Catfish |achieve 878
 step
@@ -4247,11 +4245,6 @@ step
 #include "Pilgrims_Bounty_Quests_Horde"
 #include "Pilgrims_Bounty_Achievements_Horde"
 #include "Pilgrims_Bounty_Dailies"]])
-ZygorGuidesViewer:RegisterGuide("Zygor's Horde Achievements Guides\\Events\\Darkmoon Faire\\Darkmoon Faire Achievements", [[
-description This guide will help you navigate through the Darkmoon Faire Event
-
-step
-#include "H_Darkmoon_Faire_Achievements"]])
 ZygorGuidesViewer:RegisterGuide("Zygor's Horde Achievements Guides\\Events\\Lunar Festival",[[
 description This guide will walk you through earning
 description the Lunar Festival Achievements.

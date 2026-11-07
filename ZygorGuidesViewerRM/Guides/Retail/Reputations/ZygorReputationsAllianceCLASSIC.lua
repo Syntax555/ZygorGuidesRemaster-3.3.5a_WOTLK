@@ -2291,7 +2291,7 @@ turnin The Caverns of Time##10277 |goto 58.43,54.28
 accept Old Hillsbrad##10282 |goto 58.43,54.28
 step
 Enter the Old Hillsbrad Foothills Dungeon
-Click here to continue |confirm |q 29599 |future
+Click here to continue |confirm
 step
 Inside the Old Hillsbrad Dungeon:
 talk Erozion##18723

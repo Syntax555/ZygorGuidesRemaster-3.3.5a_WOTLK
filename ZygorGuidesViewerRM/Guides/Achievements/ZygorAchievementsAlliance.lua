@@ -18,21 +18,21 @@ goto Stormwind City,77.6,67.2
 |only Human
 |next "end"
 step
-goto Dun Morogh,71.2,48.4
+goto Dun Morogh,63.9,50.1
 .talk 4772
 .learn Apprentice Riding##33388
 .' You can also purchase a mount from the vendor at [70.6,48.8]
 |only Dwarf
 |next "end"
 step
-goto Darnassus,42.6,33.6
+goto Darnassus,38.7,15.8
 .talk 4753
 .learn Apprentice Riding##33388
 .' You can also purchase a mount from the vendor at [42.6,32.8]
 |only Night Elf
 |next "end"
 step
-goto Dun Morogh,56.2,46.4
+goto Dun Morogh,49.1,48.1
 .talk 7954
 .learn Apprentice Riding##33388
 .' You can also purchase a mount from the vendor at [56.2,46.2]
@@ -46,7 +46,7 @@ goto The Exodar,81.4,52.6
 |only Draenei
 |next "end"
 step
-goto Darnassus,42.6,33.6
+goto Darnassus,38.7,15.8
 .talk 4753
 .learn Apprentice Riding##33388
 .' You can also purchase a mount from the vendor at [48.6,22.2]
@@ -78,21 +78,21 @@ goto Stormwind City,77.6,67.2
 |only Human
 |next "end"
 step
-goto Dun Morogh,71.2,48.4
+goto Dun Morogh,63.9,50.1
 .talk 4772
 .learn Journeyman Riding##33391
 .' You can also purchase a mount from the vendor at [70.6,48.8]
 |only Dwarf
 |next "end"
 step
-goto Darnassus,42.6,33.6
+goto Darnassus,38.7,15.8
 .talk 4753
 .learn Journeyman Riding##33391
 .' You can also purchase a mount from the vendor at [42.6,32.8]
 |only Night Elf
 |next "end"
 step
-goto Dun Morogh,56.2,46.4
+goto Dun Morogh,49.1,48.1
 .talk 7954
 .learn Journeyman Riding##33391
 .' You can also purchase a mount from the vendor at [56.2,46.2]
@@ -106,7 +106,7 @@ goto The Exodar,81.4,52.6
 |only Draenei
 |next "end"
 step
-goto Darnassus,42.6,33.6
+goto Darnassus,38.7,15.8
 .talk 4753
 .learn Journeyman Riding##33391
 .' You can also purchase a mount from the vendor at [48.6,22.2]
@@ -202,7 +202,7 @@ goto Stormwind City,57.5,24.9
 .' Learn Dual Talent Specialization |achieve 2716
 only Druid
 step
-goto Stormwind City,52.8,44.9
+goto Stormwind City,48.4,50.2
 .talk 928
 .' Learn Dual Talent Specialization |achieve 2716
 only Paladin
@@ -212,7 +212,7 @@ goto Stormwind City,48.2,87.2
 .' Learn Dual Talent Specialization |achieve 2716
 only Mage
 step
-goto Stormwind City,65.9,31.4
+goto Stormwind City,67.5,89.4
 .talk 20407
 .' Learn Dual Talent Specialization |achieve 2716
 only Shaman
@@ -222,7 +222,7 @@ goto Stormwind City,39.9,84.2
 .' Learn Dual Talent Specialization |achieve 2716
 only Warlock
 step
-goto Stormwind City,80.1,69.8
+goto Stormwind City,80.6,59.9
 .talk 5479
 .' Learn Dual Talent Specialization |achieve 2716
 only Warrior
@@ -336,22 +336,22 @@ goto Scholomance/2,56.1,41.2
 .' Click on The Invasion of Draenor |tip It looks like a red book on the small ledge at the end of this room.
 .' Read The Invasion of Draenor |achieve 1244/28
 step
-goto The Cape of Stranglethorn,41.0,74.4
+goto Stranglethorn Vale,27.1,77.7
 .' Click on Sunwell - The Fall of Quel'Thalas |tip It looks like a green book sitting on a small wooden table inside the inn.
 .' Read Sunwell - The Fall of Quel'Thalas |achieve 1244/20
 step
-goto 42.2,73.6
+goto 27.8,77.2
 .' Go upstairs through the building to the north
 .' Click on The Sentinels and the Long Vigil |tip It looks like a brown book sitting on a small wooden table next to a bed upstairs in this building.
 .' Read The Sentinels and the Long Vigil |achieve 1244/35
 step
-goto The Cape of Stranglethorn,42.1,73.8
+goto Stranglethorn Vale,27.8,77.4
 .' Click the books on the bookshelf.
 .' Read Empires' Fall |achieve 1244/8
 .' Read Wrath of Soulflayer |achieve 1244/42
 .' Read The Twin Empires |achieve 1244/37
 step
-goto 41.9,73.5
+goto 27.7,77.2
 .' Click The Scourge of Lordaeron
 .' Read The Scourge of Lordaeron |achieve 1244/34
 step
@@ -376,11 +376,11 @@ goto Loch Modan,37.2,46.9
 .' Read The Last Guardian |achieve 1244/30
 .' You can also find it in Loch Modan at 37.2,47.0 |goto Loch Modan,37.2,47.0 |n |tip Click to set waypoint.
 step
-goto Stormwind City,84.7,26.0
+goto Stormwind City,75.3,29.8
 .' Click on The Kaldorei and the Well of Eternity |tip It looks like a brown book on the Pillar ledge next to the doorway.
 .' Read The Kaldorei and the Well of Eternity |achieve 1244/29
 step
-goto Stormwind City,85.1,26.3
+goto Stormwind City,76.1,32.0
 .' Click on Aftermath of the Second War |tip It looks like a blue book at the edge of this table.
 .' Read Aftermath of the Second War |achieve 1244/2
 .' Click on The Guardians of Tirisfal |tip It looks like a black book at the edge of this table.
@@ -388,7 +388,7 @@ goto Stormwind City,85.1,26.3
 .' Click on The Alliance of Lordaeron |tip It looks like a blue book at the edge of this table.
 .' Read The Alliance of Lordaeron |achieve 1244/21
 step
-goto Stormwind City,86.1,25.6
+goto Stormwind City,75.7,32.0
 .' Click on The New Horde |tip It looks like a green book on the edge of this pillar.
 .' Read The New Horde |achieve 1244/32
 step
@@ -396,7 +396,7 @@ goto Stormwind City,85.8,23.6
 .' Click on Aegwynn and the Dragon Hunt |tip It looks like a brownish red book on the edge of this pillar.
 .' Read Aegwynn and the Dragon Hunt |achieve 1244/1
 step
-goto Stormwind City,85.3,23.4
+goto Stormwind City,35.4,63.3
 .' Click on The World Tree and the Emerald Dream |tip It looks like a green book at the edge of this table.
 .' Read The World Tree and the Emerald Dream |achieve 1244/39
 .' Click on The War of the Ancients |tip It looks like a green book at the edge of this table.
@@ -406,11 +406,11 @@ goto Stormwind City,84.6,24.5
 .' Click Beyond the Dark Portal |tip It's a green book on a chair.
 .' Read Beyond the Dark Portal |achieve 1244/5
 step
-goto Stormwind City,86.7,35.9
+goto Stormwind City,83.2,33.2
 .' Click on War of the Spider |tip It looks like a blue book on the edge of this large table.
 .' Read War of the Spider |achieve 1244/40
 step
-goto Stormwind City,87.1,36.0
+goto Stormwind City,83.0,36.3
 .' Click on The Dark Portal and the Fall of Stormwind |tip It looks like a blue book on the corner of this large table.
 .' Read The Dark Portal and the Fall of Stormwind |achieve 1244/25
 step
@@ -440,7 +440,7 @@ goto Ironforge,76.9,12.5
 .' Click on Rise of the Horde |tip It looks like a brown book at the edge of this table.
 .' Read Rise of the Horde |achieve 1244/18
 step
-goto Ironforge,77.1,13.7
+goto Ironforge,76.1,10.8
 .' Click on The Old Gods and the Ordering of Azeroth |tip It looks like a blue book at the edge of this table.
 .' Read The Old Gods and the Ordering of Azeroth |achieve 1244/33
 .' Click on Charge of the Dragonflights |tip It looks like a brown book at the edge of this table.
@@ -464,15 +464,15 @@ goto Stratholme/1,25.1,70.3
 .' Click on The Lich King Triumphant |tip It looks like a brown book on the corner of this table.
 .' Read The Lich King Triumphant |achieve 1244/31
 step
-goto Darnassus,61.9,74.6
+goto Darnassus,66.5,76.6
 .' Click on The Betrayer Ascendant |tip It looks like a gray book on top of a dresser.
 .' Read The Betrayer Ascendant |achieve 1244/23
 step
-goto 39,39
+goto 34.1,25.9
 .' Click on Exile of the High Elves |tip It looks like a blue book on the ledge to the right of this room.
 .' Read Exile of the High Elves |achieve 1244/9
 step
-goto Northern Barrens,67.0,75.0
+goto The Barrens,61.9,39.6
 .' Click on Sargeras and the Betrayal |tip It looks like a black book on a square table.
 .' Read Sargeras and the Betrayal |achieve 1244/19
 step
@@ -623,7 +623,7 @@ goto Ironforge,18.6,51.6
 .buy 1 Roasted Beef##58268
 .buy 1 Massive Turkey Leg##58269
 step
-goto 27.8,72.2
+goto 23.9,62.4
 .talk 5109
 .buy 1 Tough Hunk of Bread##4540
 .buy 1 Freshly Baked Bread##4541
@@ -680,7 +680,7 @@ step
 'Eat the Raw Black Truffle |use Raw Black Truffle##4608
 'Eat the Dried King Bolete |use Dried King Bolete##8948
 step
-goto Darnassus,48.8,61.3
+goto Darnassus,47.5,57.4
 .talk 4221
 .buy 1 Slitherskin Mackerel##787
 .buy 1 Longjaw Mud Snapper##4592
@@ -694,7 +694,7 @@ goto Darnassus,48.8,61.3
 .buy 1 Sliced Raw Billfish##58262
 .buy 1 Grilled Shark##58263
 step
-goto 62.5,32.8
+goto 67.4,15.6
 .talk 6735
 .buy 1 Shiny Red Apple##4536
 .buy 1 Tel'Abim Banana##4537
@@ -1327,11 +1327,6 @@ description This Guide will walk you through completed the Pilgrim's Bounty Achi
 
 step
 #include "Pilgrims_Bounty_Dailies_Alliance"]])
-ZygorGuidesViewer:RegisterGuide("Zygor's Alliance Achievements Guides\\Events\\Darkmoon Faire\\Darkmoon Faire Achievements", [[
-description This guide will help you navigate through the Darkmoon Faire Event
-
-step
-#include "A_Darkmoon_Faire_Achievements"]])
 ZygorGuidesViewer:RegisterGuide("Zygor's Alliance Achievements Guides\\Events\\Noblegarden\\Noblegarden Achivements", [[
 description This guide will help you navigate through the Noblegarden Achievements
 
@@ -3190,7 +3185,7 @@ goto Dalaran,68.6,42.0
 step
 'The entrance to the Dalaran sewers starts here|goto Dalaran,60.2,47.7,0.3|c|q 13102
 step
-goto Dalaran,35.5,57.6
+goto Dalaran,40.5,55.6
 .talk 29532
 ..turnin 13102
 step
@@ -3417,7 +3412,7 @@ goto Dalaran,68.6,42.0
 .talk 28160
 ..turnin 13107
 step
-goto Dalaran,35.5,57.6
+goto Dalaran,40.5,55.6
 .talk 29532
 ..turnin 13102
 step
@@ -3624,13 +3619,13 @@ goto Zangarmarsh,57.0,56.0
 .' Look for Steam Pump Flotsam in the water around this area and fish from it |cast Fishing##7620
 .' Fish from Steam Pump Flotsam |achieve 1257/1
 step
-goto Northern Stranglethorn,55.0,64.0
+goto Stranglethorn Vale,42.9,37.3
 .' Look for Schooner Wreckage around this area |tip You may need to fish from other pools to get this to show up |cast Fishing##7620
 .' Fish from Schooner Wreckage |achieve 1257/3
 step
-'Go to The Cape of Stranglethorn |goto The Cape of Stranglethorn 50,50 <500
+'Go to southern Stranglethorn Vale |goto Stranglethorn Vale,32.7,62.6 <500
 step
-goto 30.9,81.5
+goto 20.8,82.1
 .' Look for Bloodsail Wreckage around this area |tip You may need to fish from other pools to get this to show up |cast Fishing##7620
 .' Fish from Bloodsail Wreckage |achieve 1257/2
 step
@@ -3652,15 +3647,15 @@ description Fish something up in Orgrimmar and Stormwind.
 	faction alliance
 step
 condition achieved(150)
-goto Stormwind City,69.0,92.2
-.' Use your fishing skill in the moat in front of Stormwind City |cast Fishing##7620
+goto Stormwind City,55.0,69.7
+.' Use your fishing skill in the canal next to Arnold Leland, the fishing trainer |cast Fishing##7620
 .' Fish in Stormwind City |achieve 150/2
 step
-goto Northern Barrens,70.2,4.4 |n
-.' Cross the bridge over into Orgrimmar |goto Orgrimmar
+goto Durotar,45.5,12.1 |n
+.' Enter Orgrimmar through its main gate |goto Orgrimmar
 step
-goto Orgrimmar,24.8,62.8
-.' Use your fishing skill in the pond |cast Fishing##7620
+goto Orgrimmar,70.0,29.8
+.' Use your fishing skill in the pond next to Lumak, the fishing trainer |cast Fishing##7620
 .' Fish in Orgrimmar |achieve 150/1
 step
 .' Earn The Fishing Diplomat. |achieve 150
@@ -3673,7 +3668,7 @@ description Fish your way to Mr. Pinchy's Magical Crawdad Box.
 	faction alliance
 step
 condition achieved(726)
-goto Northern Stranglethorn,31.0,37.7
+goto Stranglethorn Vale,27.4,20.5
 .' Use your fishing skill fish from Schooner Wreckage along The Savage Coast.  You may need to fish out the other schools of fish to get them to spawn. |cast Fishing##7620
 .collect Weather-Beaten Journal##34109
 .learn Find Fish##43308 |use Weather-Beaten Journal##34109
@@ -3721,8 +3716,8 @@ condition achieved(1836)
 .' The higher level your fishing skill, the better.  You will catch less junk the higher you are, which gives you a higher chance to catch Old Crafty.
 .' Click here when you're ready to proceed to the next step in the guide |confirm
 step
-goto Northern Barrens,70.2,4.4 |n
-.' Cross the bridge over into Orgrimmar |goto Orgrimmar
+goto Durotar,45.5,12.1 |n
+.' Enter Orgrimmar through its main gate |goto Orgrimmar
 step
 goto Orgrimmar,59.3,39.9
 .' Use your fishing ability in the stream of water. |cast Fishing##7620
@@ -4061,7 +4056,7 @@ description Learn the ability to find fish.
 	faction alliance
 step
 condition achieved(2096)
-goto Northern Stranglethorn,31.0,37.7
+goto Stranglethorn Vale,27.4,20.5
 .' Use your fishing skill fish from Schooner Wreckage along The Savage Coast.  You may need to fish out the other schools of fish to get them to spawn. |cast Fishing##7620
 .collect Weather-Beaten Journal##34109
 .' Use the Weather-Beaten Journal. |use Weather-Beaten Jounral##34109
@@ -4194,7 +4189,7 @@ step
 .' Congratulations, you have earned the I Smell A Giant Rat achievement.
 ]])
 ZygorGuidesViewer:RegisterGuide("Zygor's Alliance Achievements Guides\\Profession Achievements\\Fishing\\Turtles All the Way Down",[[
-description Fish up a Sea Turtle mount from any fishing pool in Deepholm, Mount Hyjal, Twilight Highlands, Uldum, or Northrend.
+description Fish up a Sea Turtle mount from any fishing pool in Northrend.
 	type achievements
 	faction alliance
 step

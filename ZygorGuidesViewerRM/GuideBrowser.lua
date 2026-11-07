@@ -1307,7 +1307,6 @@ end
 local GUIDE_ROOT_CATEGORY_EXACT = {
 	["Ares' Achievement Guides"] = "achievements",
 	["Ares' Fun Guides"] = "misc",
-	["Ares' GarryOwen Dailies Guide"] = "daily",
 	["Ares' Pets & Mounts Guides"] = "petsmounts",
 	["Dailies Guides"] = "daily",
 	["Ding80's Alliance General Achievements Guide"] = "achievements",

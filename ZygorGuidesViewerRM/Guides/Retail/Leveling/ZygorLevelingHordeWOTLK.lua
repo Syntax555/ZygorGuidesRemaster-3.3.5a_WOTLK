@@ -556,13 +556,11 @@ turnin A Special Surprise##12743 |goto 52.97,81.95 |only NightElf
 turnin A Special Surprise##12744 |goto 52.97,81.95 |only Dwarf
 turnin A Special Surprise##12745 |goto 52.97,81.95 |only Gnome
 turnin A Special Surprise##12746 |goto 52.97,81.95 |only Draenei
-turnin A Special Surprise##28649 |goto 52.97,81.95 |only Worgen
 turnin A Special Surprise##12739 |goto 52.97,81.95 |only Tauren
 turnin A Special Surprise##12747 |goto 52.97,81.95 |only BloodElf
 turnin A Special Surprise##12748 |goto 52.97,81.95 |only Orc
 turnin A Special Surprise##12749 |goto 52.97,81.95 |only Troll
 turnin A Special Surprise##12750 |goto 52.97,81.95 |only Scourge
-turnin A Special Surprise##28650 |goto 52.97,81.95 |only Goblin
 accept A Sort Of Homecoming##12751 |goto 52.97,81.95
 step
 Enter the building |goto 56.14,79.97 < 10 |walk

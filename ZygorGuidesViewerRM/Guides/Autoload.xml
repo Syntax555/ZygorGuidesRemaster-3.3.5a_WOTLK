@@ -92,7 +92,6 @@
 	<Script file="Retail\Poi\Common.lua"/>
 	<Script file="Dailies\ZygorDailiesAlliance.lua"/>
 	<Script file="Dailies\ZygorDailiesHorde.lua"/>
-	<Script file="Dailies\AresDailiesAlliance.lua"/>
 	<Script file="Reputations\AresReputationsAlliance.lua"/>
 	<Script file="Reputations\AresReputationsNorthrend.lua"/>
 	<Script file="Achievements\AresAchievementExploration.lua"/>
