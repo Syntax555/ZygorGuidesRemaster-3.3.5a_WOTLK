@@ -22439,7 +22439,7 @@ _And_
 Kill enemies around this area
 collect 6 Bog Lord Tendril##24291 |n
 |tip Once you've collected either of these, turn them in to Fahssn.
-Reach Neutral Reputation with the Sporeggar |q 50131/1 |goto 14.10,60.87
+Reach Neutral Reputation with the Sporeggar |complete (rep('Sporeggar') >= Neutral) or "incomplete" |goto 14.10,60.87
 Talk to Fahssn around [19.07,63.86]
 |tip He walks around this area.
 |tip Repeatedly complete the "More Spore Sacs" and "More Tendrils!" quests until you reach Neutral reputation with Sporeggar.
@@ -29422,7 +29422,7 @@ turnin Report to Nasuun##11517 |goto Shattrath City/0 49.10,42.49 |only if (have
 turnin Report to Nasuun##11534 |goto Shattrath City/0 49.10,42.49 |only if haveq(11534) or completedallq(11517,11534)
 |only if haveq(11517,11534) or completedq(11517,11534)
 step
-talk Exarch Larethor##24813
+talk Tyrith##24822
 |tip Inside the Magister's Terrace dungeon.
 |tip You will find him in the room after Selin Fireheart.
 turnin Magisters' Terrace##11488
@@ -29436,7 +29436,7 @@ talk Kalecgos##24848
 |tip It will take a moment for him to fly down.
 |tip On the terrace after leaving Vexallus' room.
 turnin The Scryer's Scryer##11490
-accept Hard to Kill##29685
+accept Hard to Kill##11492
 step
 kill Kael'thas Sunstrider##24664
 |tip The final boss of the dungeon.
@@ -29445,11 +29445,11 @@ kill Kael'thas Sunstrider##24664
 |tip At 50% health, Gravity Lapse phase begins and everyone "swims" through the air.
 |tip Arcane Spheres follow random players. Avoid them.
 |tip Every 30 seconds, Kael'thas takes 50% more damage for 10 seconds.
-collect Head of Kael'thas##34157 |q 29685/1
+collect Head of Kael'thas##34157 |q 11492/1
 step
-talk Exarch Larethor##55007
-|tip In Kael'thas' room.
-turnin Hard to Kill##29685
+talk Exarch Larethor##24813
+|tip Inside the building at Sun's Reach Harbor.
+turnin Hard to Kill##11492 |goto Isle of Quel'Danas/0 47.37,30.67
 ]])
 ZygorGuidesViewer:RegisterGuide("Leveling Guides\\Scourge Invasion\\Scourge Invasion Event (Stormwind)",{
 author="support@zygorguides.com",
