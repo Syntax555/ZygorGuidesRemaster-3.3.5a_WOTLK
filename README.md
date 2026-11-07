@@ -42,6 +42,14 @@ answer is available; Off disables the addon's progression filters. Server
 access rules apply in every mode. While progression filters apply, transition
 quests remain manual.
 
+The Guide Manager's **Vanilla**, **TBC** and **Wrath** tabs list the guides of
+one era in every category and select the matching Featured page. It opens on
+the character's earned era, or on its level's era without server progression.
+A guide belongs to the era its title names, else to the era of most places it
+visits; guides without places, such as disenchanting routes, appear in every
+tab. Tabs of eras the character has not earned are dimmed but can be browsed.
+Quests the server offers only in a later era stay hidden in the steps.
+
 Before Wrath, trainers on that server do not sell the lessons class quests
 taught then. The leveling guides take level-20 paladins through The Tome of
 Valor, or blood elves through The Second Trial and Return to Silvermoon, for

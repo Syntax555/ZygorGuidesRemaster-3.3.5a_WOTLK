@@ -893,6 +893,68 @@ function IP:GuideRequirement(guide)
 	return requirement
 end
 
+-- The Burning Crusade's instance maps. Wrath's are 574 and above; the rest,
+-- including the Vanilla Naxxramas the server restores on 533, are Vanilla.
+local TBC_MAPS = {
+	[269]=true, [532]=true, [534]=true, [540]=true, [542]=true, [543]=true, [544]=true, [545]=true,
+	[546]=true, [547]=true, [548]=true, [550]=true, [552]=true, [553]=true, [554]=true, [555]=true,
+	[556]=true, [557]=true, [558]=true, [560]=true, [564]=true, [565]=true, [568]=true, [580]=true, [585]=true,
+}
+local ERA_TITLE_WORDS = {
+	{2, {"wrath of the lich king", "wotlk", "northrend", "death knight"}},
+	{1, {"the burning crusade", "burning crusade", "tbc", "outland"}},
+	{0, {"classic", "vanilla", "ahn'qiraj"}},
+}
+
+-- The guide browser's era for a guide, 0 Vanilla, 1 TBC or 2 Wrath, for every
+-- race alike: the expansion its title names, else the era of most places it
+-- visits, so that one race's arrival elsewhere does not move it. A guide that
+-- names neither returns nil and belongs to every era. Following a guide still
+-- needs every zone it visits; GuideCheck applies that.
+function IP:GuideEra(guide)
+	if not guide then return nil end
+	if guide._ipEra ~= nil then return guide._ipEra or nil end
+	local title = string.lower(guide.title or "")
+	for _, entry in ipairs(ERA_TITLE_WORDS) do
+		for _, word in ipairs(entry[2]) do
+			if string.find(title, word, 1, true) then
+				guide._ipEra = entry[1]
+				return entry[1]
+			end
+		end
+	end
+	local visits = {[0] = 0, [1] = 0, [2] = 0}
+	local function zone(name)
+		name = ZoneName(name)
+		if name == "" or string.find(name, "^[%d%.%-]") then return end
+		local tier = self.REGIONS[name] or (self.TBC_RACE_ZONES[name] and 8)
+		local map = self.INSTANCES[name]
+		local zoneEra = tier and EraOfTier(tier) or 0
+		if map then zoneEra = math.max(zoneEra, TBC_MAPS[map] and 1 or map >= 574 and 2 or 0) end
+		visits[zoneEra] = visits[zoneEra] + 1
+	end
+	local text = type(guide.rawdata) == "string" and guide.rawdata or ""
+	for name in string.gmatch(text, "goto%s+([^,|\n\r]+)") do zone(name) end
+	local header = type(guide.headerdata) == "table" and guide.headerdata or nil
+	if header and type(header.maps) == "table" then
+		for _, name in ipairs(header.maps) do
+			if type(name) == "string" then zone(name) end
+		end
+	end
+	local era
+	for candidate = 0, 2 do
+		if visits[candidate] > 0 and (not era or visits[candidate] >= visits[era]) then era = candidate end
+	end
+	guide._ipEra = era or false
+	return era
+end
+
+-- Whether the browser's era tab lists a guide; a guide of every era is in each tab.
+function IP:GuideInEra(guide, era)
+	local guideEra = self:GuideEra(guide)
+	return era == nil or guideEra == nil or guideEra == era
+end
+
 -- "ok", "locked" or "unknown" and a reason for following a guide now.
 function IP:GuideCheck(guide)
 	if not guide or not self:Applies() then return "ok" end

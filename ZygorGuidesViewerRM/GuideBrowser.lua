@@ -1028,6 +1028,23 @@ local GUIDE_MANAGER_TOP_TABS = {
 	{ id = "recent", label = LT("gb_tab_recent") },
 }
 
+-- The era tabs list only the guides of one era in every category; the featured
+-- page with the same group follows the tab.
+local GUIDE_MANAGER_ERAS = {
+	{ era = 0, label = "Vanilla", group = "vanilla" },
+	{ era = 1, label = "TBC", group = "tbc" },
+	{ era = 2, label = "Wrath", group = "wotlk" },
+}
+
+-- The browser opens on the character's earned era, or on its level's era where
+-- the server reports none.
+local function DefaultGuideEra(self)
+	local ip = self.IP
+	if ip and ip.state and ip.state.ip and ip:Gated() then return ip.EraOfTier(ip.state.effective) end
+	local level = UnitLevel("player") or 1
+	return level >= 68 and 2 or level >= 58 and 1 or 0
+end
+
 local GUIDE_MANAGER_LEFT_MENU = {
 	{ id = "leveling", label = LT("gb_cat_leveling"), icon = "Interface\\Icons\\INV_Misc_Book_11", keywords = { "leveling", "levels" } },
 	{ id = "dungeons", label = LT("gb_cat_dungeons"), icon = "Interface\\Icons\\INV_Misc_GroupNeedMore", keywords = { "dungeon", "dungeons", "instance" } },
@@ -2838,6 +2855,83 @@ title="The Burning Crusade", group="tbc",
 	{"item", text=[[**The Aldor**]], guide="Reputation Guides\\The Burning Crusade\\The Aldor"},
 	{"item", text=[[**Ogri'la**]], guide="Reputation Guides\\The Burning Crusade\\Ogri'la"},
 	{"item", text=[[**Sha'tari Skyguard**]], guide="Reputation Guides\\The Burning Crusade\\Sha'tari Skyguard"},
+	},
+})
+
+table.insert(WhatsNewData, {
+title="Vanilla", group="vanilla",
+
+{"section", text=[[LEVELING]]},
+
+	{"content", text=[[Complete Your Starter Guide]]},
+	{"text", text=[[Every Vanilla race starts with the guide for its home zone. Blood Elves, Draenei and Death Knights start in later eras.]]},
+	{"columns",
+	{"item", text=[[**Human Starter (1-11)**]], guide="Leveling Guides\\Starter Guides (1-11)\\Human Starter (1-11)", faction="A"},
+	{"item", text=[[**Dwarf & Gnome Starter (1-11)**]], guide="Leveling Guides\\Starter Guides (1-11)\\Dwarf & Gnome Starter (1-11)", faction="A"},
+	{"item", text=[[**Night Elf Starter (1-11)**]], guide="Leveling Guides\\Starter Guides (1-11)\\Night Elf Starter (1-11)", faction="A"},
+	{"item", text=[[**Durotar (1-12) [Orc & Troll Starter]**]], guide="Leveling Guides\\Starter Guides (1-12)\\Durotar (1-12) [Orc & Troll Starter]", faction="H"},
+	{"item", text=[[**Mulgore (1-12) [Tauren Starter]**]], guide="Leveling Guides\\Starter Guides (1-12)\\Mulgore (1-12) [Tauren Starter]", faction="H"},
+	{"item", text=[[**Tirisfal Glades (1-12) [Undead Starter]**]], guide="Leveling Guides\\Starter Guides (1-12)\\Tirisfal Glades (1-12) [Undead Starter]", faction="H"},
+	},
+
+	{"content", text=[[Level to 60]]},
+	{"text", text=[[Each leveling guide continues in the next zone until level 60, the Vanilla level cap. Quests the server only offers in a later era are left out of the steps.]]},
+	{"columns",
+	{"item", text=[[**Darkshore (11-14)**]], guide="Leveling Guides\\Darkshore (11-14)", faction="A"},
+	{"item", text=[[**The Barrens (12-15)**]], guide="Leveling Guides\\Classic (12-58)\\The Barrens (12-15)", faction="H"},
+	},
+
+{"section", text=[[DUNGEONS]]},
+
+	{"content", text=[[Dungeon Boss Strategy Guides]]},
+	{"columns",
+	{"item", text=[[**Ragefire Chasm (13-18)**]], guide="Dungeon Guides\\Classic\\Ragefire Chasm (13-18)", faction="H"},
+	{"item", text=[[**Wailing Caverns (15-25)**]], guide="Dungeon Guides\\Classic\\Wailing Caverns (15-25)"},
+	{"item", text=[[**The Deadmines (17-26)**]], guide="Dungeon Guides\\Classic\\The Deadmines (17-26)"},
+	{"item", text=[[**Shadowfang Keep (22-30)**]], guide="Dungeon Guides\\Classic\\Shadowfang Keep (22-30)"},
+	{"item", text=[[**The Stockade (22-30)**]], guide="Dungeon Guides\\Classic\\The Stockade (22-30)", faction="A"},
+	{"item", text=[[**Blackfathom Deeps (24-32)**]], guide="Dungeon Guides\\Classic\\Blackfathom Deeps (24-32)"},
+	{"item", text=[[**Gnomeregan (29-38)**]], guide="Dungeon Guides\\Classic\\Gnomeregan (29-38)"},
+	{"item", text=[[**Scarlet Monastery (Graveyard) (29-35)**]], guide="Dungeon Guides\\Classic\\Scarlet Monastery (Graveyard) (29-35)"},
+	{"item", text=[[**Razorfen Kraul (30-40)**]], guide="Dungeon Guides\\Classic\\Razorfen Kraul (30-40)"},
+	{"item", text=[[**Scarlet Monastery (Library) (31-37)**]], guide="Dungeon Guides\\Classic\\Scarlet Monastery (Library) (31-37)"},
+	{"item", text=[[**Scarlet Monastery (Armory) (35-40)**]], guide="Dungeon Guides\\Classic\\Scarlet Monastery (Armory) (35-40)"},
+	{"item", text=[[**Scarlet Monastery (Cathedral) (36-42)**]], guide="Dungeon Guides\\Classic\\Scarlet Monastery (Cathedral) (36-42)"},
+	{"item", text=[[**Razorfen Downs (37-43)**]], guide="Dungeon Guides\\Classic\\Razorfen Downs (37-43)"},
+	{"item", text=[[**Uldaman (42-52)**]], guide="Dungeon Guides\\Classic\\Uldaman (42-52)"},
+	{"item", text=[[**Zul'Farrak (44-49)**]], guide="Dungeon Guides\\Classic\\Zul'Farrak (44-49)"},
+	{"item", text=[[**Maraudon (Wicked Grotto - Purple) (45-53)**]], guide="Dungeon Guides\\Classic\\Maraudon (Wicked Grotto - Purple) (45-53)"},
+	{"item", text=[[**The Temple of Atal'Hakkar (50-60)**]], guide="Dungeon Guides\\Classic\\The Temple of Atal'Hakkar (50-60)"},
+	{"item", text=[[**Blackrock Depths (52-60)**]], guide="Dungeon Guides\\Classic\\Blackrock Depths (52-60)"},
+	{"item", text=[[**Lower Blackrock Spire (55-60)**]], guide="Dungeon Guides\\Classic\\Lower Blackrock Spire (55-60)"},
+	{"item", text=[[**Upper Blackrock Spire (55-60)**]], guide="Dungeon Guides\\Classic\\Upper Blackrock Spire (55-60)"},
+	{"item", text=[[**Dire Maul East (58-60)**]], guide="Dungeon Guides\\Classic\\Dire Maul East (58-60)"},
+	{"item", text=[[**Dire Maul West (58-60)**]], guide="Dungeon Guides\\Classic\\Dire Maul West (58-60)"},
+	{"item", text=[[**Dire Maul North (58-60)**]], guide="Dungeon Guides\\Classic\\Dire Maul North (58-60)"},
+	{"item", text=[[**Scholomance (58-60)**]], guide="Dungeon Guides\\Classic\\Scholomance (58-60)"},
+	{"item", text=[[**Stratholme - Live (58-60)**]], guide="Dungeon Guides\\Classic\\Stratholme - Live (58-60)"},
+	{"item", text=[[**Stratholme - Undead (58-60)**]], guide="Dungeon Guides\\Classic\\Stratholme - Undead (58-60)"},
+	},
+
+	{"content", text=[[Raid Attunements]]},
+	{"columns",
+	{"item", text=[[**Molten Core Attunement**]], guide="Dungeon Guides\\Classic\\Raid Attunements\\Molten Core Attunement"},
+	{"item", text=[[**Onyxia's Lair Attunement**]], guide="Dungeon Guides\\Classic\\Raid Attunements\\Onyxia's Lair Attunement"},
+	{"item", text=[[**Blackwing Lair Attunement**]], guide="Dungeon Guides\\Classic\\Raid Attunements\\Blackwing Lair Attunement"},
+	{"item", text=[[**Naxxramas Attunement**]], guide="Dungeon Guides\\Classic\\Raid Attunements\\Naxxramas Attunement"},
+	},
+
+	{"content", text=[[Ahn'Qiraj Gear]]},
+	{"columns",
+	{"item", text=[[**Ruins of Ahn'Qiraj Ring Quest**]], guide="Leveling Guides\\Ahn'Qiraj Gear\\Ruins of Ahn'Qiraj Ring Quest"},
+	{"item", text=[[**Ruins of Ahn'Qiraj Cloak Quest**]], guide="Leveling Guides\\Ahn'Qiraj Gear\\Ruins of Ahn'Qiraj Cloak Quest"},
+	{"item", text=[[**Ruins of Ahn'Qiraj Weapon Quest**]], guide="Leveling Guides\\Ahn'Qiraj Gear\\Ruins of Ahn'Qiraj Weapon Quest"},
+	{"item", text=[[**Temple of Ahn'Qiraj Helm Quest**]], guide="Leveling Guides\\Ahn'Qiraj Gear\\Temple of Ahn'Qiraj Helm Quest"},
+	{"item", text=[[**Temple of Ahn'Qiraj Shoulder Quest**]], guide="Leveling Guides\\Ahn'Qiraj Gear\\Temple of Ahn'Qiraj Shoulder Quest"},
+	{"item", text=[[**Temple of Ahn'Qiraj Chest Quest**]], guide="Leveling Guides\\Ahn'Qiraj Gear\\Temple of Ahn'Qiraj Chest Quest"},
+	{"item", text=[[**Temple of Ahn'Qiraj Legs Quest**]], guide="Leveling Guides\\Ahn'Qiraj Gear\\Temple of Ahn'Qiraj Legs Quest"},
+	{"item", text=[[**Temple of Ahn'Qiraj Boots Quest**]], guide="Leveling Guides\\Ahn'Qiraj Gear\\Temple of Ahn'Qiraj Boots Quest"},
+	{"item", text=[[**Signet Ring of the Bronze Dragonflight**]], guide="Leveling Guides\\Ahn'Qiraj Gear\\Signet Ring of the Bronze Dragonflight"},
 	},
 })
 
@@ -4989,6 +5083,52 @@ local function EnsureGuideManagerStandaloneFrame(self)
 		frame.topTabButtons[tab.id] = b
 	end
 
+	frame.eraButtons = {}
+	for i = #GUIDE_MANAGER_ERAS, 1, -1 do
+		local entry = GUIDE_MANAGER_ERAS[i]
+		local b = CreateFrame("Button", nil, tabBar)
+		b:SetHeight(24)
+		b:SetWidth(64)
+		local later = GUIDE_MANAGER_ERAS[i + 1]
+		if later then
+			b:SetPoint("RIGHT", frame.eraButtons[later.era], "LEFT", -6, 0)
+		else
+			b:SetPoint("RIGHT", tabBar, "RIGHT", -4, 0)
+		end
+		b:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight")
+		b.bg = b:CreateTexture(nil, "BACKGROUND")
+		b.bg:SetTexture("Interface\\Buttons\\WHITE8x8")
+		b.bg:SetAllPoints()
+		b.bg:SetVertexColor(1, 1, 1, 0.00)
+		b.text = b:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+		b.text:SetAllPoints()
+		b.text:SetJustifyH("CENTER")
+		b.text:SetText(entry.label)
+		ApplyRetailFont(b.text, 14, "", false)
+		b.underline = b:CreateTexture(nil, "ARTWORK")
+		b.underline:SetTexture("Interface\\Buttons\\WHITE8x8")
+		b.underline:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 0, -2)
+		b.underline:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 0, -2)
+		b.underline:SetHeight(2)
+		b.era = entry.era
+		b:SetScript("OnClick", function(btn)
+			frame.eraChosen = true
+			if frame.SetEra then frame:SetEra(btn.era) end
+		end)
+		b:SetScript("OnEnter", function(btn)
+			GameTooltip:SetOwner(btn, "ANCHOR_BOTTOM")
+			local ip = self.IP
+			GameTooltip:SetText(ip and ip.TierName and ip:TierName(ip.TierOfEra(btn.era)) or entry.label)
+			local check = ip and ip:TierCheck(ip.TierOfEra(btn.era))
+			if check == "locked" then
+				GameTooltip:AddLine(ip:TierReason(check, ip.TierOfEra(btn.era)), 1, 0.5, 0.25, true)
+			end
+			GameTooltip:Show()
+		end)
+		b:SetScript("OnLeave", function() GameTooltip:Hide() end)
+		frame.eraButtons[entry.era] = b
+	end
+
 	frame.leftMenuButtons = {}
 	for i,entry in ipairs(GUIDE_MANAGER_LEFT_MENU) do
 		local b = CreateFrame("Button", nil, left)
@@ -5704,6 +5844,13 @@ local function EnsureGuideManagerStandaloneFrame(self)
 		if section == "home" and frame.homeShowAll then
 			treePanel.filterFn = nil
 		end
+		if section == "home" and self.IP then
+			local categoryFilter, era = treePanel.filterFn, frame.currentEra
+			treePanel.filterFn = function(title, full, guide)
+				if categoryFilter and not categoryFilter(title, full, guide) then return false end
+				return self.IP:GuideInEra(guide, era)
+			end
+		end
 		treePanel.rowsBuilder = nil
 		treePanel.useDrilldown = (section == "home" or section == "current")
 		if section == "options" then
@@ -5850,6 +5997,51 @@ local function EnsureGuideManagerStandaloneFrame(self)
 		UpdateDetails()
 	end
 
+	-- Paints the era tabs, dims eras this character has not earned and selects
+	-- the matching featured page.
+	local function SyncEraState()
+		local ip = self.IP
+		for era, but in pairs(frame.eraButtons or {}) do
+			local locked = ip and ip:TierCheck(ip.TierOfEra(era)) == "locked"
+			if era == frame.currentEra then
+				but.text:SetTextColor(0.87, 0.89, 0.92)
+				but.underline:SetVertexColor(0.82, 0.84, 0.88, 0.95)
+				but.bg:SetVertexColor(1, 1, 1, 0.08)
+			else
+				local shade = locked and 0.42 or 0.72
+				but.text:SetTextColor(shade, shade, shade)
+				but.underline:SetVertexColor(0.82, 0.84, 0.88, 0.0)
+				but.bg:SetVertexColor(1, 1, 1, 0.00)
+			end
+		end
+		for _, entry in ipairs(GUIDE_MANAGER_ERAS) do
+			if entry.era == frame.currentEra then
+				for index, data in ipairs(WhatsNewData) do
+					if data.group == entry.group then
+						frame.whatsnewActiveIndex = index
+						if frame.whatsnewDropdown then
+							UIDropDownMenu_SetSelectedValue(frame.whatsnewDropdown, index)
+							UIDropDownMenu_SetText(frame.whatsnewDropdown, data.title or "")
+						end
+					end
+				end
+			end
+		end
+	end
+
+	frame.SetEra = function(_, era)
+		frame.currentEra = era
+		SyncEraState()
+		UpdatePanelRowsForContext()
+		if treePanel.scroll then FauxScrollFrame_SetOffset(treePanel.scroll, 0) end
+		if frame.currentSection == "whatsnew" and frame.RenderWhatsNewPane then
+			frame:RenderWhatsNewPane(frame.whatsnewActiveIndex)
+		elseif frame.currentSection ~= "options" then
+			self:RefreshGuideManagerPanel(treePanel)
+		end
+		UpdateDetails()
+	end
+
 	frame.SetSelectedGuide = function(_, title, userInitiated)
 		treePanel.selectedGuideTitle = title
 		treePanel.selectedGuideUserInitiated = userInitiated and true or nil
@@ -5881,6 +6073,8 @@ local function EnsureGuideManagerStandaloneFrame(self)
 		frame.homeShowAll = (self.db and self.db.profile and self.db.profile.guidebrowserhomeall) and true or false
 		treePanel.browsePath = (self.db and self.db.profile and self.db.profile.guidebrowserpath) or ""
 		treePanel.selectedFolderPath = treePanel.browsePath
+		if not frame.eraChosen then frame.currentEra = DefaultGuideEra(self) end
+		SyncEraState()
 		frame:SetSection(frame.currentSection or "home")
 		if frame.homeShowAll then
 			UpdateLeftCategoryCounts()
