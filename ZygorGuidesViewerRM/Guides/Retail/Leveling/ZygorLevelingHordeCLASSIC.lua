@@ -433,7 +433,7 @@ Kill enemies around this area
 Reach Level 10 |ding 10 |goto 53.62,57.23
 You can find more around [52.03,49.95]
 step
-talk Aelthalyste##4606
+talk Father Lankester##4607
 accept Touch of Weakness##5658 |goto Undercity 49.27,17.11
 |only if Scourge Priest
 step
@@ -748,7 +748,7 @@ talk Chief Hawkwind##2981
 turnin A Humble Task##753 |goto 44.18,76.06
 accept Rites of the Earthmother##755 |goto 44.18,76.06
 step
-talk Grull Hawkwind##2980
+talk Harutt Thunderhorn##3059
 |tip Inside the building.
 turnin Simple Note##3091 |goto 44.01,76.13
 |only if Tauren Warrior
@@ -2230,7 +2230,7 @@ step
 Enter the building |goto Durotar 53.24,42.59 < 10 |walk
 talk Tai'jin##3706
 |tip Inside the building.
-accept Hex of Weakness##5652 |goto Durotar 54.26,42.93
+accept Hex of Weakness##5655 |goto Durotar 54.26,42.93
 |only if Troll Priest
 step
 Leave the building |goto 53.24,42.59 < 10 |walk
@@ -3865,7 +3865,7 @@ Follow the path |goto The Barrens 50.82,29.06 < 15 |only if walking
 Enter the building |goto Thunder Bluff 74.15,29.89 < 7 |walk
 talk Turak Runetotem##3033
 |tip Inside the building.
-accept A Lesson to Learn##26 |goto Thunder Bluff 76.47,27.22
+accept A Lesson to Learn##27 |goto Thunder Bluff 76.47,27.22
 |only if Druid
 step
 talk Dendrite Starblaze##11802
@@ -4405,7 +4405,7 @@ turnin Shadowguard##5680 |goto 35.59,87.82
 |only if Troll Priest
 step
 talk Father Lankester##4607
-accept Devouring Plague##5644 |goto Undercity 49.37,15.90
+accept Devouring Plague##5679 |goto Undercity 49.37,15.90
 |only if Scourge Priest
 step
 talk Aelthalyste##4606
@@ -12103,7 +12103,7 @@ collect Flame in a Bottle##12814 |goto 83.17,69.09 |q 5096
 step
 talk Argent Officer Garush##10839
 turnin The Everlook Report##6029 |goto 83.19,68.45
-accept Argent Dawn Commission##5503 |goto 83.19,68.45
+accept Argent Dawn Commission##5405 |goto 83.19,68.45
 step
 Equip the Argent Dawn Commission
 |tip Wearing it will allow Minion's Scourgestones to drop from undead enemies in Western and Eastern Plaguelands.
@@ -15550,7 +15550,7 @@ step
 Enter the building |goto Durotar 53.24,42.59 < 10 |walk
 talk Tai'jin##3706
 |tip Inside the building.
-accept Hex of Weakness##5652 |goto Durotar 54.26,42.93
+accept Hex of Weakness##5655 |goto Durotar 54.26,42.93
 |only if Troll Priest
 step
 talk Ur'kyo##6018
@@ -15558,7 +15558,7 @@ talk Ur'kyo##6018
 turnin Hex of Weakness##5652 |goto Orgrimmar 35.59,87.83
 |only if Troll Priest
 step
-talk Aelthalyste##4606
+talk Father Lankester##4607
 accept Touch of Weakness##5658 |goto Undercity 49.27,17.11
 |only if Scourge Priest
 step
@@ -15571,7 +15571,7 @@ step
 Enter the cave |goto Thunder Bluff 29.73,29.76
 talk Miles Welsh##3044
 |tip Inside the cave.
-accept Shadowguard##5643 |goto Thunder Bluff 25.32,15.24
+accept Shadowguard##5642 |goto Thunder Bluff 25.32,15.24
 |only if Troll Priest
 step
 talk Ur'kyo##6018
@@ -17098,7 +17098,7 @@ accept Tome of the Cabal##1801 |goto 62.63,35.50
 |only if Warlock
 step
 talk Jorah Annison##6293
-turnin Tome of the Cabal##1758 |goto Undercity 75.91,37.87
+turnin Tome of the Cabal##1801 |goto Undercity 75.91,37.87
 accept Tome of the Cabal##1803 |goto 75.91,37.87
 |only if Warlock
 step
@@ -17128,7 +17128,7 @@ step
 Follow the path up |goto The Barrens 61.93,36.72 < 15
 talk Strahad Farsan##6251
 turnin Tome of the Cabal##1805 |goto 62.63,35.50
-accept The Binding##1471 |goto 62.63,35.50
+accept The Binding##1795 |goto 62.63,35.50
 |only if Warlock
 step
 use the Tome of the Cabal##6999
@@ -17137,7 +17137,7 @@ kill Summoned Felhunter##6268 |q 1471/1 |goto 62.60,35.28
 |only if Warlock
 step
 talk Strahad Farsan##6251
-turnin The Binding##1471 |goto 62.63,35.50
+turnin The Binding##1795 |goto 62.63,35.50
 |only if Warlock
 step
 ding 40
@@ -17904,7 +17904,7 @@ collect Flame in a Bottle##12814 |goto 83.17,69.09 |q 5096
 step
 talk Argent Officer Garush##10839
 turnin The Everlook Report##6029 |goto 83.19,68.45
-accept Argent Dawn Commission##5503 |goto 83.19,68.45
+accept Argent Dawn Commission##5405 |goto 83.19,68.45
 step
 Equip the Argent Dawn Commission
 |tip Wearing it will allow Minion's Scourgestones to drop from undead enemies in Western and Eastern Plaguelands.
@@ -26096,7 +26096,7 @@ use Draenei Tomb Relic##30527 |goto 50.52,54.79
 kill Vengeful Harbinger##21638 |q 10842/1 |goto 49.15,54.80
 |tip Inside the tomb.
 step
-talk Draenei Tomb Guardian##22285
+talk Vengeful Harbinger##21638
 |tip Inside the tomb.
 |tip Wait for a bit for it to appear.
 turnin The Vengeful Harbinger##10842 |goto 50.88,54.75
@@ -28364,11 +28364,11 @@ step
 Reach Level 50 |ding 50
 |tip Use the leveling guides to accomplish this.
 step
-talk Argent Scout##16255
+talk Argent Scout##616255
 |tip Inside the building.
 accept Light's Hope Chapel##9154 |goto 52.46,73.71
 step
-talk Keeper of the Rolls##16281
+talk Keeper of the Rolls##616281
 turnin Light's Hope Chapel##9154 |goto Eastern Plaguelands/0 75.16,54.39
 step
 talk Commander Thomas Helleran##16361
@@ -28504,10 +28504,10 @@ step
 Reach Level 50 |ding 50
 |tip Use the leveling guides to accomplish this.
 step
-talk Argent Scout##16255
+talk Argent Scout##616255
 accept Light's Hope Chapel##9154 |goto 42.83,60.85
 step
-talk Keeper of the Rolls##16281
+talk Keeper of the Rolls##616281
 turnin Light's Hope Chapel##9154 |goto Eastern Plaguelands/0 75.16,54.39
 step
 talk Commander Thomas Helleran##16361
@@ -28643,157 +28643,10 @@ step
 Reach Level 50 |ding 50
 |tip Use the leveling guides to accomplish this.
 step
-talk Argent Scout##16255
+talk Argent Scout##616255
 accept Light's Hope Chapel##9154 |goto 66.16,46.75
 step
-talk Keeper of the Rolls##16281
-turnin Light's Hope Chapel##9154 |goto Eastern Plaguelands/0 75.16,54.39
-step
-talk Commander Thomas Helleran##16361
-accept Under the Shadow##9153 |goto 75.16,54.45
-accept Shadows of Doom##9085 |goto 75.16,54.45
-stickystart "Collect_Necrotic_Runes"
-step
-kill Shadow of Doom##16143 |q 9085/1
-|tip You will need a group for this.
-|tip Open your map and locate a purple skull indicating a scourge invasion.
-|tip Travel to that zone and ride around until you locate a summoning circle.
-|tip Kill enemies around the Necrotic Shard until they drain its health to zero.
-|tip You will need 8 Necrotic Runes from mobs you killed to talk to the mages that spawn and summon a Shadow of Doom.
-|tip The Shadow of Doom is elite and hits very hard.
-|tip Interrupt Fear on cooldown and be aware that it will call all nearby ghouls to aid it as well as summon more.
-step
-label "Collect_Necrotic_Runes"
-Kill Skeletal and Spectral enemies around this area
-|tip Open your map and locate a purple skull indicating a scourge invasion. |notinsticky
-|tip Travel to that zone and ride around until you locate a summoning circle. |notinsticky
-collect 10 Necrotic Rune##22484 |q 9153/1
-stickystart "Collect_A_Crumpeled_Missive"
-stickystart "Collect_A_Smudged_Document"
-stickystart "Collect_A_Torn_Letter"
-stickystart "Collect_A_Bloodstained_Envelope"
-stickystart "Collect_A_Careworn_Note"
-step
-Kill Skeletal and Spectral enemies around this area
-|tip Open your map and locate a purple skull indicating a scourge invasion. |notinsticky
-|tip Travel to that zone and ride around until you locate a summoning circle. |notinsticky
-collect A Ragged Page##22974
-step
-label "Collect_A_Crumpeled_Missive"
-Kill Skeletal and Spectral enemies around this area |notinsticky
-|tip Open your map and locate a purple skull indicating a scourge invasion. |notinsticky
-|tip Travel to that zone and ride around until you locate a summoning circle. |notinsticky
-collect A Crumpeled Missive##22973
-step
-label "Collect_A_Smudged_Document"
-Kill Skeletal and Spectral enemies around this area |notinsticky
-|tip Open your map and locate a purple skull indicating a scourge invasion. |notinsticky
-|tip Travel to that zone and ride around until you locate a summoning circle. |notinsticky
-collect A Smudged Document##22975
-step
-label "Collect_A_Torn_Letter"
-Kill Skeletal and Spectral enemies around this area |notinsticky
-|tip Open your map and locate a purple skull indicating a scourge invasion. |notinsticky
-|tip Travel to that zone and ride around until you locate a summoning circle. |notinsticky
-collect A Torn Letter##22977
-step
-label "Collect_A_Bloodstained_Envelope"
-Kill Skeletal and Spectral enemies around this area |notinsticky
-|tip Open your map and locate a purple skull indicating a scourge invasion. |notinsticky
-|tip Travel to that zone and ride around until you locate a summoning circle. |notinsticky
-collect A Bloodstained Envelope##22970
-step
-label "Collect_A_Careworn_Note"
-Kill Skeletal and Spectral enemies around this area |notinsticky
-|tip Open your map and locate a purple skull indicating a scourge invasion. |notinsticky
-|tip Travel to that zone and ride around until you locate a summoning circle. |notinsticky
-collect A Careworn Note##22972
-step
-talk Commander Thomas Helleran##16361
-turnin Under the Shadow##9153 |goto Eastern Plaguelands/0 75.16,54.45
-turnin Shadows of Doom##9085 |goto 75.16,54.45
-step
-use A Ragged Page##22974
-accept Page from the Front##9300
-step
-use A Crumpeled Missive##22973
-accept Missive from the Front##9302
-step
-use A Smudged Document##22975
-accept Document from the Front##9304
-step
-use A Torn Letter##22977
-accept Letter from the Front##9295
-step
-use A Bloodstained Envelope##22970
-accept Envelope from the Front##9301
-step
-use A Careworn Note##22972
-accept Note from the Front##9299
-step
-talk Keeper of the Rolls##16281
-turnin Page from the Front##9300 |goto 75.16,54.39
-turnin Missive from the Front##9302 |goto 75.16,54.39
-turnin Document from the Front##9304 |goto 75.16,54.39
-turnin Letter from the Front##9295 |goto 75.16,54.39
-turnin Envelope from the Front##9301 |goto 75.16,54.39
-turnin Note from the Front##9299 |goto 75.16,54.39
-step
-Reach Level 70 |ding 70
-|tip Use the leveling guides to accomplish this.
-step
-talk Argent Emissary##16285
-|tip You will need a raid group for this quest.
-accept Chamber of Secrets##12616 |goto 39.67,45.27
-step
-kill Prince Tenris Mirkblood##28194
-|tip You will need a raid group for this.
-|tip Up the stairs behind Attumen the Huntsman.
-|tip At the top of the stairs, run straight through the door in front of you.
-|tip Open the Bloodstained Door ahead on the right before the kitchen.
-|tip Kill Tenris with your group and click the orders on the table.
-click Orders from the Lich King
-Search the Chamber of Secrets |complete readyq(12616) or completedq(12616) |goto Karazhan/2 57.88,39.06
-step
-talk Argent Emissary##16285
-|tip You will need a raid group for this quest.
-turnin Chamber of Secrets##12616 |goto Eastern Plaguelands/0 75.16,54.19
-]])
-ZygorGuidesViewer:RegisterGuide("Leveling Guides\\Scourge Invasion\\Scourge Invasion Event (Silvermoon City)",{
-author="support@zygorguides.com",
-description="This guide will walk you through the scourge invasion event quests starting in Silvermoon City.",
-condition_end=function() return not completedq(12616) end,
-},[[
-step
-talk Lieutenant Julek##29441
-accept Investigate the Scourge of Silvermoon##12816 |goto Eversong Woods/0 56.84,51.56
-stickystart "Collect_Dim_Necrotic_Stone"
-step
-Investigate a Circle |q 12816/2 |goto 57.40,54.50
-|tip Step inside the circle.
-You can find more around:
-[58.06,55.53]
-[58.25,53.32]
-[58.17,51.59]
-step
-label "Collect_Dim_Necrotic_Stone"
-Kill Skeletal and Spectral enemies around this area
-collect 3 Dim Necrotic Stone##22892 |q 12816/1 |goto 57.40,54.50
-You can find more around: |notinsticky
-[58.06,55.53]
-[58.25,53.32]
-[58.17,51.59]
-step
-talk Lieutenant Julek##29441
-turnin Investigate the Scourge of Silvermoon##12816 |goto 56.84,51.56
-step
-Reach Level 50 |ding 50
-|tip Use the leveling guides to accomplish this.
-step
-talk Argent Scout##16255
-accept Light's Hope Chapel##9154 |goto Silvermoon City/0 78.38,79.03
-step
-talk Keeper of the Rolls##16281
+talk Keeper of the Rolls##616281
 turnin Light's Hope Chapel##9154 |goto Eastern Plaguelands/0 75.16,54.39
 step
 talk Commander Thomas Helleran##16361

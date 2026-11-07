@@ -1390,8 +1390,8 @@ step
 talk Ja'y Nosliw##22433
 turnin Dragonmaw Race: Corlok the Vet##11068 |goto 65.9,87.2
 step
-talk Wing Commander Ichman##13437
-accept Dragonmaw Race: Wing Commander Ichman##11069
+talk Wing Commander Ichman##23345
+accept Dragonmaw Race: Wing Commander Ichman##11069 |goto 65.18,85.05
 step
 Follow Wing Commander Ichman as he flies
 |tip Dodge the fireballs that Wing Commander Ichman throws at you.
@@ -1403,8 +1403,8 @@ step
 talk Ja'y Nosliw##22433
 turnin Dragonmaw Race: Wing Commander Ichman##11069 |goto 65.9,87.2
 step
-talk Wing Commander Mulverick##13181
-accept Dragonmaw Race: Wing Commander Mulverick##11070
+talk Wing Commander Mulverick##23346
+accept Dragonmaw Race: Wing Commander Mulverick##11070 |goto 65.18,85.05
 step
 Follow Wing Commander Mulverick as he flies
 |tip Dodge the lightning bolts that Wing Commander Mulverick throws at you.
@@ -2777,9 +2777,9 @@ talk Greatmother Geyah##18141
 Tell her _"Garrosh is beyond redemption, Greatmother. I fear that in helping the Mag'har, I have convinced Garrosh that he is unfit to lead."_
 Speak with Greatmother Geyah |q 10172/1 |goto Nagrand/0 56.70,34.31
 step
-talk Garrosh##18063
-turnin There Is No Hope##10172 |goto 55.44,37.64
-accept Thrall, Son of Durotan##10175 |goto 55.44,37.64
+talk Greatmother Geyah##18141
+turnin There Is No Hope##10172 |goto 56.70,34.31
+accept Thrall, Son of Durotan##10175 |goto 56.70,34.31
 step
 talk Thrall##4949
 |tip Inside the building.
@@ -3879,7 +3879,7 @@ talk Rilak the Redeemed##22292
 turnin An Ally in Lower City##11024 |goto Shattrath City 52.5,21.0
 accept Countdown to Doom##11028 |goto 52.5,21.0
 step
-talk Nutral##18940
+talk Sky Commander Adaris##23038
 turnin Countdown to Doom##11028 |goto Terokkar Forest 64.1,66.9
 step
 talk Hazzik##23306

@@ -573,7 +573,7 @@ step
 Enter the building |goto Elwynn Forest 42.95,65.65 < 10 |walk
 talk Priestess Josetta##377
 |tip Upstairs inside the building.
-accept Desperate Prayer##5635 |goto Elwynn Forest 43.28,65.72
+accept Desperate Prayer##5637 |goto Elwynn Forest 43.28,65.72
 |only if Human Priest
 step
 Enter the building |goto Elwynn Forest 42.95,65.65 < 10 |walk
@@ -8830,6 +8830,7 @@ next="Leveling Guides\\Stranglethorn Vale (34-35)",
 },[[
 step
 talk Theramore Lieutenant##4947
+talk Lieutenant Aden##23951
 turnin The Orc Report##1219 |goto Dustwallow Marsh 65.07,47.13
 accept Captain Vimes##1220 |goto Dustwallow Marsh 65.07,47.13
 step
@@ -13843,11 +13844,11 @@ step
 talk Arathandris Silversky##9528
 |tip She walks around this area.
 Tell her _"I need a Cenarion beacon."_
-collect Cenarion Beacon##11511 |goto 54.15,86.83 |q 5882 |future
+collect Cenarion Beacon##11511 |goto 54.15,86.83 |q 4103 |future
 step
 Follow the path |goto 49.02,89.29 < 50 |only if walking and not subzone("Deadwood Village")
 Kill enemies around this area
-collect 6 Corrupted Soul Shard##11515 |goto 48.32,92.99 |q 5882 |future
+collect 6 Corrupted Soul Shard##11515 |goto 48.32,92.99 |q 4103 |future
 You can find more around: |notinsticky
 [46.51,88.13]
 [48.77,89.62]
@@ -13855,7 +13856,7 @@ step
 Leave Deadwood Village |goto 49.56,88.70 < 50 |only if walking and subzone("Deadwood Village")
 talk Arathandris Silversky##9528
 |tip She walks around this area.
-accept Salve via Hunting##5882 |goto 54.15,86.83 |instant
+accept Salve via Hunting##4103 |goto 54.15,86.83 |instant
 step
 _Destroy These Items:_
 |tip They are no longer needed.
@@ -14497,7 +14498,7 @@ collect 10 Moontouched Feather##12383 |goto 52.30,28.91 |q 978
 collect Purified Moonwell Water##12906 |goto 52.30,28.91 |q 5159
 step
 talk Innkeeper Saelienne##6735
-accept Assisting Arch Druid Staghelm##3789 |goto Darnassus 67.42,15.65
+accept Assisting Arch Druid Staghelm##3763 |goto Darnassus 67.42,15.65
 step
 map Darnassus
 path	follow strict; loop on; ants curved; dist 20; markers none
@@ -15565,7 +15566,7 @@ talk Carlin Redpath##11063
 turnin Brother Carlin##5210 |goto Eastern Plaguelands 81.52,59.77
 step
 Enter Stormwind Keep |goto Stormwind City 73.12,46.65 < 15 |walk
-talk King Varian Wrynn##29611
+talk Highlord Bolvar Fordragon##1748
 |tip Inside the building.
 turnin The Blightcaller Cometh##6186 |goto Stormwind City 79.99,38.47
 step
@@ -17781,8 +17782,8 @@ description="This guide will walk you through completing various Druid Class Que
 step
 ding 10
 step
-talk Denatharion##4218
-accept Heeding the Call##5923 |goto Darnassus/0 34.77,7.36
+talk Kal##3602
+accept Heeding the Call##5923 |goto Teldrassil/0 55.95,61.56
 |only if NightElf Druid
 step
 Follow the road |goto 54.81,58.48 < 30 |only if walking
@@ -18106,7 +18107,7 @@ step
 talk High Priest Rohan##11406
 |tip Inside the building.
 turnin A Lack of Fear##5641 |goto Ironforge 24.72,8.14				|only if Dwarf Priest
-accept Arcane Feedback##5676 |goto Ironforge 24.72,8.14				|only if Human Priest
+accept Arcane Feedback##5677 |goto Ironforge 24.72,8.14				|only if Human Priest
 step
 Enter the building |goto Stormwind City 52.96,51.06 < 7 |walk
 talk High Priestess Laurena##376
@@ -19124,7 +19125,7 @@ step
 Enter the building |goto Ironforge 27.28,12.31 < 10 |walk
 talk Brandur Ironhammer##5149
 |tip Inside the building.
-accept Tome of Divinity##2997 |goto Ironforge 23.12,6.14
+accept Tome of Divinity##2999 |goto Ironforge 23.12,6.14
 |only if Dwarf Paladin
 step
 talk Tiza Battleforge##6179
@@ -19777,7 +19778,7 @@ step
 Follow the path up |goto The Barrens 61.93,36.72 < 15
 talk Strahad Farsan##6251
 turnin Tome of the Cabal##1804 |goto 62.63,35.50
-accept The Binding##1471 |goto 62.63,35.50
+accept The Binding##1795 |goto 62.63,35.50
 |only if Warlock
 step
 use the Tome of the Cabal##6999
@@ -19786,7 +19787,7 @@ kill Summoned Felhunter##6268 |q 1471/1 |goto 62.60,35.28
 |only if Warlock
 step
 talk Strahad Farsan##6251
-turnin The Binding##1471 |goto 62.63,35.50
+turnin The Binding##1795 |goto 62.63,35.50
 |only if Warlock
 step
 ding 40
@@ -19794,7 +19795,7 @@ step
 Enter the building |goto Stormwind City 42.23,81.81 < 10 |walk
 talk Demisette Cloyce##461
 |tip Inside the building.
-accept Summon Felsteed##4487 |goto 39.24,84.96
+accept Summon Felsteed##4488 |goto 39.24,84.96
 |only if Warlock
 step
 Follow the path up |goto The Barrens 61.93,36.72 < 15 |only if walking
@@ -22481,7 +22482,7 @@ use Draenei Tomb Relic##30527 |goto 50.52,54.79
 kill Vengeful Harbinger##21638 |q 10842/1 |goto 49.15,54.80
 |tip Inside the tomb.
 step
-talk Draenei Tomb Guardian##22285
+talk Vengeful Harbinger##21638
 |tip Inside the tomb.
 |tip Wait for a bit for it to appear.
 turnin The Vengeful Harbinger##10842 |goto 50.88,54.75
@@ -26801,7 +26802,7 @@ use Draenei Tomb Relic##30527 |goto 50.52,54.79
 kill Vengeful Harbinger##21638 |q 10842/1 |goto 49.15,54.80
 |tip Inside the tomb.
 step
-talk Draenei Tomb Guardian##22285
+talk Vengeful Harbinger##21638
 |tip Inside the tomb.
 |tip Wait for a bit for it to appear.
 turnin The Vengeful Harbinger##10842 |goto 50.88,54.75
@@ -28612,7 +28613,7 @@ Follow the road |goto Azuremyst Isle/0 36.92,47.01 < 20 |only if walking
 Enter the building |goto The Exodar/0 33.14,44.01 < 15 |walk
 talk Sulaa##17219
 |tip Inside the building.
-accept Call of Water##9502 |goto The Exodar/0 32.25,23.87
+accept Call of Water##9500 |goto The Exodar/0 32.25,23.87
 |only if Draenei Shaman
 step
 Run up the ramp |goto 27.53,29.42 < 15 |only if walking
@@ -28912,11 +28913,11 @@ step
 Reach Level 50 |ding 50
 |tip Use the leveling guides to accomplish this.
 step
-talk Argent Recruiter##16241
+talk Argent Recruiter##616241
 |tip Inside the building.
 accept Light's Hope Chapel##9154 |goto 62.17,72.26
 step
-talk Keeper of the Rolls##16281
+talk Keeper of the Rolls##616281
 turnin Light's Hope Chapel##9154 |goto Eastern Plaguelands/0 75.16,54.39
 step
 talk Commander Thomas Helleran##16361
@@ -29056,159 +29057,11 @@ step
 Reach Level 50 |ding 50
 |tip Use the leveling guides to accomplish this.
 step
-talk Argent Recruiter##16241
+talk Argent Recruiter##616241
 |tip Inside the building.
 accept Light's Hope Chapel##9154 |goto 29.85,61.67
 step
-talk Keeper of the Rolls##16281
-turnin Light's Hope Chapel##9154 |goto Eastern Plaguelands/0 75.16,54.39
-step
-talk Commander Thomas Helleran##16361
-accept Under the Shadow##9153 |goto 75.16,54.45
-accept Shadows of Doom##9085 |goto 75.16,54.45
-stickystart "Collect_Necrotic_Runes"
-step
-kill Shadow of Doom##16143 |q 9085/1
-|tip You will need a group for this.
-|tip Open your map and locate a purple skull indicating a scourge invasion.
-|tip Travel to that zone and ride around until you locate a summoning circle.
-|tip Kill enemies around the Necrotic Shard until they drain its health to zero.
-|tip You will need 8 Necrotic Runes from mobs you killed to talk to the mages that spawn and summon a Shadow of Doom.
-|tip The Shadow of Doom is elite and hits very hard.
-|tip Interrupt Fear on cooldown and be aware that it will call all nearby ghouls to aid it as well as summon more.
-step
-label "Collect_Necrotic_Runes"
-Kill Skeletal and Spectral enemies around this area
-|tip Open your map and locate a purple skull indicating a scourge invasion. |notinsticky
-|tip Travel to that zone and ride around until you locate a summoning circle. |notinsticky
-collect 10 Necrotic Rune##22484 |q 9153/1
-stickystart "Collect_A_Crumpeled_Missive"
-stickystart "Collect_A_Smudged_Document"
-stickystart "Collect_A_Torn_Letter"
-stickystart "Collect_A_Bloodstained_Envelope"
-stickystart "Collect_A_Careworn_Note"
-step
-Kill Skeletal and Spectral enemies around this area
-|tip Open your map and locate a purple skull indicating a scourge invasion. |notinsticky
-|tip Travel to that zone and ride around until you locate a summoning circle. |notinsticky
-collect A Ragged Page##22974
-step
-label "Collect_A_Crumpeled_Missive"
-Kill Skeletal and Spectral enemies around this area |notinsticky
-|tip Open your map and locate a purple skull indicating a scourge invasion. |notinsticky
-|tip Travel to that zone and ride around until you locate a summoning circle. |notinsticky
-collect A Crumpeled Missive##22973
-step
-label "Collect_A_Smudged_Document"
-Kill Skeletal and Spectral enemies around this area |notinsticky
-|tip Open your map and locate a purple skull indicating a scourge invasion. |notinsticky
-|tip Travel to that zone and ride around until you locate a summoning circle. |notinsticky
-collect A Smudged Document##22975
-step
-label "Collect_A_Torn_Letter"
-Kill Skeletal and Spectral enemies around this area |notinsticky
-|tip Open your map and locate a purple skull indicating a scourge invasion. |notinsticky
-|tip Travel to that zone and ride around until you locate a summoning circle. |notinsticky
-collect A Torn Letter##22977
-step
-label "Collect_A_Bloodstained_Envelope"
-Kill Skeletal and Spectral enemies around this area |notinsticky
-|tip Open your map and locate a purple skull indicating a scourge invasion. |notinsticky
-|tip Travel to that zone and ride around until you locate a summoning circle. |notinsticky
-collect A Bloodstained Envelope##22970
-step
-label "Collect_A_Careworn_Note"
-Kill Skeletal and Spectral enemies around this area |notinsticky
-|tip Open your map and locate a purple skull indicating a scourge invasion. |notinsticky
-|tip Travel to that zone and ride around until you locate a summoning circle. |notinsticky
-collect A Careworn Note##22972
-step
-talk Commander Thomas Helleran##16361
-turnin Under the Shadow##9153 |goto Eastern Plaguelands/0 75.16,54.45
-turnin Shadows of Doom##9085 |goto 75.16,54.45
-step
-use A Ragged Page##22974
-accept Page from the Front##9300
-step
-use A Crumpeled Missive##22973
-accept Missive from the Front##9302
-step
-use A Smudged Document##22975
-accept Document from the Front##9304
-step
-use A Torn Letter##22977
-accept Letter from the Front##9295
-step
-use A Bloodstained Envelope##22970
-accept Envelope from the Front##9301
-step
-use A Careworn Note##22972
-accept Note from the Front##9299
-step
-talk Keeper of the Rolls##16281
-turnin Page from the Front##9300 |goto 75.16,54.39
-turnin Missive from the Front##9302 |goto 75.16,54.39
-turnin Document from the Front##9304 |goto 75.16,54.39
-turnin Letter from the Front##9295 |goto 75.16,54.39
-turnin Envelope from the Front##9301 |goto 75.16,54.39
-turnin Note from the Front##9299 |goto 75.16,54.39
-step
-Reach Level 70 |ding 70
-|tip Use the leveling guides to accomplish this.
-step
-talk Argent Emissary##16285
-|tip You will need a raid group for this quest.
-accept Chamber of Secrets##12616 |goto 39.67,45.27
-step
-kill Prince Tenris Mirkblood##28194
-|tip You will need a raid group for this.
-|tip Up the stairs behind Attumen the Huntsman.
-|tip At the top of the stairs, run straight through the door in front of you.
-|tip Open the Bloodstained Door ahead on the right before the kitchen.
-|tip Kill Tenris with your group and click the orders on the table.
-click Orders from the Lich King
-Search the Chamber of Secrets |complete readyq(12616) or completedq(12616) |goto Karazhan/2 57.88,39.06
-step
-talk Argent Emissary##16285
-|tip You will need a raid group for this quest.
-turnin Chamber of Secrets##12616 |goto Eastern Plaguelands/0 75.16,54.19
-]])
-ZygorGuidesViewer:RegisterGuide("Leveling Guides\\Scourge Invasion\\Scourge Invasion Event (The Exodar)",{
-author="support@zygorguides.com",
-description="This guide will walk you through the scourge invasion event quests starting in The Exodar.",
-condition_end=function() return not completedq(12616) end,
-},[[
-step
-talk Lieutenant Kregor##29442
-accept Investigate the Scourge of Exodar##12817 |goto The Exodar/0 81.09,60.91
-stickystart "Collect_Dim_Necrotic_Stone"
-step
-Investigate a Circle |q 12817/2 |goto Azuremyst Isle/0 38.53,48.32
-|tip Step inside the circle.
-You can find more around:
-[39.87,50.17]
-[38.93,51.19]
-[40.56,45.11]
-step
-label "Collect_Dim_Necrotic_Stone"
-Kill Skeletal and Spectral enemies around this area
-collect 3 Dim Necrotic Stone##22892 |q 12817/1 |goto 38.53,48.32
-You can find more around: |notinsticky
-[39.87,50.17]
-[38.93,51.19]
-[40.56,45.11]
-step
-talk Lieutenant Kregor##29442
-turnin Investigate the Scourge of Exodar##12817 |goto The Exodar/0 81.09,60.91
-step
-Reach Level 50 |ding 50
-|tip Use the leveling guides to accomplish this.
-step
-talk Argent Recruiter##16241
-|tip Inside the building.
-accept Light's Hope Chapel##9154 |goto 79.65,67.38
-step
-talk Keeper of the Rolls##16281
+talk Keeper of the Rolls##616281
 turnin Light's Hope Chapel##9154 |goto Eastern Plaguelands/0 75.16,54.39
 step
 talk Commander Thomas Helleran##16361
@@ -29346,11 +29199,11 @@ step
 Reach Level 50 |ding 50
 |tip Use the leveling guides to accomplish this.
 step
-talk Argent Recruiter##16241
+talk Argent Recruiter##616241
 |tip Inside the building.
 accept Light's Hope Chapel##9154 |goto 39.48,45.33
 step
-talk Keeper of the Rolls##16281
+talk Keeper of the Rolls##616281
 turnin Light's Hope Chapel##9154 |goto Eastern Plaguelands/0 75.16,54.39
 step
 talk Commander Thomas Helleran##16361

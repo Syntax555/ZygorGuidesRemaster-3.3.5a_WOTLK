@@ -14681,7 +14681,7 @@ description="This guide will walk you through renewing your Gnome Engineer Membe
 },[[
 step
 talk Tinkmaster Overspark##7944
-accept Membership Card Renewal##3647 |goto Ironforge/0 69.56,50.33
+accept Membership Card Renewal##3645 |goto Ironforge/0 69.56,50.33
 |tip You must have the Gnomish Engineering specialization to be able to complete this quest.
 |tip This quest requires 2 gold to complete.
 |tip This will keep your Gnome Engineer Membership Card active for another 14 days of played time.
@@ -14718,7 +14718,7 @@ Reach Level 200 Engineering |skill Engineering,200
 step
 talk Springspindle Fizzlegear##5174
 |tip Inside the building.
-accept Goblin Engineering##4181 |goto Ironforge/0 68.46,43.56
+accept Goblin Engineering##3629 |goto Ironforge/0 68.46,43.56
 step
 Enter the building |goto Tanaris/0 52.39,27.30 < 5 |walk
 talk Nixx Sprocketspring##8126

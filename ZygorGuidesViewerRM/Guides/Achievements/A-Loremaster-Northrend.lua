@@ -872,7 +872,7 @@ startlevel 68
 		step
 			.use Augmented Arcane Prison##35671
 			.info Next to you:
-			.talk Keristrasza##26237
+			.talk Keristrasza##26206
 			..turnin Bait and Switch##11951
 			..accept Saragosa's End##11957
 		step
@@ -7947,7 +7947,7 @@ startlevel 76
 		step
 			.use Zepik's Hunting Horn##38512
 			.info Use this if Zepik is not next to you.
-			.talk Zepik the Gorloc Hunter##28668
+			.talk Zepik the Gorloc Hunter##28216
 			..turnin A Rough Ride##12536
 			..accept Lightning Definitely Strikes Twice##12537
 			..accept The Mist Isn't Listening##12538

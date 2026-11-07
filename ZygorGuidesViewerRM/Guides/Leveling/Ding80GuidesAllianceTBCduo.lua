@@ -8338,7 +8338,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC duo\\Leve
 		..turnin The God Hakkar##3528
 	step
 		goto 66.9,24
-		.talk Prospector Ironboot##104600
+		.talk Prospector Ironboot##10460
 		..accept The Lost Tablets of Mosh'aru##5065
 	step
 		'Go southwest to the Un'Goro Crater|goto Un'Goro Crater|noway|c
@@ -8716,7 +8716,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC duo\\Leve
 		.'WARNING: ESCORT
 		goto 49.6,30.4
 		.use Flute of the Ancients##11445
-		..talk Arei##9589
+		..talk Arei##9598
 		...accept Ancient Spirit##4261|noautoaccept
 	step
 		goal Help Arei get to Safety|q 4261/1
@@ -9193,7 +9193,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC duo\\TBC 
 	step
 		goto 42.7,84
 		.talk Commander Ashlam Valorfist##10838
-		..accept Mission Accomplished!##5238|instant
+		..accept Mission Accomplished!##5237|instant
 	step
 		goto 43.6,84.5
 		.talk Flint Shadowmore##12425
@@ -9407,6 +9407,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC duo\\TBC 
 		goto 42.7,84
 		.talk Commander Ashlam Valorfist##10838
 		..turnin Alas, Andorhal##211
+		..talk Alchemist Arbington##11056
 		..accept The Key to Scholomance##5505|instant
 	step
 		goto 43.4,84.8
@@ -9531,7 +9532,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC duo\\TBC 
 		.'Scare Sprinkle|goal Scare Sprinkle|q 5163/2
 	step
 		goto 66.9,24
-		.talk Prospector Ironboot##104600
+		.talk Prospector Ironboot##10460
 		..turnin The Lost Tablets of Mosh'aru##5065
 	step
 		'Fly to Marshal's Refuge|goto Un'Goro Crater,44.9,8.2,3|noway|c
@@ -11644,7 +11645,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC duo\\Tero
 		goto 51,54.8
 		'Summon the Draenei Tomb Guardian|use Draenei Tomb Relic##30527|c|q 10842
 	step
-		talk Draenei Ascendant##184830
+		talk Vengeful Harbinger##21638
 		..turnin The Vengeful Harbinger##10842
 	step
 		goto 46.3,56.5
@@ -12537,7 +12538,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC duo\\Nagr
 		'Enter the cave here|goto 26.9,23.4
 	step
 		goto 29.5,26.1
-		.talk Corki##18369
+		.talk Corki##18445
 		..turnin Corki's Ransom##9954
 		..accept Cho'war the Pillager##9955
 	step
@@ -13364,6 +13365,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC duo\\Neth
 		.talk Exarch Orelis##19466
 		..turnin Assist Exarch Orelis##11038
 		..accept Distraction at Manaforge B'naar##10241
+		.talk Anchorite Karja##19467
 		..accept Assisting the Consortium##10263
 		only if rep('The Aldor') > Neutral
 	step

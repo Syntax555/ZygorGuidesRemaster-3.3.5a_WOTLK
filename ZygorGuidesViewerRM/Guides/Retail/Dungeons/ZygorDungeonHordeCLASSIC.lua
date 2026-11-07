@@ -5186,8 +5186,8 @@ use the Skeleton Key Mold##14644
 collect Unfinished Skeleton Key##14645 |q 5802/1 |goto Un'Goro Crater 48.78,47.19
 step
 talk Apothecary Dithers##11057
-turnin Fire Plume Forged##5801 |goto Tirisfal Glades 83.28,69.24
-accept Araj's Scarab##5803 |goto 83.28,69.24
+turnin Fire Plume Forged##5802 |goto Tirisfal Glades 83.28,69.24
+accept Araj's Scarab##5804 |goto 83.28,69.24
 step
 kill Araj the Summoner##1852
 |tip You may need help with this.
@@ -5195,9 +5195,9 @@ click Araj's Phylactery##177241
 collect Araj's Scarab##14610 |q 5803/1 |goto Western Plaguelands 45.27,69.21
 step
 talk Apothecary Dithers##11057
-turnin Araj's Scarab##5803 |goto Tirisfal Glades 83.28,69.23
+turnin Araj's Scarab##5804 |goto Tirisfal Glades 83.28,69.23
 step
-talk High Executor Derrington##10837
+talk Apothecary Dithers##11057
 accept The Key to Scholomance##5511 |goto 83.13,68.93
 step
 talk Alexi Barov##11022
@@ -5622,7 +5622,7 @@ step
 Inside the Stratholme - Undead Dungeon:
 click Service Entrance Gate
 |tip This requires the Key to the City or a Rogue with leveled lockpicking to open.
-talk Aurius##10931
+talk Aurius##10917
 |tip Inside the chapel to the right as you enter.
 accept The Medallion of Faith##5122
 step
@@ -5936,7 +5936,7 @@ step
 Inside the Stratholme - Undead Dungeon:
 click Service Entrance Gate
 |tip This requires the Key to the City or a Rogue with leveled lockpicking to open.
-talk Aurius##10931
+talk Aurius##10917
 |tip Inside the chapel to the right as you enter.
 accept The Medallion of Faith##5122 |q 5125 |future
 step
@@ -9553,7 +9553,7 @@ step
 talk Arcanist Thelis##21955
 |tip Inside the building.
 turnin The Ashtongue Corruptors##10685 |goto 56.25,59.59
-accept The Warden's Cage##10575 |goto 56.25,59.59
+accept The Warden's Cage##10686 |goto 56.25,59.59
 |only if rep ('The Scryers') >= Neutral
 step
 Enter the building |goto Shadowmoon Valley/0 62.31,28.95 < 10 |walk
@@ -10653,7 +10653,7 @@ step
 talk Arcanist Thelis##21955
 |tip Inside the building.
 turnin The Ashtongue Corruptors##10685 |goto 56.25,59.59
-accept The Warden's Cage##10575 |goto 56.25,59.59
+accept The Warden's Cage##10686 |goto 56.25,59.59
 |only if rep ('The Scryers') >= Neutral
 step
 Enter the building |goto Shadowmoon Valley/0 62.31,28.95 < 10 |walk
@@ -11515,12 +11515,16 @@ step
 talk Mack Fearsen##26604
 turnin Seared Scourge##12029 |goto 16.67,48.29
 accept Search and Rescue##12037	|goto 16.67,48.29
-accept Head Games##13129 |goto 16.67,48.29
 step
 Inside the Dungeon:
 Kill Webbed Victims
 |tip They look like giant ovals of spider web swaying back and forth.
 Find Out What Become of Kurzel |q 12037/1
+step
+Inside the Dungeon:
+talk Kurzel##26664
+|tip She appears when you free her from a Webbed Victim.
+accept Head Games##13129
 step
 Inside the Dungeon:
 kill Novos the Summoner##26631
@@ -12113,7 +12117,7 @@ use the Arcane Disruptor##37888
 Dispel the Plagued Grain Crates |q 13149/1
 step
 Inside the Dungeon:
-talk Chromie##26527
+talk Chromie##27915
 |tip Continue following the road.
 |tip She will be just before the entrance to Stratholme.
 turnin Dispelling Illusions##13149
@@ -12123,7 +12127,7 @@ Inside the Dungeon:
 kill Mal'Ganis##26533 |q 13151/1
 step
 Inside the Dungeon:
-talk Chromie##26527
+talk Chromie##30997
 |tip She will appear after you defeat Mal'Ganis.
 turnin A Royal Escort##13151
 ]])

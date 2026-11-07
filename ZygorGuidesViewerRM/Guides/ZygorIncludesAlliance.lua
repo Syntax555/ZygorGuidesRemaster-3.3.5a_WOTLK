@@ -3518,8 +3518,8 @@ ZygorGuidesViewer:RegisterInclude("A_Sporeggar_Faction",[[
 		..turnin Stalk the Stalker##29567
 	step
 	label	"hibiscus_r"
-		goto The Underbog,31.6,65.4
-		.talk T'shu##54674
+		goto Zangarmarsh,19.5,50.0
+		.talk Gzhun'tt##17856
 		.accept Bring Me Another Shrubbery!##9714 |instant |repeatable |or
 		.' or
 		.' Click here to go farming for more _Sanguine Hibiscus_ |confirm always |next "hibiscus" |or
@@ -4104,7 +4104,7 @@ ZygorGuidesViewer:RegisterInclude("A_Icecrown_Argent_Crusade_Rep",[[
 		..turnin The Last Line Of Defense##13086
 	step
 		goto 86.0,75.8
-		.talk Highlord Tirion Fordring##28179
+		.talk Highlord Tirion Fordring##30677
 		..accept Once More Unto The Breach, Hero##13105 |only DeathKnight
 		..accept Once More Unto The Breach, Hero##13104 |only !DeathKnight
 	step
@@ -4190,7 +4190,7 @@ ZygorGuidesViewer:RegisterInclude("A_Icecrown_Argent_Crusade_Rep",[[
 		..accept Into The Frozen Heart Of Northrend##13139
 	step
 		goto 86.0,75.8
-		.talk Highlord Tirion Fordring##28179
+		.talk Highlord Tirion Fordring##30677
 		..turnin Into The Frozen Heart Of Northrend##13139
 		..accept The Battle For Crusaders' Pinnacle##13141
 	step
@@ -4206,7 +4206,7 @@ ZygorGuidesViewer:RegisterInclude("A_Icecrown_Argent_Crusade_Rep",[[
 		..accept The Crusaders' Pinnacle##13157
 	step
 		goto 79.8,71.8
-		.talk Highlord Tirion Fordring##28179
+		.talk Highlord Tirion Fordring##31044
 		..turnin The Crusaders' Pinnacle##13157
 		..accept A Tale of Valor##13068
 	step
@@ -4220,7 +4220,7 @@ ZygorGuidesViewer:RegisterInclude("A_Icecrown_Argent_Crusade_Rep",[[
 		..accept A Hero Remains##13072
 	step
 		goto 79.8,71.8
-		.talk Highlord Tirion Fordring##28179
+		.talk Highlord Tirion Fordring##31044
 		..turnin A Hero Remains##13072
 		..accept The Keeper's Favor##13073
 	step
@@ -4256,7 +4256,7 @@ ZygorGuidesViewer:RegisterInclude("A_Icecrown_Argent_Crusade_Rep",[[
 		..accept Time Yet Remains##13076
 	step
 		goto 79.8,71.8
-		.talk Highlord Tirion Fordring##28179
+		.talk Highlord Tirion Fordring##31044
 		..turnin Time Yet Remains##13076
 		..accept The Touch of an Aspect##13077
 	step
@@ -4298,7 +4298,7 @@ ZygorGuidesViewer:RegisterInclude("A_Icecrown_Argent_Crusade_Rep",[[
 		..accept Hope Yet Remains##13080
 	step
 		goto 79.8,71.8
-		.talk Highlord Tirion Fordring##28179
+		.talk Highlord Tirion Fordring##31044
 		..turnin Hope Yet Remains##13080
 		..accept The Will of the Naaru##13081
 	step
@@ -11750,7 +11750,7 @@ ZygorGuidesViewer:RegisterInclude("Feast of Winter Veil Quests",[[
 		..turnin Treats for Greatfather Winter##7025
 	step
 		goto 39.2,56.0
-		.talk Muradin Bronzebeard##42928
+		.talk King Magni Bronzebeard##2784
 		..turnin The Feast of Winter Veil##7063
 	step
 		goto Hillsbrad Foothills,42.3,41.1
@@ -12594,7 +12594,7 @@ ZygorGuidesViewer:RegisterInclude("Love is in the Air Dailies",[[
 		..accept Bonbon Blitz##24636 |or
 	step
 		goto Stormwind City,62.5,75.0
-		.talk Kwee Q. Peddlefeet##16075
+		.talk Kwee Q. Peddlefeet##37887
 		..accept A Gift for the King of Stormwind##24597
 	step
 		'Run around Stormwind and:
@@ -12642,7 +12642,7 @@ ZygorGuidesViewer:RegisterInclude("Love is in the Air Dailies",[[
 		..turnin A Gift for the King of Stormwind##24597
 	step
 		goto Darnassus,45.4,57.8
-		.talk Kwee Q. Peddlefeet##16075
+		.talk Kwee Q. Peddlefeet##38039
 		..accept A Gift for the High Priestess of Elune##24610
 	step
 		goto Darnassus,43.0,78.0
@@ -12650,7 +12650,7 @@ ZygorGuidesViewer:RegisterInclude("Love is in the Air Dailies",[[
 		..turnin A Gift for the High Priestess of Elune##24610
 	step
 		goto The Exodar,73.6,57.0
-		.talk Kwee Q. Peddlefeet##16075
+		.talk Kwee Q. Peddlefeet##38040
 		..accept A Gift for the Prophet##24611
 	step
 		goto 32.8,54.5
@@ -13091,7 +13091,7 @@ ZygorGuidesViewer:RegisterInclude("Children's Week Stormwind",[[
 		.buy 1 Foam Sword Rack##69057 |q 171/1
 	step
 		goto 56.3,54.0
-		.talk Orphan Matron Nightingale##51988
+		.talk Orphan Matron Nightingale##14450
 		..turnin A Warden of the Alliance##171 |tip You will be able to choose from 4 pet companions or a 5 gold reward.  If you already have all 4 pets, choose the gold.  You will be able to do this quest each year, so you will be able to collect all 4 pets, eventually.
 ]])
 ZygorGuidesViewer:RegisterInclude("Children's Week Shattrath",[[
@@ -20175,7 +20175,7 @@ ZygorGuidesViewer:RegisterInclude("A_Frenzyheart_PreQuests", [[
 		.' Travel to Mistwhisper Refuge |q 12536/1
 	step
 		'When you jump off the crocodile:
-		.talk Zepik the Gorloc Hunter##28668
+		.talk Zepik the Gorloc Hunter##28216
 		..turnin A Rough Ride##12536
 		..accept Lightning Definitely Strikes Twice##12537
 		..accept The Mist Isn't Listening##12538
@@ -20549,7 +20549,7 @@ ZygorGuidesViewer:RegisterInclude("A_Oracles_PreQuests", [[
 		.' Travel to Mistwhisper Refuge |q 12536/1
 	step
 		'When you jump off the crocodile:
-		.talk Zepik the Gorloc Hunter##28668
+		.talk Zepik the Gorloc Hunter##28216
 		..turnin A Rough Ride##12536
 		..accept Lightning Definitely Strikes Twice##12537
 		..accept The Mist Isn't Listening##12538
@@ -20921,12 +20921,12 @@ ZygorGuidesViewer:RegisterInclude("A_Wyrmrest_Pre-Quests", [[
 		goto Dragonblight/0,60.0,55.1
 		.talk Lauriel Trueblade##27803
 		..turnin Speak with your Ambassador##12766
-		..accept Report to the Ruby Dragonshrine##12461
+		..accept Report to the Ruby Dragonshrine##12460
 	step
 		goto Dragonblight/0,52.2,50.0
 		.talk Ceristrasz##27506
-		..turnin Report to the Ruby Dragonshrine##12461
-		..accept Heated Battle##12448
+		..turnin Report to the Ruby Dragonshrine##12460
+		..accept Heated Battle##12416
 	step
 		goto Dragonblight/0,50.4,52.2
 		.' Help kill the following:
@@ -20936,8 +20936,8 @@ ZygorGuidesViewer:RegisterInclude("A_Wyrmrest_Pre-Quests", [[
 	step
 		goto Dragonblight/0,52.2,50.0
 		.talk Ceristrasz##27506
-		..turnin Heated Battle##12448
-		..accept Return to the Earth##12449
+		..turnin Heated Battle##12416
+		..accept Return to the Earth##12417
 	step
 		goto 46.7,52.8
 		.' Click the Ruby Acorns|tip The Ruby Acorns look like red stones on the ground around this area.
@@ -20947,8 +20947,8 @@ ZygorGuidesViewer:RegisterInclude("A_Wyrmrest_Pre-Quests", [[
 	step
 		goto Dragonblight/0,52.2,50.0
 		.talk Ceristrasz##27506
-		..turnin Return to the Earth##12449
-		..accept Through Fields of Flame##12450
+		..turnin Return to the Earth##12417
+		..accept Through Fields of Flame##12418
 	step
 		'Go into the valley to 48.2,47.8|goto 48.2,47.8
 		.kill 6 Frigid Necromancer|q 12450/1
@@ -20959,7 +20959,7 @@ ZygorGuidesViewer:RegisterInclude("A_Wyrmrest_Pre-Quests", [[
 	step
 		goto Dragonblight/0,52.2,50.0
 		.talk Ceristrasz##27506
-		..turnin Through Fields of Flame##12450
+		..turnin Through Fields of Flame##12418
 		..accept The Steward of Wyrmrest Temple##12768
 	step
 		goto 57.9,54.2
@@ -32200,7 +32200,7 @@ ZygorGuidesViewer:RegisterInclude("Profession_List_Cooking",[[
 	step
 		'This Recipe is learned by completing the quest Clamlette Surprise.
 		goto Tanaris,52.6,29.0
-		.talk Dirge Quikcleave##40589
+		.talk Dirge Quikcleave##8125
 		..accept Clamlette Surprise##6610
 		..turnin Clamlette Surprise##6610
 		.learn Clamlette Magnifique##64054
@@ -33519,7 +33519,7 @@ ZygorGuidesViewer:RegisterInclude("Profession_List_Engineering",[[ //NEEDS DETAI
 	step
 		goto Zangarmarsh,68.6,50.2
 		.talk K. Lee Smallfry##17634
-		..turnin The Zapthrottle Mote Extractor!##9635
+		..turnin The Zapthrottle Mote Extractor!##9636
 		.collect Schematic: Zapthrottle Mote Extracto##23888 |n
 		.learn Zapthrottle Mote Extractor##30548
 	step

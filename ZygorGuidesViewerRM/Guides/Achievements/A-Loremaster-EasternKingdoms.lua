@@ -5959,7 +5959,7 @@ startlevel 60
 			..turnin Uncle Carlin##5241
 		step
 			goto Stormwind City,80,38.5
-			.talk King Varian Wrynn##29611
+			.talk Highlord Bolvar Fordragon##1748
 			..turnin The Blightcaller Cometh##6186
 		step
 			goto Darnassus,35.4,8.4
@@ -6128,7 +6128,7 @@ startlevel 60
 			.buy 30 Savage Frond##22529|q 9136 |future
 		step
 			goto Stormwind City,80,38.5
-			.talk King Varian Wrynn##29611
+			.talk Highlord Bolvar Fordragon##1748
 			..turnin The Blightcaller Cometh##6186
 			..accept Order Must Be Restored##6187
 		step
@@ -6349,7 +6349,7 @@ startlevel 60
 			..turnin Hidden Treasures##5942
 		step
 			goto Stormwind City,80,38.5
-			.talk King Varian Wrynn##29611
+			.talk Highlord Bolvar Fordragon##1748
 			..turnin Order Must Be Restored##6187
 		step
 			.' Congratulations! +35 quests for achievement "Loremaster of Eastern Kingdoms".

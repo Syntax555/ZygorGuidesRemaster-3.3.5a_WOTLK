@@ -2970,7 +2970,7 @@ Enter the building |goto 36.63,48.53 < 7 |walk
 talk Ghak Healtouch##1470
 |tip Inside the building.
 turnin Badlands Reagent Run##2500 |goto 37.07,49.38
-accept Uldaman Reagent Run##2202 |goto 37.07,49.38
+accept Uldaman Reagent Run##17 |goto 37.07,49.38
 step
 talk Advisor Belgrum##2918
 turnin An Ambassador of Evil##762 |goto Ironforge 77.32,9.75
@@ -5088,7 +5088,7 @@ path	70.95,46.66		72.17,47.88		70.14,53.25		71.88,55.88		73.66,55.13
 path	76.31,59.74
 talk Crier Goodman##2198
 |tip He's a Human that walks around in a large path around Stormwind.
-accept A Call to Arms: The Plaguelands!##5091
+accept A Call to Arms: The Plaguelands!##5066
 step
 talk Tinkee Steamboil##10267
 accept Broodling Essence##4726 |goto Burning Steppes 65.24,24.00
@@ -5293,7 +5293,7 @@ step
 talk talk 11056
 turnin Araj's Scarab##5803 |goto 42.67,83.77
 step
-talk Commander Ashlam Valorfist##10838
+talk Alchemist Arbington##11056
 accept The Key to Scholomance##5505 |goto 42.70,84.04
 step
 talk Weldon Barov##11023
@@ -5718,7 +5718,7 @@ step
 Inside the Stratholme - Undead Dungeon:
 click Service Entrance Gate
 |tip This requires the Key to the City or a Rogue with leveled lockpicking to open.
-talk Aurius##10931
+talk Aurius##10917
 |tip Inside the chapel to the right as you enter.
 accept The Medallion of Faith##5122
 step
@@ -5953,7 +5953,7 @@ step
 Inside the Stratholme - Undead Dungeon:
 click Service Entrance Gate
 |tip This requires the Key to the City or a Rogue with leveled lockpicking to open.
-talk Aurius##10931
+talk Aurius##10917
 |tip Inside the chapel to the right as you enter.
 accept The Medallion of Faith##5122 |q 5125 |future
 step
@@ -6580,6 +6580,7 @@ step
 Follow the path up |goto 82.89,63.37 < 7 |only if walking
 talk Helendis Riverhorn##9562
 turnin Dragonkin Menace##4182 |goto 85.82,68.95
+talk Marshal Maxwell##9560
 accept Marshal Windsor##4241 |goto 84.75,69.02
 step
 Follow the path up |goto Searing Gorge 33.53,75.22 < 20 |only if walking
@@ -8023,8 +8024,8 @@ collect Illidari-Bane Shard##30579 |n
 use the Illidari-Bane Shard##30579
 accept Illidari-Bane Shard##10621 |goto Shadowmoon Valley/0 23.42,35.44
 step
-talk Grokom Deatheye##19333
-turnin Illidari-Bane Shard##10621 |goto 29.79,31.26
+talk Ordinn Thunderfist##19370
+turnin Illidari-Bane Shard##10621 |goto 36.82,54.89
 accept Capture the Weapons##10626 |goto 36.82,54.89
 step
 kill Morgroron##21500
@@ -8295,7 +8296,7 @@ step
 talk Arcanist Thelis##21955
 |tip Inside the building.
 turnin The Ashtongue Corruptors##10685 |goto 56.25,59.59
-accept The Warden's Cage##10575 |goto 56.25,59.59
+accept The Warden's Cage##10686 |goto 56.25,59.59
 |only if rep ('The Scryers') >= Neutral
 step
 Enter the building |goto Shadowmoon Valley/0 62.31,28.95 < 10 |walk
@@ -9118,8 +9119,8 @@ collect Illidari-Bane Shard##30579 |n
 use the Illidari-Bane Shard##30579
 accept Illidari-Bane Shard##10621 |goto Shadowmoon Valley/0 23.42,35.44
 step
-talk Grokom Deatheye##19333
-turnin Illidari-Bane Shard##10621 |goto 29.79,31.26
+talk Ordinn Thunderfist##19370
+turnin Illidari-Bane Shard##10621 |goto 36.82,54.89
 accept Capture the Weapons##10626 |goto 36.82,54.89
 step
 kill Morgroron##21500
@@ -10013,7 +10014,7 @@ step
 talk Arcanist Thelis##21955
 |tip Inside the building.
 turnin The Ashtongue Corruptors##10685 |goto 56.25,59.59
-accept The Warden's Cage##10575 |goto 56.25,59.59
+accept The Warden's Cage##10686 |goto 56.25,59.59
 |only if rep ('The Scryers') >= Neutral
 step
 Enter the building |goto Shadowmoon Valley/0 62.31,28.95 < 10 |walk
@@ -10868,12 +10869,16 @@ step
 talk Mack Fearsen##26604
 turnin Seared Scourge##12029 |goto 16.67,48.29
 accept Search and Rescue##12037	|goto 16.67,48.29
-accept Head Games##13129 |goto 16.67,48.29
 step
 Inside the Dungeon:
 Kill Webbed Victims
 |tip They look like giant ovals of spider web swaying back and forth.
 Find Out What Become of Kurzel |q 12037/1
+step
+Inside the Dungeon:
+talk Kurzel##26664
+|tip She appears when you free her from a Webbed Victim.
+accept Head Games##13129
 step
 Inside the Dungeon:
 kill Novos the Summoner##26631
@@ -11499,7 +11504,7 @@ use the Arcane Disruptor##37888
 Dispel the Plagued Grain Crates |q 13149/1
 step
 Inside the Dungeon:
-talk Chromie##26527
+talk Chromie##27915
 |tip Continue following the road.
 |tip She will be just before the entrance to Stratholme.
 turnin Dispelling Illusions##13149
@@ -11509,7 +11514,7 @@ Inside the Dungeon:
 kill Mal'Ganis##26533 |q 13151/1
 step
 Inside the Dungeon:
-talk Chromie##26527
+talk Chromie##30997
 |tip She will appear after you defeat Mal'Ganis.
 turnin A Royal Escort##13151
 ]])

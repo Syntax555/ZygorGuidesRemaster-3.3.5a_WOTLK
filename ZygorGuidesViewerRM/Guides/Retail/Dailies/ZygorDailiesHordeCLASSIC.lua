@@ -3892,7 +3892,7 @@ step
 use Zepik's Hunting Horn##38512
 |tip Use this if Zepik is not standing next to you.
 _Next to you:_
-talk Zepik the Gorloc Hunter##28668
+talk Zepik the Gorloc Hunter##28216
 turnin A Rough Ride##12536 |goto 46.13,39.53
 accept Lightning Definitely Strikes Twice##12537 |goto 46.13,39.53
 accept The Mist Isn't Listening##12538 |goto 46.13,39.53
@@ -4364,7 +4364,7 @@ step
 use Zepik's Hunting Horn##38512
 |tip Use this if Zepik is not standing next to you.
 _Next to you:_
-talk Zepik the Gorloc Hunter##28668
+talk Zepik the Gorloc Hunter##28216
 turnin A Rough Ride##12536 |goto 46.13,39.53
 accept Lightning Definitely Strikes Twice##12537 |goto 46.13,39.53
 accept The Mist Isn't Listening##12538 |goto 46.13,39.53

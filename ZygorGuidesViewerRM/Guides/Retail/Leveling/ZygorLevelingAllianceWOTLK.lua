@@ -688,7 +688,7 @@ cast Death Gate##50977
 |tip Click the purple portal that appears nearby.
 Return to Acherus |complete subzone("Acherus: The Ebon Hold") |q 13165
 step
-talk Highlord Darion Mograine##29173
+talk Highlord Darion Mograine##31084
 |tip On the bottom floor of the floating building.
 turnin Taking Back Acherus##13165 |goto Eastern Plaguelands 83.44,49.46
 accept The Battle For The Ebon Hold##13166 |goto Eastern Plaguelands 83.44,49.46
@@ -3617,7 +3617,7 @@ kill Arcane Serpent##25721+
 collect 5 Nexus Mana Essence##35493 |q 11914/1 |goto 27.95,24.20
 step
 use the Augmented Arcane Prison##35671
-talk Keristrasza##26237
+talk Keristrasza##26206
 |tip She appears next to you.
 turnin Bait and Switch##11951
 accept Saragosa's End##11957
@@ -3636,7 +3636,7 @@ kill Saragosa##26232
 collect Saragosa's Corpse##35709 |q 11957/1 |goto 21.59,22.55
 step
 use the Augmented Arcane Prison##35671
-talk Keristrasza##26237
+talk Keristrasza##26206
 |tip She appears next to you.
 turnin Saragosa's End##11957
 accept Mustering the Reds##11967
@@ -9541,7 +9541,7 @@ use Zepik's Hunting Horn##38512
 Summon Zepik the Gorloc Hunter |havebuff spell:54176 |q 12536
 step
 _Next to you:_
-talk Zepik the Gorloc Hunter##28668
+talk Zepik the Gorloc Hunter##28216
 turnin A Rough Ride##12536
 accept Lightning Definitely Strikes Twice##12537
 accept The Mist Isn't Listening##12538
@@ -11502,7 +11502,7 @@ Return to Ground Commander Koup |outvehicle |goto 62.56,51.33 |q 13309 |notravel
 |only if haveq(13309) or completedq(13309)
 step
 talk Ground Commander Koup##31808
-turnin Assault by Air##13310 |goto 62.56,51.33
+turnin Assault by Air##13309 |goto 62.56,51.33
 |only if haveq(13309) or completedq(13309)
 step
 talk Skybreaker Squad Leader##31737
@@ -11670,7 +11670,7 @@ talk Thassarian##29799
 turnin If He Cannot Be Turned##12896
 accept The Shadow Vault##12898
 turnin ...All the Help We Can Get.##13286
-accept Poke and Prod##13237
+accept Poke and Prod##13287
 step
 _On the Skybreaker Airship:_
 talk Chief Engineer Boltwrench##30345
@@ -12336,7 +12336,7 @@ Locate the Skybreaker Airship
 |tip It looks like a grey/blue airship icon that moves around slowly.
 |tip It flies in a large path near the center of the map, east of Ymirheim.
 |tip Once you locate it, fly to it.
-Click Here to Continue |confirm |q 13237
+Click Here to Continue |confirm |q 13287
 step
 _On the Skybreaker Airship:_
 talk Absalan the Pious##31259
@@ -12346,8 +12346,8 @@ step
 _On the Skybreaker Airship:_
 talk Thassarian##29799
 |tip On the left rear deck of the airship.
-turnin Poke and Prod##13237
-accept That's Abominable!##13264
+turnin Poke and Prod##13287
+accept That's Abominable!##13288
 accept Exploiting an Opening##13386
 step
 _On the Skybreaker Airship:_
@@ -12485,7 +12485,7 @@ step
 _On the Skybreaker Airship:_
 talk Thassarian##29799
 |tip On the left rear deck of the airship.
-turnin That's Abominable!##13264 |only if haveq(13264) or completedq(13264)
+turnin That's Abominable!##13288 |only if haveq(13288) or completedq(13288)
 turnin Return to the Surface##13392
 accept Field Repairs##13393
 accept Sneak Preview##13315
@@ -12909,7 +12909,7 @@ step
 _On the Skybreaker Airship:_
 talk Thassarian##29799
 |tip On the left rear deck of the airship.
-turnin Futility##13348
+turnin Futility##13396
 accept Sindragosa's Fall##13397
 turnin Sneak Preview##13315
 accept Drag and Drop##13318

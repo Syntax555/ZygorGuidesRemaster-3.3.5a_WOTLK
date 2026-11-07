@@ -7632,7 +7632,7 @@ Save #15# Patients |q 6624/1 |goto 73.03,36.84
 step
 talk Doctor Gregory Victor##12920
 |tip Inside the building.
-turnin Triage##6624 |goto 73.41,36.89
+turnin Triage##6622 |goto 73.41,36.89
 Train Artisan First Aid |skillmax First Aid,300 |goto 73.41,36.89
 |tip You will learn this automatically.
 step
@@ -14084,7 +14084,7 @@ collect Ornate Mithril Breastplate##7935 |q 5301/3 |goto 79.76,22.99
 |tip Stand next to the anvil.
 step
 talk Okothos Ironrager##11177
-turnin The Art of the Armorsmith##5283 |goto 79.81,24.05
+turnin The Art of the Armorsmith##5301 |goto 79.81,24.05
 learn Armorsmith##9788 |goto 79.81,24.05
 |tip You will learn this automatically.
 step
@@ -14536,7 +14536,7 @@ step
 Enter the building |goto Stranglethorn Vale 28.29,76.16 < 5 |walk
 talk Oglethorpe Obnoticus##7406
 |tip Inside the building.
-accept Membership Card Renewal##3645 |goto Stranglethorn Vale 28.36,76.35
+accept Membership Card Renewal##3647 |goto Stranglethorn Vale 28.36,76.35
 |tip You must have the Gnomish Engineering specialization to be able to complete this quest.
 |tip This quest requires 2 gold to complete.
 |tip This will keep your Gnome Engineer Membership Card active for another 14 days of played time.
@@ -14949,11 +14949,11 @@ Follow the path |goto Stranglethorn Vale 32.79,28.75 < 10 |only if walking
 Continue following the path |goto Stranglethorn Vale 35.28,35.56 < 20 |only if walking
 talk Se'Jib##7871
 |tip Inside the hut.
-accept Tribal Leatherworking##5143 |goto Stranglethorn Vale 36.55,34.09
+accept Tribal Leatherworking##5148 |goto Stranglethorn Vale 36.55,34.09
 step
 talk Se'Jib##7871
 |tip Inside the hut.
-turnin Tribal Leatherworking##5143 |goto 36.55,34.09
+turnin Tribal Leatherworking##5148 |goto 36.55,34.09
 step
 _Congratulations!_
 |tip You have become a Tribal Leatherworker.

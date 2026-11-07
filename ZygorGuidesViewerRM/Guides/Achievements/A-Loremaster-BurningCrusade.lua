@@ -2432,6 +2432,7 @@ startlevel 68
 		step
 			goto Nagrand,54.74,70.88
 			.talk Warden Moi'bff Jill##18408
+			..talk Nahuud##18097
 			..turnin A Message to Telaar##9792
 			..accept Fierce Enemies##10476
 		step
@@ -5190,8 +5191,8 @@ startlevel 68
 			.talk Archmage Vargoth##19481
 			..turnin Ar'kelos the Guardian##10176
 		step
-			.' Use Archmage Vargoth's Staff|use Archmage Vargoth's Staff##28455
-			.talk Image of Archmage Vargoth##19644
+			goto Netherstorm,58.3,86.4
+			.talk Archmage Vargoth##19481
 			..turnin Ar'kelos the Guardian##10176
 		step
 			goto Netherstorm,32,64
@@ -5853,8 +5854,8 @@ startlevel 68
 			.talk Gahruj##20066
 			..turnin Sabotage the Warp-Gate!##10310
 		step
-			goto Netherstorm,45.9,36.0
-			.talk Image of Nexus-Prince Haramad##20084
+			goto Netherstorm,46.7,56.9
+			.talk Gahruj##20066
 			..accept An Audience with the Prince##10268
 		step
 			goto Netherstorm,32.7,65.0

@@ -1376,8 +1376,8 @@ step
 talk Ja'y Nosliw##22433
 turnin Dragonmaw Race: Corlok the Vet##11068 |goto 65.9,87.2
 step
-talk Wing Commander Ichman##13437
-accept Dragonmaw Race: Wing Commander Ichman##11069
+talk Wing Commander Ichman##23345
+accept Dragonmaw Race: Wing Commander Ichman##11069 |goto 65.18,85.05
 step
 Follow Wing Commander Ichman as he flies
 |tip Dodge the fireballs that Wing Commander Ichman throws at you.
@@ -1389,8 +1389,8 @@ step
 talk Ja'y Nosliw##22433
 turnin Dragonmaw Race: Wing Commander Ichman##11069 |goto 65.9,87.2
 step
-talk Wing Commander Mulverick##13181
-accept Dragonmaw Race: Wing Commander Mulverick##11070
+talk Wing Commander Mulverick##23346
+accept Dragonmaw Race: Wing Commander Mulverick##11070 |goto 65.18,85.05
 step
 Follow Wing Commander Mulverick as he flies
 |tip Dodge the lightning bolts that Wing Commander Mulverick throws at you.
@@ -3814,7 +3814,7 @@ talk Rilak the Redeemed##22292
 turnin An Ally in Lower City##11024 |goto Shattrath City 52.5,21.0
 accept Countdown to Doom##11028 |goto 52.5,21.0
 step
-talk Nutral##18940
+talk Sky Commander Adaris##23038
 turnin Countdown to Doom##11028 |goto Terokkar Forest 64.1,66.9
 step
 talk Hazzik##23306

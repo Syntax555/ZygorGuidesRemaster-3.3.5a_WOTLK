@@ -311,8 +311,8 @@ click Dark Iron Mole Machine Wreckage##189989
 accept This One Time, When I Was Drunk...##12020 |goto 48.69,39.13 |or
 '|complete not completedq(11293,11294,12020) |next "Begin_Dailies" |or
 step
-talk Bizzle Quicklift##27216
-turnin This One Time, When I Was Drunk...##12020 |goto 45.25,17.33
+talk Boxey Boltspinner##27215
+turnin This One Time, When I Was Drunk...##12020 |goto Dun Morogh/0 47.53,39.84
 step
 Reach Level 65 |ding 65 |or
 |tip Coren Direbrew is level 72 elite.
@@ -1897,31 +1897,31 @@ step
 talk Costumed Orphan Matron##24519
 turnin Costumed Orphan Matron##11356 |goto Elwynn Forest/0 42.62,64.39
 step
-talk Masked Orphan Matron##23973
-accept Stop the Fires!##11131 |goto 52.57,41.20 |or
-accept "Let the Fires Come!"##12135 |goto 52.57,41.20 |or
+talk Costumed Orphan Matron##24519
+accept Stop the Fires!##11131 |goto 42.62,64.39 |or
+accept "Let the Fires Come!"##12135 |goto 42.62,64.39 |or
 |tip You will only be able to accept one of these quests.
 |tip The quest offered depends on whether Goldshire is under attack or not.
 step
-click Water Barrel |goto 52.55,41.30
+click Water Barrel |goto 42.50,64.50
 |tip Click the Water Barrel to pick up a bucket of water.
 collect Water Bucket##32971 |n
 use the Water Bucket##32971
 |tip Throw the buckets at the fires on top of buildings around this area.
-Put Out the Fires |q 11131/1 |goto 52.41,42.42
+Put Out the Fires |q 11131/1 |goto 42.73,62.02
 |only if haveq(11131) or completedq(11131)
 step
-click Water Barrel |goto 52.55,41.30
+click Water Barrel |goto 42.50,64.50
 |tip Click the Water Barrel to pick up a bucket of water.
 collect Water Bucket##32971 |n
 use the Water Bucket##32971
 |tip Throw the buckets at the fires on top of buildings around this area.
-Put Out the Fires |q 12135/1 |goto 52.41,42.42
+Put Out the Fires |q 12135/1 |goto 42.73,62.02
 |only if haveq(12135) or completedq(12135)
 step
-talk Masked Orphan Matron##23973
-turnin Stop the Fires!##11131 |goto 52.57,41.20 |only if haveq(11131) or completedq(11131) |or
-turnin "Let the Fires Come!"##12135 |goto 52.57,41.20 |only if haveq(12135) or completedq(12135) |or
+talk Costumed Orphan Matron##24519
+turnin Stop the Fires!##11131 |goto 42.62,64.39 |only if haveq(11131) or completedq(11131) |or
+turnin "Let the Fires Come!"##12135 |goto 42.62,64.39 |only if haveq(12135) or completedq(12135) |or
 step
 talk Large Jack-O'-Lantern
 accept Smash the Pumpkin##12133 |goto Elwynn Forest/0 42.39,65.87
@@ -2264,7 +2264,7 @@ Reach Level 30 |ding 30
 |tip You must be at least this level to be able to accept the quest.
 |tip Use the Leveling guides to accomplish this.
 step
-talk Wulmort Jinglepocket##13433
+talk Macey Jinglepocket##13434
 accept Stolen Winter Veil Treats##7042 |goto 33.70,67.23
 step
 Follow the path up |goto Hillsbrad Foothills 47.00,26.73 < 30 |only if walking

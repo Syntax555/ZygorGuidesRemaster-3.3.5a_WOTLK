@@ -1678,6 +1678,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC solo\\Dra
 		.talk Cryptographer Aurren##17232
 		..accept Learning the Language##9538
 		.'Click the Stillpine Furbolg Language Primer in your bags|use Stillpine Furbolg Language Primer##23818
+		.talk Totem of Akida##17360
 		.'Click the Totem of Akida next to Cryptographer Aurren|tip In the middle of town, next to the giant bone altar thing with the huge pink crystal in it.
 		..turnin Learning the Language##9538
 		..accept Totem of Coo##9539
@@ -9319,7 +9320,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC solo\\Lev
 		.'WARNING: ESCORT
 		goto 49.6,30.4
 		.use Flute of the Ancients##11445
-		..talk Arei##9589
+		..talk Arei##9598
 		...accept Ancient Spirit##4261|noautoaccept
 	step
 		goal Help Arei get to Safety|q 4261/1
@@ -11244,7 +11245,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC solo\\Ter
 		'You're gonna need help for this one, do the Ethereals until then.
 		'Summon the Draenei Tomb Guardian|use Draenei Tomb Relic##30527|c|q 10842
 	step
-		talk Draenei Ascendant##184830
+		talk Vengeful Harbinger##21638
 		..turnin The Vengeful Harbinger##10842
 	step
 		goto 46.3,56.5
@@ -12107,7 +12108,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC solo\\Nag
 		.get 10 Telaar Supply Crate|q 9956/1|tip They look like little grey boxes on the ground.
 	step
 		goto 29.5,26.1
-		.talk Corki##18369
+		.talk Corki##18445
 		..turnin Corki's Ransom##9954
 	step
 		'Hearth to Telaar|goto 54.267,76.088|use Hearthstone##6948|noway|c
@@ -12886,6 +12887,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC solo\\Net
 		.talk Exarch Orelis##19466
 		..turnin Assist Exarch Orelis##11038
 		..accept Distraction at Manaforge B'naar##10241
+		.talk Anchorite Karja##19467
 		..accept Assisting the Consortium##10263
 		only if rep('The Aldor') > Neutral
 	step

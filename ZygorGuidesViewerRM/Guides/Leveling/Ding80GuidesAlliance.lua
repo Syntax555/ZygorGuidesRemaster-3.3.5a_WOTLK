@@ -1612,6 +1612,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides\\Draenei (1-1
 		.talk Cryptographer Aurren##17232
 		..accept Learning the Language##9538
 		.'Click the Stillpine Furbolg Language Primer in your bags|use Stillpine Furbolg Language Primer##23818
+		.talk Totem of Akida##17360
 		.'Click the Totem of Akida next to Cryptographer Aurren|tip In the middle of town, next to the giant bone altar thing with the huge pink crystal in it.
 		..turnin Learning the Language##9538
 		..accept Totem of Coo##9539
@@ -9121,7 +9122,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides\\Levels (55-5
 		.'WARNING: ESCORT
 		goto 49.6,30.4
 		.use Flute of the Ancients##11445
-		..talk Arei##9589
+		..talk Arei##9598
 		...accept Ancient Spirit##4261|noautoaccept
 	step
 		goal Help Arei get to Safety|q 4261/1
@@ -11736,7 +11737,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides\\Nagrand",[[
 		.get 10 Telaar Supply Crate|q 9956/1|tip They look like little grey boxes on the ground.
 	step
 		goto 29.5,26.1
-		.talk Corki##18369
+		.talk Corki##18445
 		..turnin Corki's Ransom##9954
 	step
 		'Hearth to Telaar|goto 54.267,76.088|use Hearthstone##6948|noway|c
@@ -12897,7 +12898,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides\\Borean Tundr
 		..turnin The Cell##11943
 	step
 		'Use the Augmented Arcane Prison in your bags|use Augmented Arcane Prison##35671
-		.talk Keristrasza##26237
+		.talk Keristrasza##26206
 		..accept Keristrasza##11946
 		..turnin Keristrasza##11946
 		..accept Bait and Switch##11951
@@ -12929,7 +12930,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides\\Borean Tundr
 		..accept Quickening##11911
 	step
 		'Use the Augmented Arcane Prison in your bags|use Augmented Arcane Prison##35671
-		.talk Keristrasza##26237
+		.talk Keristrasza##26206
 		..turnin Bait and Switch##11951
 		..accept Saragosa's End##11957
 	step

@@ -336,7 +336,7 @@ accept This One Time, When I Was Drunk...##12020 |goto 44.11,17.25 |or
 '|complete not completedq(11408,11407,12020) |next "Begin_Dailies" |or
 step
 talk Bizzle Quicklift##27216
-turnin This One Time, When I Was Drunk...##12020 |goto 45.25,17.33
+turnin This One Time, When I Was Drunk...##12192 |goto 45.25,17.33
 step
 Reach Level 65 |ding 65 |or
 |tip Coren Direbrew is level 73 elite.

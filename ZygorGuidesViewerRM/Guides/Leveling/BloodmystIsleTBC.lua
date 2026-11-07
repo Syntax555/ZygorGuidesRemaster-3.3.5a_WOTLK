@@ -59,6 +59,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC solo\\Blo
 		.talk Cryptographer Aurren##17232
 		..accept Learning the Language##9538
 		.' Click the Stillpine Furbolg Language Primer in your bags|use Stillpine Furbolg Language Primer##23818
+		.talk Totem of Akida##17360
 		.' Click the Totem of Akida next to Cryptographer Aurren|tip In the middle of town, next to the giant bone altar thing with the huge pink crystal in it.
 		..turnin Learning the Language##9538
 		..accept Totem of Coo##9539
@@ -362,7 +363,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC solo\\Blo
 		home Blood Watch|goto 55.8,59.8
 	step
 		goto 53.2,57.7
-		.talk Morae##1434
+		.talk Morae##17434
 		..accept Catch and Release##9629
 	step
 		goto 55.2,55.9
@@ -419,7 +420,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC solo\\Blo
 		'Hearth to Blood Watch|goto 55.8,59.8,2|use Hearthstone##6948|noway|c
 	step
 		goto 53.2,57.7
-		.talk Morae##1434
+		.talk Morae##17434
 		..turnin Cruelfin's Necklace##9576
 		..turnin Catch and Release##9629
 		..accept Victims of Corruption##9574
@@ -473,7 +474,7 @@ ZygorGuidesViewer:RegisterGuide("Ding80's Alliance Leveling Guides TBC solo\\Blo
 		..accept Containing the Threat##9569
 	step
 		goto 53.2,57.7
-		.talk Morae##1434
+		.talk Morae##17434
 		..turnin Victims of Corruption##9574
 	step
 		goto 61.2,48.7
